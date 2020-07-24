@@ -1,9 +1,11 @@
 ---
 toc: true
 layout: post
+comments: true
 description: Introduction to personal website.
 categories: [markdown]
 title: Introduction to personal website
+image: images/products_image.png
 ---
 
 # Introduction to personal website
