@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: How can we leverage NLP to automatically facilitate business intelligence on raw data. 
-categories: [markdown]
+categories: [NLP, internship]
 title: Automated product recognition for hospitality industry insights
 comments: true
 image: images/products_image.png
@@ -12,13 +12,13 @@ image: images/products_image.png
 
 Bridging the gap to a data driven hospitality industry
 
-We're all a bit too familiar with** membership cards** of supermarket chains, like Walmart or Albert Heijn, the largest supermarket chain in the Netherlands. Besides the advantages these cards have for the consumer, they have a lot more advantages for the supermarket chains. They **apply advanced data science techniques to the data** gathered with these cards to figure out where to put products in the store, what products to put next to each other and what products to put on sale together.
+We're all a bit too familiar with **membership cards** of supermarket chains, like Walmart or Albert Heijn, the largest supermarket chain in the Netherlands. Besides the advantages these cards have for the consumer, they have a lot more advantages for the supermarket chains. They **apply advanced data science techniques to the data** gathered with these cards to figure out where to put products in the store, what products to put next to each other and what products to put on sale together.
 
-For 6 months I interned at [TAPP](https://tapp.cafe/en/), a company that tries to bring the same insights to the hospitality industry. Because there are **no membership cards for bars** (in most cases), we do this by** analyzing the products on receipts**. Because of the inconsistent offerings at venues, TAPP focuses almost exclusively on drinks, due to the clearly branded single units used. Doing this gives us a very detailed view of the market for drinks, allowing us to see, for example, market shares and revenues for specific sodas, liquors and beers.
+For 6 months I interned at [TAPP](https://tapp.cafe/en/), a company that tries to bring the same insights to the hospitality industry. Because there are **no membership cards for bars** (in most cases), we do this by **analyzing the products on receipts**. Because of the inconsistent offerings at venues, TAPP focuses almost exclusively on drinks, due to the clearly branded single units used. Doing this gives us a very detailed view of the market for drinks, allowing us to see, for example, market shares and revenues for specific sodas, liquors and beers.
 
-Every consumption we receive is connected to a product. Before we can use products in our analysis, a **product needs to be 'tagged'**. This tagging means we need to specify what a product is, because the description on a receipt is not enough for insights. A description might be 'Hot choco', and to use this for our analysis we need to specialize our five tag levels, which are *group, category, subcategory, type and brand*. This is also the hierarchical order, so a *category* has zero or more *subcategories* which has in turn zero or more *types*. I purposely omit *group *because the group tag consists of the values 'Drinks', 'Food' and 'Other', and we only have categories for 'Drinks', because of our focus. The hierarchy is visualized in the image below.
+Every consumption we receive is connected to a product. Before we can use products in our analysis, a **product needs to be 'tagged'**. This tagging means we need to specify what a product is, because the description on a receipt is not enough for insights. A description might be 'Hot choco', and to use this for our analysis we need to specialize our five tag levels, which are *group, category, subcategory, type and brand*. This is also the hierarchical order, so a *category* has zero or more *subcategories* which has in turn zero or more *types*. I purposely omit *group* because the group tag consists of the values 'Drinks', 'Food' and 'Other', and we only have categories for 'Drinks', because of our focus. The hierarchy is visualized in the image below.
 
-![Product tag hierarchy](https://cdn-images-1.medium.com/max/2182/1*n1h6hyc0IHdkvZ1FLW22Vw.png)*Product tag hierarchy*
+![Product tag hierarchy](https://cdn-images-1.medium.com/max/2182/1*n1h6hyc0IHdkvZ1FLW22Vw.png "Product tag hierarchy")
 
 ## Sounds great, so whats the problem?
 
@@ -28,7 +28,7 @@ And this is where the fun begins. Because this is a very well suited case for so
 
 ![Source data for a product](https://cdn-images-1.medium.com/max/2374/1*baebf92Bp8AWqhDyh3V7OQ.png "Source data for a product")
 
-![Target data for a product](https://cdn-images-1.medium.com/max/2888/1*j_xwq-vYgaweGqWPzfsaAg.png)
+![Target data for a product](https://cdn-images-1.medium.com/max/2888/1*j_xwq-vYgaweGqWPzfsaAg.png "Target data for a product")
 
 Because the hierarchical structure of our tags holds a lot information, the best approach seemed to classify each tag separately, starting at the top with *group* and working our way down to *brand*. This way, lower level tags can use the higher level tag information for their predictions.
 
@@ -56,7 +56,7 @@ There are many different approaches to the word embeddings. There are very recen
 
 One thing to consider about these vectors is that some recent implementations of categorical variables are doing the exact same thing, most notably the authors of [Fast.ai](https://www.fast.ai/2018/04/29/categorical-embeddings/). A value is converted to a fixed size vector, to give the value a richer representation, which is then optimized by training. Now, Keras doesn't have this categorical variable specific approach, but we can just use the same embeddings al the sentences. Because in this case, the representations are the same. To visualize the difference, look at the image below. Here, you can clearly see that the word2vec embeddings capture semantic similarities between sentence b and c, whereas the embeddings trained from scratch to not.
 
-![Differences between word2vec and trained from scratch word embeddings. Source: López-Sánchez et al. 2018](https://cdn-images-1.medium.com/max/2000/1*1VooWU05P7MAXQSam6et_Q.png)*Differences between word2vec and trained from scratch word embeddings. Source: L├│pez-S├ínchez et al. 2018*
+![Differences between word2vec and trained from scratch word embeddings. Source: López-Sánchez et al. 2018](https://cdn-images-1.medium.com/max/2000/1*1VooWU05P7MAXQSam6et_Q.png "Differences between word2vec and trained from scratch word embeddings. Source: López-Sánchez et al. 2018")
 
 ### RNN or CNN?
 
@@ -68,7 +68,7 @@ The duplicate token problem I raised earlier really hurts the LSTM performance, 
 
 Because our texts are very short, I also wanted to try a **convolutional neural network **(CNN). Whereas LSTMs are very good for finding relations between words further apart, convolutional layers are very good at **finding word structures closer together**. Combined with pooling layers we can even detect certain structures in sentences. The same goes for the 'categorical' values of the tags. CNNs are already very well known from computer vision, where they have been the state-of-the-art for multiple years.
 
-The duplicate token problem is much less of a problem with the convolutional approach, because the **context of a word matters more** than the word itself. The odds of finding the same structures with the same tokens in both the tags and the descriptions is marginal with a vocabulary of 16000 words for the descriptions and the 1300 tag combinations. So, if this is not a problem, **the tags and descriptions can just be concatenated **when doing convolutions. This approach also has the capacity to see certain relations between tags and description. The result is a model with only two inputs.
+The duplicate token problem is much less of a problem with the convolutional approach, because the **context of a word matters more** than the word itself. The odds of finding the same structures with the same tokens in both the tags and the descriptions is marginal with a vocabulary of 16000 words for the descriptions and the 1300 tag combinations. So, if this is not a problem, **the tags and descriptions can just be concatenated** when doing convolutions. This approach also has the capacity to see certain relations between tags and description. The result is a model with only two inputs.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*G-v-ikV60aXE5jpSMAMgYg.png)
 
