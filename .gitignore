@@ -13,3 +13,5 @@ _notebooks/.ipynb_checkpoints
 __pycache__
 
 .idea/
+
+.vscode/
