@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Introduction to personal website.
-categories: [markdown]
+categories: [introduction]
 title: Introduction to personal website
 ---
 
@@ -29,3 +29,5 @@ Current impediments for realizing my dreams:
 - Finding some good topics. 
 
 ### Thanks and hope to see you!
+
+:+1:
