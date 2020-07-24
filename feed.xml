@@ -1,29 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://blog.baukebrenninkmeijer.nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.baukebrenninkmeijer.nl/" rel="alternate" type="text/html" /><updated>2020-07-24T10:35:56-05:00</updated><id>https://blog.baukebrenninkmeijer.nl/feed.xml</id><title type="html">blog</title><subtitle>Personal Homepage</subtitle><entry><title type="html">Introduction to personal website</title><link href="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/first-personal-post.html" rel="alternate" type="text/html" title="Introduction to personal website" /><published>2020-07-24T00:00:00-05:00</published><updated>2020-07-24T00:00:00-05:00</updated><id>https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/first-personal-post</id><content type="html" xml:base="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/first-personal-post.html">&lt;h1 id=&quot;introduction-to-personal-website&quot;&gt;Introduction to personal website&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Welcome!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif?cid=ecf05e47zdq1eg3wa18ovpmd07wtmaeqiflmb3ynknb9d6zn&amp;amp;rid=giphy.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After fighting with setting up a custom domain, I’ve not officially set out to write about some interesting topics here. The main challenge for me, by length, will be to work towards rounding something of within a limited amount of time. I always get sucked into diving way too deep into a topic, to a point where I’m not knowledgeable enough anymore to understand, and then I lose interest :sweat_smile:. This time will definitely be different!&lt;/p&gt;
-
-&lt;p&gt;What do I want to do here? I’d like to write about interesting stuff I find online, discover or think of! Yes, very original :). What does this mean, concretely?&lt;/p&gt;
-
-&lt;p&gt;I’m going to talk about:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Deep learnig&lt;/li&gt;
-  &lt;li&gt;Machine learning&lt;/li&gt;
-  &lt;li&gt;Reinforcement Learning&lt;/li&gt;
-  &lt;li&gt;Natural language processing&lt;/li&gt;
-  &lt;li&gt;Computer Vision&lt;/li&gt;
-  &lt;li&gt;Whatever else I find interesting. I can do what I want, mom!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Current impediments for realizing my dreams:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;How do you use latex here? $\lambda$, does this work?&lt;/li&gt;
-  &lt;li&gt;Finding some good topics.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;thanks-and-hope-to-see-you&quot;&gt;Thanks and hope to see you!&lt;/h3&gt;</content><author><name></name></author><summary type="html">Introduction to personal website Welcome!</summary></entry><entry><title type="html">Automated product recognition for hospitality industry insights</title><link href="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/automated-product-recognition-for-hospitality-industry-insights.html" rel="alternate" type="text/html" title="Automated product recognition for hospitality industry insights" /><published>2020-07-24T00:00:00-05:00</published><updated>2020-07-24T00:00:00-05:00</updated><id>https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/automated-product-recognition-for-hospitality-industry-insights</id><content type="html" xml:base="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/automated-product-recognition-for-hospitality-industry-insights.html">&lt;h1 id=&quot;automated-product-recognition-for-hospitality-industry-insights&quot;&gt;Automated product recognition for hospitality industry insights&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://blog.baukebrenninkmeijer.nl/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.baukebrenninkmeijer.nl/" rel="alternate" type="text/html" /><updated>2020-07-24T10:47:01-05:00</updated><id>https://blog.baukebrenninkmeijer.nl/feed.xml</id><title type="html">blog</title><subtitle>Personal Homepage</subtitle><entry><title type="html">Automated product recognition for hospitality industry insights</title><link href="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/automated-product-recognition-for-hospitality-industry-insights.html" rel="alternate" type="text/html" title="Automated product recognition for hospitality industry insights" /><published>2020-07-24T00:00:00-05:00</published><updated>2020-07-24T00:00:00-05:00</updated><id>https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/automated-product-recognition-for-hospitality-industry-insights</id><content type="html" xml:base="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/24/automated-product-recognition-for-hospitality-industry-insights.html">&lt;h1 id=&quot;automated-product-recognition-for-hospitality-industry-insights&quot;&gt;Automated product recognition for hospitality industry insights&lt;/h1&gt;
 
 &lt;p&gt;Bridging the gap to a data driven hospitality industry&lt;/p&gt;
 
@@ -144,7 +119,32 @@
 
 &lt;h3 id=&quot;curious&quot;&gt;Curious?&lt;/h3&gt;
 
-&lt;p&gt;If you would like to know more about this project, please comment or send me a message on &lt;a href=&quot;https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/&quot;&gt;LinkedIn&lt;/a&gt; or hit me up on twitter.&lt;/p&gt;</content><author><name></name></author><summary type="html">Automated product recognition for hospitality industry insights</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.baukebrenninkmeijer.nl/images/products_image.png" /><media:content medium="image" url="https://blog.baukebrenninkmeijer.nl/images/products_image.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Fastpages Notebook Blog Post</title><link href="https://blog.baukebrenninkmeijer.nl/jupyter/2020/02/20/test.html" rel="alternate" type="text/html" title="Fastpages Notebook Blog Post" /><published>2020-02-20T00:00:00-06:00</published><updated>2020-02-20T00:00:00-06:00</updated><id>https://blog.baukebrenninkmeijer.nl/jupyter/2020/02/20/test</id><content type="html" xml:base="https://blog.baukebrenninkmeijer.nl/jupyter/2020/02/20/test.html">&lt;!--
+&lt;p&gt;If you would like to know more about this project, please comment or send me a message on &lt;a href=&quot;https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/&quot;&gt;LinkedIn&lt;/a&gt; or hit me up on twitter.&lt;/p&gt;</content><author><name></name></author><summary type="html">Automated product recognition for hospitality industry insights</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.baukebrenninkmeijer.nl/images/products_image.png" /><media:content medium="image" url="https://blog.baukebrenninkmeijer.nl/images/products_image.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Introduction to personal website</title><link href="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/23/first-personal-post.html" rel="alternate" type="text/html" title="Introduction to personal website" /><published>2020-07-23T00:00:00-05:00</published><updated>2020-07-23T00:00:00-05:00</updated><id>https://blog.baukebrenninkmeijer.nl/markdown/2020/07/23/first-personal-post</id><content type="html" xml:base="https://blog.baukebrenninkmeijer.nl/markdown/2020/07/23/first-personal-post.html">&lt;h1 id=&quot;introduction-to-personal-website&quot;&gt;Introduction to personal website&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Welcome!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://media0.giphy.com/media/XyaQAnihoZBU3GmFPl/giphy.gif?cid=ecf05e47zdq1eg3wa18ovpmd07wtmaeqiflmb3ynknb9d6zn&amp;amp;rid=giphy.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After fighting with setting up a custom domain, I’ve not officially set out to write about some interesting topics here. The main challenge for me, by length, will be to work towards rounding something of within a limited amount of time. I always get sucked into diving way too deep into a topic, to a point where I’m not knowledgeable enough anymore to understand, and then I lose interest :sweat_smile:. This time will definitely be different!&lt;/p&gt;
+
+&lt;p&gt;What do I want to do here? I’d like to write about interesting stuff I find online, discover or think of! Yes, very original :). What does this mean, concretely?&lt;/p&gt;
+
+&lt;p&gt;I’m going to talk about:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Deep learnig&lt;/li&gt;
+  &lt;li&gt;Machine learning&lt;/li&gt;
+  &lt;li&gt;Reinforcement Learning&lt;/li&gt;
+  &lt;li&gt;Natural language processing&lt;/li&gt;
+  &lt;li&gt;Computer Vision&lt;/li&gt;
+  &lt;li&gt;Whatever else I find interesting. I can do what I want, mom!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Current impediments for realizing my dreams:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;How do you use latex here? $\lambda$, does this work?&lt;/li&gt;
+  &lt;li&gt;Finding some good topics.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;thanks-and-hope-to-see-you&quot;&gt;Thanks and hope to see you!&lt;/h3&gt;</content><author><name></name></author><summary type="html">Introduction to personal website Welcome!</summary></entry><entry><title type="html">Fastpages Notebook Blog Post</title><link href="https://blog.baukebrenninkmeijer.nl/jupyter/2020/02/20/test.html" rel="alternate" type="text/html" title="Fastpages Notebook Blog Post" /><published>2020-02-20T00:00:00-06:00</published><updated>2020-02-20T00:00:00-06:00</updated><id>https://blog.baukebrenninkmeijer.nl/jupyter/2020/02/20/test</id><content type="html" xml:base="https://blog.baukebrenninkmeijer.nl/jupyter/2020/02/20/test.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
