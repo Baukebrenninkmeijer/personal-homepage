@@ -6,7 +6,7 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: Bauke Brenninkmeijer
+title: baukebrenninkmeijer.github.io
 description: An easy to use blogging platform with support for Jupyter Notebooks.
 github_username: Baukebrenninkmeijer
 # you can comment the below line out if your repo name is not different than your baseurl
@@ -14,8 +14,8 @@ github_username: Baukebrenninkmeijer
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
-#url: "https://Baukebrenninkmeijer.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-url: "https://blog.baukebrenninkmeijer.nl
+url: "https://Baukebrenninkmeijer.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+#url: "https://blog.baukebrenninkmeijer.nl
 
 ###########################################################
 #########  Special Instructions for baseurl ###############
