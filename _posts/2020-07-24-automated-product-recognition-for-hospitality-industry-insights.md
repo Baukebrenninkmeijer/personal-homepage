@@ -4,6 +4,8 @@ layout: post
 description: How can we leverage NLP to automatically facilitate business intelligence on raw data. 
 categories: [markdown]
 title: Automated product recognition for hospitality industry insights
+comments: true
+image: images/products_image.png
 ---
 
 # Automated product recognition for hospitality industry insights
