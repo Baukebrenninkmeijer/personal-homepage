@@ -1,17 +1,14 @@
 ---
 toc: true
 layout: post
-description: How can we leverage NLP to automatically facilitate business intelligence on raw data. 
+description: Bridging the gap to a data driven hospitality industry
+ business intelligence on raw data. 
 categories: [NLP, internship]
 title: Automated product recognition for hospitality industry insights
 comments: true
 author: Bauke Brenninkmeijer
 image: images/products_image.png
 ---
-
-# Automated product recognition for hospitality industry insights
-
-Bridging the gap to a data driven hospitality industry
 
 We're all a bit too familiar with **membership cards** of supermarket chains, like Walmart or Albert Heijn, the largest supermarket chain in the Netherlands. Besides the advantages these cards have for the consumer, they have a lot more advantages for the supermarket chains. They **apply advanced data science techniques to the data** gathered with these cards to figure out where to put products in the store, what products to put next to each other and what products to put on sale together.
 
