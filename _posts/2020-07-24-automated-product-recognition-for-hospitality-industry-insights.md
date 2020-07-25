@@ -5,6 +5,7 @@ description: How can we leverage NLP to automatically facilitate business intell
 categories: [NLP, internship]
 title: Automated product recognition for hospitality industry insights
 comments: true
+author: Bauke Brenninkmeijer
 image: images/products_image.png
 ---
 
