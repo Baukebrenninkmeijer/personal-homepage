@@ -15,13 +15,15 @@ I'm a deep learning practitioner🧠/data scientist📈. I have a background in 
 - 😊 My favorite machine learning sources are [HuggingFace](https://huggingface.co), [Sotabench](https://sotabench.com) and [paperswithcode](https://paperswithcode.com)
 
 <p align="center">
-	<a href="https://github.com/Baukebrenninkmeijer"><img src="https://img.shields.io/github/followers/Baukebrenninkmeijer.svg?label=GitHub&style=social" alt="GitHub"></a>
-	<a href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b"><img src="https://img.shields.io/badge/LinkedIn--_.svg?style=social&logo=linkedin" alt="LinkedIn"></a>
+	<a href="https://github.com/Baukebrenninkmeijer">
+        <img src="https://img.shields.io/github/followers/Baukebrenninkmeijer.svg?label=GitHub&style=social" alt="GitHub" style="display:inline-block;"></a>
+	<a href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b">
+        <img src="https://img.shields.io/badge/LinkedIn--_.svg?style=social&logo=linkedin" style="display:inline-block;" alt="LinkedIn"></a>
 </p>
 
 
 
-<object data="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf" type="application/pdf" width="700px" height="1400px">
+<object data="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf" type="application/pdf" width="700px" height="1000px">
     <embed src="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf">Download PDF</a>.</p>
     </embed>
