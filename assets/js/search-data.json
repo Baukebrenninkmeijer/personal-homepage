@@ -39,8 +39,8 @@
 
   
       ,"page1": {
-          "title": "About Me",
-          "content": "This browser does not support PDFs. Please download the PDF to view it: Download PDF. . &lt;/embed&gt; This is where you put the contents of your About page. Like all your pages, it’s in Markdown format. . This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
+          "title": "Hi there, I'm Bauke 👋",
+          "content": "I’m a deep learning practitioner🧠/data scientist📈. I have a background in computer science and data science, and thus both are very prevelant in my work. I have created some bots, some deep learning implementations and some libraries related to synthetic data. . 🔭 I’m currently working on setting up a personal website and synthetic data using GANs. | 🌱 I’m currently learning Full Stack (Deep/machine) Learning | 💬 Ask me about PyTorch and SOTA NLP or Computer Vision models! 🔥🔥 | 😊 My favorite machine learning sources are HuggingFace, Sotabench and paperswithcode | . . This browser does not support PDFs. Please download the PDF to view it: Download PDF. . &lt;/embed&gt;",
           "url": "https://blog.baukebrenninkmeijer.nl/about/",
           "relUrl": "/about/",
           "date": ""
