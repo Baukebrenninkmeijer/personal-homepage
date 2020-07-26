@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Hi there, I'm Bauke 👋
+title: About me
 permalink: /about/
 ---
 
-
+### Hi there, I'm Bauke 👋
 
 I'm a deep learning practitioner🧠/data scientist📈. I have a background in computer science and data science, and thus both are very prevelant in my work. I have created some bots, some deep learning implementations and some libraries related to synthetic data. 
 
