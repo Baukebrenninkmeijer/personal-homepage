@@ -1,19 +1,28 @@
 ---
 layout: page
-title: About Me
+title: Hi there, I'm Bauke 👋
 permalink: /about/
 ---
 
-<object data="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf" type="application/pdf" width="700px" height="700px">
+
+
+I'm a deep learning practitioner🧠/data scientist📈. I have a background in computer science and data science, and thus both are very prevelant in my work. I have created some bots, some deep learning implementations and some libraries related to synthetic data. 
+
+
+- 🔭 I’m currently working on setting up a personal website and synthetic data using GANs.
+- 🌱 I’m currently learning Full Stack (Deep/machine) Learning 
+- 💬 Ask me about PyTorch and SOTA NLP or Computer Vision models! 🔥🔥
+- 😊 My favorite machine learning sources are [HuggingFace](https://huggingface.co), [Sotabench](https://sotabench.com) and [paperswithcode](https://paperswithcode.com)
+
+<p align="center">
+	<a href="https://github.com/Baukebrenninkmeijer"><img src="https://img.shields.io/github/followers/Baukebrenninkmeijer.svg?label=GitHub&style=social" alt="GitHub"></a>
+	<a href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b"><img src="https://img.shields.io/badge/LinkedIn--_.svg?style=social&logo=linkedin" alt="LinkedIn"></a>
+</p>
+
+
+
+<object data="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf" type="application/pdf" width="700px" height="1400px">
     <embed src="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/Curriculum_Vitae_Bauke_Brenninkmeijer_2020.pdf">Download PDF</a>.</p>
     </embed>
 </object>
-
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
-
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
-
-
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
