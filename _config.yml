@@ -15,7 +15,7 @@ github_username: Baukebrenninkmeijer
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
 #url: "https://Baukebrenninkmeijer.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-url: "https://blog.baukebrenninkmeijer.nl"
+url: "https://www.baukebrenninkmeijer.nl"
 
 ###########################################################
 #########  Special Instructions for baseurl ###############
@@ -71,7 +71,7 @@ include:
 # This specifies what badges are turned on by default for notebook posts.
 default_badges:
   github: true
-  binder: true
+  binder: false
   colab: true
 
 # Everything below here should be left alone. Modifications may break fastpages
@@ -87,6 +87,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-remote-theme
   - jekyll-paginate
+  - jemoji
 
 # See https://jekyllrb.com/docs/pagination/
 # For pagination to work, you cannot have index.md at the root of your repo, instead you must rename this file to index.html
