@@ -1,10 +1,9 @@
 ---
 toc: true
 layout: post
-description: Bridging the gap to a data driven hospitality industry
- business intelligence on raw data. 
+title: Automated product recognition for hospitality industry insights 🍻
+description: Bridging the gap to a data driven hospitality industry business intelligence on raw data. 
 categories: [NLP, internship]
-title: Automated product recognition for hospitality industry insights
 comments: true
 author: Bauke Brenninkmeijer
 image: images/products_image.png
