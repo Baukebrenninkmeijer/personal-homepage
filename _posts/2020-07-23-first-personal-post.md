@@ -4,6 +4,7 @@ layout: post
 description: Introduction to personal website.
 categories: [introduction]
 title: Introduction to personal website
+author: Bauke Brenninkmeijer
 ---
 
 # Introduction to personal website
