@@ -139,14 +139,14 @@ window.onload = wrap_img;
         <div class="pb-5 d-flex flex-wrap flex-justify-end">
           <div class="px-2">
 
-    <a href="https://github.com/Baukebrenninkmeijer//tree/master/_notebooks/2020-07-31-spotify-listening-history-analysis-part-1.ipynb" role="button" target="_blank">
+    <a href="https://github.com/Baukebrenninkmeijer/blog/tree/master/_notebooks/2020-07-31-spotify-listening-history-analysis-part-1.ipynb" role="button" target="_blank">
 <img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
     </a>
 </div>
 
           
           <div class="px-2">
-    <a href="https://colab.research.google.com/github/Baukebrenninkmeijer//blob/master/_notebooks/2020-07-31-spotify-listening-history-analysis-part-1.ipynb" target="_blank">
+    <a href="https://colab.research.google.com/github/Baukebrenninkmeijer/blog/blob/master/_notebooks/2020-07-31-spotify-listening-history-analysis-part-1.ipynb" target="_blank">
         <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
     </a>
 </div>
@@ -156,9 +156,9 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#The-Data-✨">The Data ✨ </a></li>
-<li class="toc-entry toc-h1"><a href="#Yearly-&-Monthly-behaviour">Yearly &amp; Monthly behaviour </a></li>
-<li class="toc-entry toc-h1"><a href="#Daily-behaviour">Daily behaviour </a></li>
-<li class="toc-entry toc-h1"><a href="#Genres">Genres </a></li>
+<li class="toc-entry toc-h1"><a href="#Yearly-&-Monthly-behaviour-📆">Yearly &amp; Monthly behaviour 📆 </a></li>
+<li class="toc-entry toc-h1"><a href="#Daily-behaviour-🕺">Daily behaviour 🕺 </a></li>
+<li class="toc-entry toc-h1"><a href="#Genres-🎧">Genres 🎧 </a></li>
 <li class="toc-entry toc-h1"><a href="#In-conclusion">In conclusion </a></li>
 </ul><!--
 #################################################
@@ -460,8 +460,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Yearly-&amp;-Monthly-behaviour">
-<a class="anchor" href="#Yearly-&amp;-Monthly-behaviour" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yearly &amp; Monthly behaviour<a class="anchor-link" href="#Yearly-&amp;-Monthly-behaviour"> </a>
+<h1 id="Yearly-&amp;-Monthly-behaviour-📆">
+<a class="anchor" href="#Yearly-&amp;-Monthly-behaviour-%F0%9F%93%86" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yearly &amp; Monthly behaviour 📆<a class="anchor-link" href="#Yearly-&amp;-Monthly-behaviour-%F0%9F%93%86"> </a>
 </h1>
 </div>
 </div>
@@ -642,8 +642,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Daily-behaviour">
-<a class="anchor" href="#Daily-behaviour" aria-hidden="true"><span class="octicon octicon-link"></span></a>Daily behaviour<a class="anchor-link" href="#Daily-behaviour"> </a>
+<h1 id="Daily-behaviour-🕺">
+<a class="anchor" href="#Daily-behaviour-%F0%9F%95%BA" aria-hidden="true"><span class="octicon octicon-link"></span></a>Daily behaviour 🕺<a class="anchor-link" href="#Daily-behaviour-%F0%9F%95%BA"> </a>
 </h1>
 <p>Well, I'm already learning a lot about Altair, cause creating this plot in its current form easily took three hours. Altair does not like it when you aggregate a value in several places. <em>But</em> the result is also quite a nice visual. I plotted the daily distribution per hours per year. Now, the value is the sum of the whole year, so it's no wonder that the differences are really similar to what we say in the yearly distribution. More interesting would be the percentage per hour per year, which would tell me something about my listening behaviour throughout the years.</p>
 <p><em>The yearly visuals only show 2016 till 2019, because the others years don't have enough data.</em></p>
@@ -748,8 +748,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Genres">
-<a class="anchor" href="#Genres" aria-hidden="true"><span class="octicon octicon-link"></span></a>Genres<a class="anchor-link" href="#Genres"> </a>
+<h1 id="Genres-🎧">
+<a class="anchor" href="#Genres-%F0%9F%8E%A7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Genres 🎧<a class="anchor-link" href="#Genres-%F0%9F%8E%A7"> </a>
 </h1>
 <p>Now that we have some insight into my listening behaviour, we can analyze what I listen to a bit more closely. For example, what genres do I listen to most and how do these change? Here we get a bit closer to the visualization we got from Last.fm.</p>
 <p>However, before we can do that, we need to get the genres associated with our songs. This was not included in the data Spotify sent over, so we need to use their API to get this information. Spotify does not apply categories per song, but rather per artist. Internally, Spotify uses special URIs to indicate different concepts like artists, songs and albums. For example, a track can be indicated with <code>spotify:track:6rqhFgbbKwnb9MLmUQDhG6</code>.</p>
@@ -1184,7 +1184,7 @@ window.onload = wrap_img;
 
   </div><!-- from https://github.com/utterance/utterances -->
 <script src="https://utteranc.es/client.js"
-        repo="Baukebrenninkmeijer/"
+        repo="Baukebrenninkmeijer/blog"
         issue-term="title"
         label="blogpost-comment"
         theme="github-light"
