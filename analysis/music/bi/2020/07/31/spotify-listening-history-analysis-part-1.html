@@ -115,7 +115,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      13 min read
+      14 min read
     
 </span></p>
 
@@ -179,12 +179,21 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I like to have everything in my life tracked in some way. Preferably, knowingly (Looking at you, Facebook), cause it allows you to analyze it and find interesting things (Might be related with becoming a data scientist)! I've always been a fan of the features provided by <a href="https://www.last.fm">Last.fm</a> to track you listening behaviour across apps and platforms. It allows you to see stuff like your favorite artists per month, or your afinity with certain genres over time like in the image below.</p>
+<p>I like to have everything in my life tracked in some way. Preferably, knowingly (Looking at you, Facebook), cause it allows you to analyze the data and find interesting things (Might be related with becoming a data scientist)! I've always been a fan of the features provided by <a href="https://www.last.fm">Last.fm</a> to track you listening behaviour across apps and platforms. It allows you to see stuff like your favorite artists per month, or your affinity with certain genres over time like in the image below.</p>
 <p><img src="/images/copied_from_nb/images/spotify_analysis/genre-timeline-lastfm.png" alt="Your top genres, plotted per week." title="Your top genres, plotted per week. Source: Last.fm"></p>
 <p><em>Buuuuuut</em>, like Last.fm, most of these analyses are paid completely or partly. In the case of Last.fm, you get this plot for free but anything more will cost you some paper. I'm kinda cheap, so let's see if we can do it ourselves!</p>
-<p>I wanted to have my listening history, and currently there is an <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/">API call</a> that provides that functionality. However, I wanted to do this at the start of 2019 (Yeah, I didn't get around to doing this until now 😅) and this wansn't available back then, or at least I couldn't find it. Spotify, like many other companies, has an option to download your personal information. Unfortunately, this data only contained data for three months (they upped it to a year now, which is great!).</p>
+<p>I wanted to have my listening history, and currently there is an <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/">API call</a> that provides that functionality. However, I wanted to do this at the start of 2019 (Yeah, I didn't get around to doing this until now 😅) and this wasn't available back then, or at least I couldn't find it. Spotify, like many other companies, has an option to download your personal information. Unfortunately, this data only contained data for three months (they upped it to a year now, which is great!).</p>
 <p>But, given this limitation, <strong>the only way I could think of to get this was to ask Spotify for my personal data</strong>. Under the GDPR, they are required to provide this information, so I thought this had a good shot. Well, after e-mailing back and forth a whole bunch of times, eventually I got in touch with the Data Privacy Office and they provided me with my complete listening history!</p>
-<p>So that's the data that we'll be working with. Like I said, I requested the data in early 2019, so my history goes from my beginning of Spotify (ca. 2013) untill then. So lets see what we're dealing with.</p>
+<p>So that's the data that we'll be working with. Like I said, I requested the data in early 2019, so my history goes from my beginning of Spotify (ca. 2013) until then. So lets see what we're dealing with. 
+</p>
+<div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <strong>Note: </strong>This blog post will be part 1 of a series, and unfortunately the insights from part 1 are not the most interesting, due to limitation in reading time. For the cool stuff, please stick around for part 2 an most likely part 3. 
+</div>
+<div class="flash flash-error">
+    <svg class="octicon octicon-alert octicon octicon-alert" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 000 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 00.01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg>
+    <strong>Warning: </strong>The link to the github repo is currently broken. I’ll fix this asap. To find the repo, please follow this <a href="https://github.com/Baukebrenninkmeijer/blog/blob/master/_notebooks/2020-07-31-spotify-listening-history-analysis-part-1.ipynb">link</a>
+</div>
 
 </div>
 </div>
@@ -463,7 +472,7 @@ window.onload = wrap_img;
 <p>One of the first things that might be interesting to see is how my usage of spotify has changed over the years. For this, we can easily plot the number of songs player by year and by month. 
 </p>
 <div class="flash">
-    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
     <strong>Note: </strong>All my plots will be created using Altair. This is mainly because <a href="https://github.com/fastai/fastpages">fastpages</a> has the best support for this. But, I have taken this opportunity to become really familiar with the nooks and crannies of Altair. My previous go-tos are and likely still will be for most: matplotlib and seaborn. 
 </div>
 
@@ -1139,18 +1148,12 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Unfortunately, this blog was getting way too long, so I split in in several parts. Please read part 2 (and 3?) as well!</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="In-conclusion">
 <a class="anchor" href="#In-conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>In conclusion<a class="anchor-link" href="#In-conclusion"> </a>
 </h1>
-<p>We have done a pretty thorough analyses of my listening history on Spotify. We evaluated the high level listening behaviour on a monthly and yearly basis. We have also seen my daily listening behaviour and how it has changed throughout the years. We also started on the analysis of the genres, which we will continue in part 2.</p>
+<p>We have done a pretty thorough analysis of my listening history on Spotify. We evaluated the high level listening behaviour on a monthly and yearly basis. We have also seen my daily listening behaviour and how it has changed throughout the years. We also started on the analysis of the genres, which we will continue in part 2!</p>
+<p>It has been really interesting to see how my preferences with regards to music over these years, and it is definitely contributing to my 'have everything tracked' KPIs. Since all of Spotify's data is accessible through the API, I might consider making a dashboard for these insights that updates automatically 🤔.</p>
+<p>Unfortunately, we didn't get to see the really cool stuff in this post. Things like recreation of the last.fm image and the changes in genres over time are very interesting, and I would have loved to already be able to show those. Please check out part 2 for that. I'll add links to that here as soon as that's out.</p>
 <p><strong>Topics covered in part 2:</strong></p>
 <ol>
 <li>What are my top genres?</li>
