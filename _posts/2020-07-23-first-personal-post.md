@@ -1,5 +1,5 @@
 ---
-toc: true
+toc: false
 layout: post
 description: Introduction to personal website.
 categories: [introduction]
@@ -30,5 +30,3 @@ Current impediments for realizing my dreams:
 - Finding some good topics. 
 
 ### Thanks and hope to see you!
-
-:+1:
