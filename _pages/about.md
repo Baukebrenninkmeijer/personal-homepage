@@ -28,4 +28,4 @@ In my thesis, I researched improvements that we can make to Generative Adversari
 - Repo for my thesis: <a class="github-button" href="https://github.com/baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs" data-icon="octicon-star" data-show-count="true" aria-label="Star baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs on GitHub">Star</a>
 - Repo for evaluation library: <!-- Place this tag where you want the button to render. -->
 <a class="github-button" href="https://github.com/baukebrenninkmeijer/table-evaluator" data-icon="octicon-star" data-show-count="true" aria-label="Star baukebrenninkmeijer/table-evaluator on GitHub">Star</a>
-- Find my thesis on the [Radboud University website](https://www.ru.nl/publish/pages/769526/z04_master_thesis_brenninkmeijer.pdf)
+- Find my thesis on the [Radboud University website](https://www.ru.nl/publish/pages/769526/z04_master_thesis_brenninkmeijer.pdf).
