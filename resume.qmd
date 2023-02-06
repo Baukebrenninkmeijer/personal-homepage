@@ -1,0 +1,13 @@
+---
+title: "Resume"
+page-layout: full
+# image: profile.jpg
+---
+
+Below, you can find my resume in PDF format.
+
+<object data="posts\resume\CV_Bauke_Brenninkmeijer.pdf" type="application/pdf" width="1400px" height="1000px">
+    <embed src="posts\resume\CV_Bauke_Brenninkmeijer.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="posts\resume\CV_Bauke_Brenninkmeijer.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
