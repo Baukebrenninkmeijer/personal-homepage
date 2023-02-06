@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Bauke Brenninkmeijer">
+<meta name="dcterms.date" content="2020-07-31">
+<meta name="description" content="Soul searching through my choices in music. Using my spotify listening data, we perform a dive into my listening behaviour and how it changed over time. We also make a start at analyzing the evolution of genres.">
+
+<title>Personal homepage - Analyzing my Spotify listening history 🎵 - Part 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../posts/images/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script type="text/javascript">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-55798897-4', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Personal homepage - Analyzing my Spotify listening history 🎵 - Part 1">
+<meta property="og:description" content="Soul searching through my choices in music. Using my spotify listening data, we perform a dive into my listening behaviour and how it changed over time.">
+<meta property="og:image" content="https://github.com/Baukebrenninkmeijer/blog/posts/images/spotify_analysis/p1/banner.png">
+<meta property="og:site-name" content="Personal homepage">
+<meta property="og:image:height" content="304">
+<meta property="og:image:width" content="716">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Personal homepage</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Who am I?</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Analyzing my Spotify listening history 🎵 - Part 1</h1>
+                  <div>
+        <div class="description">
+          Soul searching through my choices in music. Using my spotify listening data, we perform a dive into my listening behaviour and how it changed over time. We also make a start at analyzing the evolution of genres.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Analysis</div>
+                <div class="quarto-category">Music</div>
+                <div class="quarto-category">BI</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Bauke Brenninkmeijer </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 31, 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data">The Data ✨</a></li>
+  <li><a href="#yearly-monthly-behaviour" id="toc-yearly-monthly-behaviour" class="nav-link" data-scroll-target="#yearly-monthly-behaviour">Yearly &amp; Monthly behaviour 📆</a></li>
+  <li><a href="#daily-behaviour" id="toc-daily-behaviour" class="nav-link" data-scroll-target="#daily-behaviour">Daily behaviour 🕺</a></li>
+  <li><a href="#weekly-behaviour" id="toc-weekly-behaviour" class="nav-link" data-scroll-target="#weekly-behaviour">Weekly behaviour</a></li>
+  <li><a href="#genres" id="toc-genres" class="nav-link" data-scroll-target="#genres">Genres 🎧</a></li>
+  <li><a href="#in-conclusion" id="toc-in-conclusion" class="nav-link" data-scroll-target="#in-conclusion">In conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I added a Day of Week vs Hour of day plot to visualize weekly behaviour!</p>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://www.baukebrenninkmeijer.nl/posts/spotify-listening-history-analysis-part-2.html">Link to Part 2</a></p>
+</div>
+</div>
+<p>I like to have everything in my life tracked in some way. Preferably, knowingly (Looking at you, Facebook), cause it allows you to analyze the data and find interesting things (Might be related with becoming a data scientist)! I’ve always been a fan of the features provided by <a href="https://www.last.fm">Last.fm</a> to track you listening behaviour across apps and platforms. It allows you to see stuff like your favorite artists per month, or your affinity with certain genres over time like in the image below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<figure class="figure">
+<img src="images/spotify_analysis/genre-timeline-lastfm.png" title="Your top genres, plotted per week. Source: Last.fm" class="img-fluid figure-img">
+</figure>
+<p></p><figcaption class="figure-caption">Your top genres, plotted per week.</figcaption><p></p>
+</figure>
+</div>
+<p><em>Buuuuuut</em>, like Last.fm, most of these analyses are paid completely or partly. In the case of Last.fm, you get this plot for free but anything more will cost you some paper. I’m Dutch, so let’s see if we can do it ourselves!</p>
+<p>I wanted to have my listening history, and currently there is an <a href="https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/">API call</a> that provides that functionality. However, I wanted to do this at the start of 2019 (Last year was pretty busy, so I didn’t get around to doing this until now 😅) and this wasn’t available back then, or at least I couldn’t find it. Spotify, like many other companies, has an option to download your personal information. Unfortunately, this data only contained data for three months (they upped it to a year now, which is great!).</p>
+<p>But, given this limitation, <strong>the only way I could think of to get this was to ask Spotify for my personal data</strong>. Under the GDPR, they are required to provide this information, so I thought this had a good shot. Well, after e-mailing back and forth a whole bunch of times, eventually I got in touch with the Data Privacy Office and they provided me with my complete listening history!</p>
+<p>So that’s the data that we’ll be working with. Like I said, I requested the data in early 2019, so my history goes from my beginning of Spotify (ca. 2013) until then. So lets see what we’re dealing with.</p>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The Data ✨</h2>
+<p>I received one main file from spotify called <code>EndSong.json</code> which had json items as follows. In total, I got 39,229 songs played, which is quite a lot and definitely enough to do some interesting things with!</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"ts"</span><span class="fu">:</span><span class="st">"2013-10-09 20:03:57 UTC"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"username"</span><span class="fu">:</span><span class="st">"xxxxxxxxxx"</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"platform"</span><span class="fu">:</span><span class="st">"xxxxxxx"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"ms_played"</span><span class="fu">:</span><span class="st">"5969"</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"conn_country"</span><span class="fu">:</span><span class="st">"NL"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"ip_addr_decrypted"</span><span class="fu">:</span><span class="st">"xx.xx.xx.xx"</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"user_agent_decrypted"</span><span class="fu">:</span> <span class="st">"xxxxxxxxxxx"</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"master_metadata_track_name"</span><span class="fu">:</span><span class="st">"You Make Me"</span><span class="fu">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"master_metadata_album_artist_name"</span><span class="fu">:</span><span class="st">"Avicii"</span><span class="fu">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"master_metadata_album_album_name"</span><span class="fu">:</span><span class="st">"You Make Me"</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"reason_start"</span><span class="fu">:</span><span class="st">"click-row"</span><span class="fu">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"reason_end"</span><span class="fu">:</span><span class="st">"click-row"</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"shuffle"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"skipped"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"offline"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"offline_timestamp"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"incognito_mode"</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"metro_code"</span><span class="fu">:</span><span class="st">"0"</span><span class="fu">,</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"longitude"</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"latitude"</span><span class="fu">:</span><span class="dv">0</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For our analysis, we’re gonna use the ol’ trusty <a href="https://pandas.pydata.org/">Pandas</a>. The data is in the json-lines format, so we use the python <a href="https://pypi.org/project/json-lines/">json-lines</a> package to read our data. We’ll also drop some useless columns and convert the timestamp column to a python datetime object. Furthermore, we use the UTF-8 encoding while reading our data, to support tokens that would otherwise be malformed like the ë character. Lastly, we also create separate columns for many of our time attributes like year, month and day, since this makes it easy for filtering during plotting.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The json-lines format puts a json object on each separate line, and allows for very dense information packaging in json files. Before I knew this, I was reading the data as a string, converting true-&gt;True and false-&gt;False, to match python syntax and then using the ast package to interpret the string as a python object. That also worked ok, but this is much better. 😊</p>
+</div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> []</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> json_lines.reader(<span class="bu">open</span>(<span class="st">'data/EndSong.json'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>)):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    lines.append(i)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(lines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop([<span class="st">'username'</span>, <span class="st">'user_agent_decrypted'</span>, <span class="st">'incognito_mode'</span>, <span class="st">'platform'</span>, <span class="st">'ip_addr_decrypted'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.ts <span class="op">=</span> pd.to_datetime(df.ts)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> df.ts.dt.date</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'year'</span>] <span class="op">=</span> df.ts.dt.year</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'month'</span>] <span class="op">=</span> df.ts.dt.month</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'day'</span>] <span class="op">=</span> df.ts.dt.day</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'dow'</span>] <span class="op">=</span> df.ts.dt.dayofweek</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'hour'</span>] <span class="op">=</span> df.ts.dt.hour</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ts</th>
+      <th>ms_played</th>
+      <th>conn_country</th>
+      <th>master_metadata_track_name</th>
+      <th>master_metadata_album_artist_name</th>
+      <th>master_metadata_album_album_name</th>
+      <th>reason_start</th>
+      <th>reason_end</th>
+      <th>shuffle</th>
+      <th>skipped</th>
+      <th>...</th>
+      <th>city</th>
+      <th>region</th>
+      <th>episode_name</th>
+      <th>episode_show_name</th>
+      <th>date</th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>dow</th>
+      <th>hour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2013-10-09 20:24:30+00:00</td>
+      <td>15010</td>
+      <td>NL</td>
+      <td>Wild for the Night (feat. Skrillex &amp; Birdy Nam...</td>
+      <td>A$AP Rocky</td>
+      <td>LONG.LIVE.A$AP (Deluxe Version)</td>
+      <td>unknown</td>
+      <td>click-row</td>
+      <td>False</td>
+      <td>False</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2013-10-09</td>
+      <td>2013</td>
+      <td>10</td>
+      <td>9</td>
+      <td>2</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2013-10-09 20:19:20+00:00</td>
+      <td>68139</td>
+      <td>NL</td>
+      <td>Buzzin'</td>
+      <td>OVERWERK</td>
+      <td>The Nthº</td>
+      <td>unknown</td>
+      <td>click-row</td>
+      <td>False</td>
+      <td>False</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2013-10-09</td>
+      <td>2013</td>
+      <td>10</td>
+      <td>9</td>
+      <td>2</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2013-10-09 20:21:54+00:00</td>
+      <td>23643</td>
+      <td>NL</td>
+      <td>Blue</td>
+      <td>Gemini</td>
+      <td>Blue EP</td>
+      <td>unknown</td>
+      <td>click-row</td>
+      <td>False</td>
+      <td>False</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2013-10-09</td>
+      <td>2013</td>
+      <td>10</td>
+      <td>9</td>
+      <td>2</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2013-10-09 20:20:29+00:00</td>
+      <td>68063</td>
+      <td>NL</td>
+      <td>Blue</td>
+      <td>Gemini</td>
+      <td>Blue EP</td>
+      <td>unknown</td>
+      <td>click-row</td>
+      <td>False</td>
+      <td>False</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2013-10-09</td>
+      <td>2013</td>
+      <td>10</td>
+      <td>9</td>
+      <td>2</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 25 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="yearly-monthly-behaviour" class="level1">
+<h1>Yearly &amp; Monthly behaviour 📆</h1>
+<p>One of the first things that might be interesting to see is how my usage of spotify has changed over the years. For this, we can easily plot the number of songs player by year and by month.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All my plots will be created using Altair. This is mainly because <a href="https://github.com/fastai/fastpages">fastpages</a> has the best support for this. But, I have taken this opportunity to become really familiar with the nooks and crannies of Altair. My previous go-tos are and likely still will be for most: matplotlib and seaborn.</p>
+</div>
+</div>
+<p>We’re using the <em>LA Times</em> vega lite theme. We can set altair to use this with the following line.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alt.themes.enable(<span class="st">'latimes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>ThemeRegistry.enable('latimes')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df.ts.dt  <span class="co"># Use the datetime attributes of the ts column</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    .to_period(<span class="st">'D'</span>)  <span class="co"># Convert the ts column to a 'date' period. So the timestamp is reduced to a date like '28-2-2020'.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    .value_counts()  <span class="co"># Counts the frequency of all days (i.e. count how many songs were played that day).</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    .to_timestamp()  <span class="co"># The index is a RangeIndex after the `to_period`, so we convert it back to a datetime.</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    .to_frame()      <span class="co"># Altair wants dataframes, so we convert it to a dataframe.</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    .reset_index()   <span class="co"># Make the datetime index a separate column instead of the index. </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">'index'</span>: <span class="st">'date'</span>, <span class="st">'ts'</span>: <span class="st">'listens'</span>})  <span class="co"># Rename the columns to be descriptive</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>yearly <span class="op">=</span> alt.Chart(t).mark_bar(size<span class="op">=</span><span class="dv">30</span>).encode(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'year(date):O'</span>, title<span class="op">=</span><span class="st">'Year'</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'sum(listens):Q'</span>, title<span class="op">=</span><span class="st">'Listens'</span>),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>[<span class="st">'sum(listens)'</span>, <span class="st">'year(date)'</span>]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>).properties(width<span class="op">=</span>MAXWIDTH<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>monthly <span class="op">=</span> alt.Chart(t).mark_bar().encode(</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'yearmonth(date):O'</span>, title<span class="op">=</span><span class="st">'Month'</span>),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'sum(listens):Q'</span>, title<span class="op">=</span><span class="st">'Listens'</span>),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>[<span class="st">'sum(listens)'</span>, <span class="st">'yearmonth(date)'</span>],</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>).properties(width<span class="op">=</span>MAXWIDTH<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Altair allows really easy formatting, having horizontal concatenation with the | operator</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>yearly <span class="op">|</span> monthly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\BaukeBrenninkmeijer\Anaconda3\lib\site-packages\pandas\core\arrays\datetimes.py:1091: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  UserWarning,</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div id="altair-viz-70ba7e52b23548a68a3b3712231a92ab"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-70ba7e52b23548a68a3b3712231a92ab") {
+      outputDiv = document.getElementById("altair-viz-70ba7e52b23548a68a3b3712231a92ab");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"usermeta": {"embedOptions": {"theme": "latimes"}}, "config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "hconcat": [{"mark": {"type": "bar", "size": 30}, "encoding": {"tooltip": [{"type": "quantitative", "aggregate": "sum", "field": "listens"}, {"type": "temporal", "field": "date", "timeUnit": "year"}], "x": {"type": "ordinal", "field": "date", "timeUnit": "year", "title": "Year"}, "y": {"type": "quantitative", "aggregate": "sum", "field": "listens", "title": "Listens"}}, "width": 320.0}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "aggregate": "sum", "field": "listens"}, {"type": "temporal", "field": "date", "timeUnit": "yearmonth"}], "x": {"type": "ordinal", "field": "date", "timeUnit": "yearmonth", "title": "Month"}, "y": {"type": "quantitative", "aggregate": "sum", "field": "listens", "title": "Listens"}}, "width": 320.0}], "data": {"name": "data-bbdccaa9ac9ab783d23accc56de671f6"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-bbdccaa9ac9ab783d23accc56de671f6": [{"date": "2018-10-12T00:00:00", "listens": 266}, {"date": "2018-04-21T00:00:00", "listens": 259}, {"date": "2018-01-06T00:00:00", "listens": 244}, {"date": "2018-10-10T00:00:00", "listens": 216}, {"date": "2018-03-07T00:00:00", "listens": 216}, {"date": "2018-07-09T00:00:00", "listens": 195}, {"date": "2018-10-25T00:00:00", "listens": 192}, {"date": "2017-11-10T00:00:00", "listens": 190}, {"date": "2018-07-03T00:00:00", "listens": 190}, {"date": "2018-03-05T00:00:00", "listens": 188}, {"date": "2018-10-26T00:00:00", "listens": 185}, {"date": "2017-07-10T00:00:00", "listens": 184}, {"date": "2018-12-07T00:00:00", "listens": 178}, {"date": "2018-11-21T00:00:00", "listens": 174}, {"date": "2018-09-27T00:00:00", "listens": 172}, {"date": "2018-10-16T00:00:00", "listens": 172}, {"date": "2018-12-12T00:00:00", "listens": 167}, {"date": "2018-09-05T00:00:00", "listens": 166}, {"date": "2018-10-11T00:00:00", "listens": 165}, {"date": "2018-02-27T00:00:00", "listens": 162}, {"date": "2017-09-01T00:00:00", "listens": 162}, {"date": "2019-01-10T00:00:00", "listens": 160}, {"date": "2018-09-06T00:00:00", "listens": 159}, {"date": "2018-08-07T00:00:00", "listens": 156}, {"date": "2018-10-09T00:00:00", "listens": 155}, {"date": "2018-11-28T00:00:00", "listens": 153}, {"date": "2018-09-11T00:00:00", "listens": 152}, {"date": "2018-12-19T00:00:00", "listens": 149}, {"date": "2018-10-17T00:00:00", "listens": 147}, {"date": "2018-11-07T00:00:00", "listens": 146}, {"date": "2019-01-15T00:00:00", "listens": 145}, {"date": "2018-06-01T00:00:00", "listens": 143}, {"date": "2018-11-27T00:00:00", "listens": 143}, {"date": "2018-11-26T00:00:00", "listens": 142}, {"date": "2018-05-04T00:00:00", "listens": 142}, {"date": "2017-06-26T00:00:00", "listens": 141}, {"date": "2018-06-21T00:00:00", "listens": 140}, {"date": "2018-10-01T00:00:00", "listens": 140}, {"date": "2018-10-03T00:00:00", "listens": 139}, {"date": "2018-08-09T00:00:00", "listens": 138}, {"date": "2018-09-18T00:00:00", "listens": 137}, {"date": "2018-04-06T00:00:00", "listens": 135}, {"date": "2018-10-22T00:00:00", "listens": 135}, {"date": "2018-03-09T00:00:00", "listens": 135}, {"date": "2018-08-27T00:00:00", "listens": 134}, {"date": "2018-07-28T00:00:00", "listens": 134}, {"date": "2017-12-15T00:00:00", "listens": 133}, {"date": "2018-05-18T00:00:00", "listens": 133}, {"date": "2018-09-19T00:00:00", "listens": 133}, {"date": "2018-11-14T00:00:00", "listens": 133}, {"date": "2018-09-04T00:00:00", "listens": 133}, {"date": "2018-11-02T00:00:00", "listens": 132}, {"date": "2018-12-10T00:00:00", "listens": 131}, {"date": "2018-03-16T00:00:00", "listens": 131}, {"date": "2018-05-12T00:00:00", "listens": 131}, {"date": "2018-09-26T00:00:00", "listens": 130}, {"date": "2018-01-12T00:00:00", "listens": 128}, {"date": "2019-01-08T00:00:00", "listens": 128}, {"date": "2018-11-08T00:00:00", "listens": 124}, {"date": "2018-10-28T00:00:00", "listens": 124}, {"date": "2018-07-08T00:00:00", "listens": 124}, {"date": "2017-11-11T00:00:00", "listens": 123}, {"date": "2016-10-06T00:00:00", "listens": 122}, {"date": "2018-10-08T00:00:00", "listens": 122}, {"date": "2018-10-23T00:00:00", "listens": 122}, {"date": "2018-07-10T00:00:00", "listens": 122}, {"date": "2018-11-13T00:00:00", "listens": 122}, {"date": "2018-04-04T00:00:00", "listens": 121}, {"date": "2018-03-08T00:00:00", "listens": 121}, {"date": "2017-05-02T00:00:00", "listens": 121}, {"date": "2019-01-02T00:00:00", "listens": 121}, {"date": "2018-09-02T00:00:00", "listens": 120}, {"date": "2018-09-10T00:00:00", "listens": 120}, {"date": "2018-11-15T00:00:00", "listens": 120}, {"date": "2017-07-04T00:00:00", "listens": 120}, {"date": "2019-01-17T00:00:00", "listens": 120}, {"date": "2018-03-06T00:00:00", "listens": 119}, {"date": "2018-10-24T00:00:00", "listens": 118}, {"date": "2019-01-11T00:00:00", "listens": 118}, {"date": "2018-09-12T00:00:00", "listens": 118}, {"date": "2018-10-18T00:00:00", "listens": 117}, {"date": "2018-06-11T00:00:00", "listens": 116}, {"date": "2018-05-25T00:00:00", "listens": 115}, {"date": "2018-11-01T00:00:00", "listens": 114}, {"date": "2017-12-07T00:00:00", "listens": 113}, {"date": "2018-11-06T00:00:00", "listens": 113}, {"date": "2018-03-02T00:00:00", "listens": 112}, {"date": "2018-10-04T00:00:00", "listens": 112}, {"date": "2018-09-03T00:00:00", "listens": 112}, {"date": "2018-09-08T00:00:00", "listens": 111}, {"date": "2018-08-02T00:00:00", "listens": 110}, {"date": "2018-05-09T00:00:00", "listens": 110}, {"date": "2018-02-02T00:00:00", "listens": 109}, {"date": "2018-05-13T00:00:00", "listens": 109}, {"date": "2018-05-14T00:00:00", "listens": 106}, {"date": "2017-09-28T00:00:00", "listens": 106}, {"date": "2018-02-01T00:00:00", "listens": 106}, {"date": "2018-10-13T00:00:00", "listens": 105}, {"date": "2017-11-02T00:00:00", "listens": 105}, {"date": "2019-01-03T00:00:00", "listens": 105}, {"date": "2019-01-07T00:00:00", "listens": 104}, {"date": "2018-06-18T00:00:00", "listens": 103}, {"date": "2017-10-08T00:00:00", "listens": 103}, {"date": "2018-11-12T00:00:00", "listens": 103}, {"date": "2017-11-16T00:00:00", "listens": 103}, {"date": "2017-05-23T00:00:00", "listens": 103}, {"date": "2017-04-21T00:00:00", "listens": 101}, {"date": "2018-07-15T00:00:00", "listens": 100}, {"date": "2018-01-04T00:00:00", "listens": 100}, {"date": "2017-08-23T00:00:00", "listens": 100}, {"date": "2017-09-14T00:00:00", "listens": 100}, {"date": "2018-03-15T00:00:00", "listens": 100}, {"date": "2018-08-29T00:00:00", "listens": 99}, {"date": "2018-07-20T00:00:00", "listens": 99}, {"date": "2018-05-11T00:00:00", "listens": 99}, {"date": "2017-07-08T00:00:00", "listens": 99}, {"date": "2018-03-14T00:00:00", "listens": 99}, {"date": "2018-07-02T00:00:00", "listens": 98}, {"date": "2019-01-16T00:00:00", "listens": 98}, {"date": "2018-12-06T00:00:00", "listens": 98}, {"date": "2017-09-07T00:00:00", "listens": 98}, {"date": "2017-06-29T00:00:00", "listens": 97}, {"date": "2017-10-07T00:00:00", "listens": 97}, {"date": "2018-09-25T00:00:00", "listens": 97}, {"date": "2018-01-20T00:00:00", "listens": 96}, {"date": "2017-08-22T00:00:00", "listens": 96}, {"date": "2018-11-19T00:00:00", "listens": 96}, {"date": "2017-05-18T00:00:00", "listens": 95}, {"date": "2017-06-30T00:00:00", "listens": 95}, {"date": "2018-03-13T00:00:00", "listens": 94}, {"date": "2018-09-17T00:00:00", "listens": 94}, {"date": "2018-12-14T00:00:00", "listens": 93}, {"date": "2018-01-10T00:00:00", "listens": 93}, {"date": "2018-03-03T00:00:00", "listens": 92}, {"date": "2017-10-30T00:00:00", "listens": 91}, {"date": "2018-03-20T00:00:00", "listens": 91}, {"date": "2018-01-11T00:00:00", "listens": 90}, {"date": "2018-09-16T00:00:00", "listens": 89}, {"date": "2018-06-06T00:00:00", "listens": 89}, {"date": "2018-05-03T00:00:00", "listens": 89}, {"date": "2017-07-13T00:00:00", "listens": 89}, {"date": "2018-05-06T00:00:00", "listens": 89}, {"date": "2017-04-26T00:00:00", "listens": 88}, {"date": "2018-10-31T00:00:00", "listens": 88}, {"date": "2018-12-04T00:00:00", "listens": 88}, {"date": "2018-02-09T00:00:00", "listens": 88}, {"date": "2018-06-04T00:00:00", "listens": 87}, {"date": "2017-06-13T00:00:00", "listens": 86}, {"date": "2017-12-01T00:00:00", "listens": 86}, {"date": "2017-06-12T00:00:00", "listens": 86}, {"date": "2018-09-07T00:00:00", "listens": 85}, {"date": "2018-03-27T00:00:00", "listens": 85}, {"date": "2017-02-08T00:00:00", "listens": 85}, {"date": "2018-11-29T00:00:00", "listens": 85}, {"date": "2018-06-24T00:00:00", "listens": 85}, {"date": "2018-02-06T00:00:00", "listens": 85}, {"date": "2018-03-22T00:00:00", "listens": 85}, {"date": "2018-03-23T00:00:00", "listens": 85}, {"date": "2018-05-15T00:00:00", "listens": 84}, {"date": "2018-01-16T00:00:00", "listens": 84}, {"date": "2018-01-23T00:00:00", "listens": 84}, {"date": "2017-09-21T00:00:00", "listens": 84}, {"date": "2018-07-11T00:00:00", "listens": 83}, {"date": "2018-01-15T00:00:00", "listens": 83}, {"date": "2018-08-25T00:00:00", "listens": 82}, {"date": "2018-03-30T00:00:00", "listens": 82}, {"date": "2018-08-30T00:00:00", "listens": 82}, {"date": "2018-06-12T00:00:00", "listens": 82}, {"date": "2018-10-27T00:00:00", "listens": 82}, {"date": "2017-06-22T00:00:00", "listens": 82}, {"date": "2018-09-13T00:00:00", "listens": 81}, {"date": "2018-12-13T00:00:00", "listens": 81}, {"date": "2018-12-17T00:00:00", "listens": 81}, {"date": "2017-07-12T00:00:00", "listens": 81}, {"date": "2018-06-02T00:00:00", "listens": 80}, {"date": "2018-01-26T00:00:00", "listens": 79}, {"date": "2018-02-21T00:00:00", "listens": 79}, {"date": "2017-04-28T00:00:00", "listens": 79}, {"date": "2018-07-13T00:00:00", "listens": 79}, {"date": "2018-01-27T00:00:00", "listens": 79}, {"date": "2018-08-01T00:00:00", "listens": 78}, {"date": "2018-12-20T00:00:00", "listens": 78}, {"date": "2018-04-17T00:00:00", "listens": 78}, {"date": "2019-01-09T00:00:00", "listens": 78}, {"date": "2018-12-27T00:00:00", "listens": 78}, {"date": "2018-01-07T00:00:00", "listens": 78}, {"date": "2017-07-01T00:00:00", "listens": 78}, {"date": "2018-02-13T00:00:00", "listens": 77}, {"date": "2018-02-26T00:00:00", "listens": 77}, {"date": "2017-06-27T00:00:00", "listens": 76}, {"date": "2018-07-04T00:00:00", "listens": 76}, {"date": "2018-12-24T00:00:00", "listens": 76}, {"date": "2018-04-11T00:00:00", "listens": 75}, {"date": "2018-11-05T00:00:00", "listens": 75}, {"date": "2017-09-25T00:00:00", "listens": 74}, {"date": "2017-12-21T00:00:00", "listens": 74}, {"date": "2018-01-18T00:00:00", "listens": 74}, {"date": "2018-04-22T00:00:00", "listens": 74}, {"date": "2017-02-03T00:00:00", "listens": 73}, {"date": "2018-01-30T00:00:00", "listens": 73}, {"date": "2018-12-18T00:00:00", "listens": 73}, {"date": "2017-10-12T00:00:00", "listens": 73}, {"date": "2018-06-20T00:00:00", "listens": 73}, {"date": "2017-04-14T00:00:00", "listens": 73}, {"date": "2017-01-06T00:00:00", "listens": 72}, {"date": "2017-12-09T00:00:00", "listens": 72}, {"date": "2018-09-28T00:00:00", "listens": 72}, {"date": "2018-07-19T00:00:00", "listens": 72}, {"date": "2018-04-12T00:00:00", "listens": 71}, {"date": "2018-03-26T00:00:00", "listens": 71}, {"date": "2018-04-27T00:00:00", "listens": 71}, {"date": "2017-07-20T00:00:00", "listens": 71}, {"date": "2018-06-15T00:00:00", "listens": 70}, {"date": "2018-03-11T00:00:00", "listens": 70}, {"date": "2017-07-07T00:00:00", "listens": 70}, {"date": "2018-03-12T00:00:00", "listens": 70}, {"date": "2018-11-17T00:00:00", "listens": 70}, {"date": "2018-02-16T00:00:00", "listens": 69}, {"date": "2018-09-21T00:00:00", "listens": 69}, {"date": "2017-10-19T00:00:00", "listens": 69}, {"date": "2018-12-08T00:00:00", "listens": 69}, {"date": "2018-06-19T00:00:00", "listens": 69}, {"date": "2018-10-02T00:00:00", "listens": 68}, {"date": "2017-09-11T00:00:00", "listens": 68}, {"date": "2016-12-17T00:00:00", "listens": 68}, {"date": "2017-05-16T00:00:00", "listens": 68}, {"date": "2018-06-22T00:00:00", "listens": 68}, {"date": "2018-01-31T00:00:00", "listens": 67}, {"date": "2017-11-07T00:00:00", "listens": 67}, {"date": "2018-04-25T00:00:00", "listens": 67}, {"date": "2018-04-18T00:00:00", "listens": 66}, {"date": "2018-05-24T00:00:00", "listens": 66}, {"date": "2018-09-24T00:00:00", "listens": 66}, {"date": "2017-09-19T00:00:00", "listens": 66}, {"date": "2018-05-08T00:00:00", "listens": 65}, {"date": "2017-11-13T00:00:00", "listens": 65}, {"date": "2017-10-26T00:00:00", "listens": 65}, {"date": "2018-09-30T00:00:00", "listens": 65}, {"date": "2018-02-05T00:00:00", "listens": 65}, {"date": "2016-10-28T00:00:00", "listens": 64}, {"date": "2017-05-30T00:00:00", "listens": 63}, {"date": "2018-08-03T00:00:00", "listens": 63}, {"date": "2017-10-16T00:00:00", "listens": 62}, {"date": "2018-01-17T00:00:00", "listens": 62}, {"date": "2017-08-28T00:00:00", "listens": 62}, {"date": "2018-06-17T00:00:00", "listens": 62}, {"date": "2018-04-20T00:00:00", "listens": 62}, {"date": "2018-04-03T00:00:00", "listens": 61}, {"date": "2017-05-04T00:00:00", "listens": 61}, {"date": "2017-06-16T00:00:00", "listens": 61}, {"date": "2018-06-25T00:00:00", "listens": 61}, {"date": "2018-01-25T00:00:00", "listens": 61}, {"date": "2018-12-05T00:00:00", "listens": 61}, {"date": "2017-06-14T00:00:00", "listens": 60}, {"date": "2017-04-11T00:00:00", "listens": 60}, {"date": "2018-03-19T00:00:00", "listens": 60}, {"date": "2018-11-30T00:00:00", "listens": 60}, {"date": "2018-08-31T00:00:00", "listens": 60}, {"date": "2018-08-12T00:00:00", "listens": 60}, {"date": "2018-05-17T00:00:00", "listens": 60}, {"date": "2018-07-17T00:00:00", "listens": 59}, {"date": "2018-02-07T00:00:00", "listens": 59}, {"date": "2019-01-14T00:00:00", "listens": 59}, {"date": "2017-12-08T00:00:00", "listens": 58}, {"date": "2017-05-28T00:00:00", "listens": 58}, {"date": "2017-06-01T00:00:00", "listens": 58}, {"date": "2018-12-15T00:00:00", "listens": 58}, {"date": "2017-12-12T00:00:00", "listens": 58}, {"date": "2019-01-18T00:00:00", "listens": 58}, {"date": "2016-01-16T00:00:00", "listens": 58}, {"date": "2017-12-25T00:00:00", "listens": 58}, {"date": "2018-04-19T00:00:00", "listens": 57}, {"date": "2018-12-16T00:00:00", "listens": 57}, {"date": "2019-01-04T00:00:00", "listens": 56}, {"date": "2018-01-19T00:00:00", "listens": 56}, {"date": "2016-09-30T00:00:00", "listens": 55}, {"date": "2017-06-04T00:00:00", "listens": 55}, {"date": "2017-08-29T00:00:00", "listens": 55}, {"date": "2017-02-02T00:00:00", "listens": 55}, {"date": "2017-11-08T00:00:00", "listens": 55}, {"date": "2018-10-19T00:00:00", "listens": 54}, {"date": "2018-06-08T00:00:00", "listens": 54}, {"date": "2018-02-14T00:00:00", "listens": 54}, {"date": "2018-06-29T00:00:00", "listens": 54}, {"date": "2017-09-02T00:00:00", "listens": 54}, {"date": "2016-12-21T00:00:00", "listens": 52}, {"date": "2017-09-09T00:00:00", "listens": 52}, {"date": "2018-01-21T00:00:00", "listens": 52}, {"date": "2018-01-22T00:00:00", "listens": 52}, {"date": "2018-04-10T00:00:00", "listens": 52}, {"date": "2018-05-10T00:00:00", "listens": 52}, {"date": "2018-05-23T00:00:00", "listens": 51}, {"date": "2017-08-19T00:00:00", "listens": 51}, {"date": "2018-12-09T00:00:00", "listens": 51}, {"date": "2017-11-23T00:00:00", "listens": 51}, {"date": "2018-04-13T00:00:00", "listens": 51}, {"date": "2017-10-03T00:00:00", "listens": 50}, {"date": "2018-05-28T00:00:00", "listens": 50}, {"date": "2017-04-23T00:00:00", "listens": 50}, {"date": "2018-04-14T00:00:00", "listens": 50}, {"date": "2017-06-08T00:00:00", "listens": 50}, {"date": "2018-01-29T00:00:00", "listens": 50}, {"date": "2018-01-08T00:00:00", "listens": 50}, {"date": "2018-08-05T00:00:00", "listens": 50}, {"date": "2018-06-03T00:00:00", "listens": 50}, {"date": "2017-12-02T00:00:00", "listens": 49}, {"date": "2017-12-27T00:00:00", "listens": 49}, {"date": "2017-05-27T00:00:00", "listens": 49}, {"date": "2017-06-07T00:00:00", "listens": 49}, {"date": "2017-12-14T00:00:00", "listens": 49}, {"date": "2018-11-03T00:00:00", "listens": 49}, {"date": "2017-10-23T00:00:00", "listens": 48}, {"date": "2018-05-16T00:00:00", "listens": 48}, {"date": "2018-07-26T00:00:00", "listens": 48}, {"date": "2017-07-06T00:00:00", "listens": 48}, {"date": "2017-07-25T00:00:00", "listens": 48}, {"date": "2018-10-05T00:00:00", "listens": 47}, {"date": "2017-07-14T00:00:00", "listens": 47}, {"date": "2017-08-11T00:00:00", "listens": 47}, {"date": "2018-05-20T00:00:00", "listens": 47}, {"date": "2018-12-11T00:00:00", "listens": 46}, {"date": "2018-08-13T00:00:00", "listens": 46}, {"date": "2017-11-27T00:00:00", "listens": 46}, {"date": "2017-07-05T00:00:00", "listens": 46}, {"date": "2017-04-19T00:00:00", "listens": 46}, {"date": "2018-11-20T00:00:00", "listens": 46}, {"date": "2017-12-11T00:00:00", "listens": 46}, {"date": "2017-05-12T00:00:00", "listens": 46}, {"date": "2017-04-17T00:00:00", "listens": 46}, {"date": "2017-11-15T00:00:00", "listens": 46}, {"date": "2017-04-10T00:00:00", "listens": 46}, {"date": "2018-07-05T00:00:00", "listens": 45}, {"date": "2017-05-25T00:00:00", "listens": 45}, {"date": "2017-09-18T00:00:00", "listens": 45}, {"date": "2018-02-03T00:00:00", "listens": 45}, {"date": "2018-08-26T00:00:00", "listens": 45}, {"date": "2017-04-12T00:00:00", "listens": 45}, {"date": "2017-04-20T00:00:00", "listens": 45}, {"date": "2018-04-02T00:00:00", "listens": 44}, {"date": "2017-06-18T00:00:00", "listens": 44}, {"date": "2018-08-20T00:00:00", "listens": 44}, {"date": "2017-12-06T00:00:00", "listens": 44}, {"date": "2017-06-03T00:00:00", "listens": 44}, {"date": "2017-07-11T00:00:00", "listens": 43}, {"date": "2018-10-07T00:00:00", "listens": 43}, {"date": "2018-01-24T00:00:00", "listens": 43}, {"date": "2017-06-23T00:00:00", "listens": 43}, {"date": "2018-09-20T00:00:00", "listens": 43}, {"date": "2018-07-18T00:00:00", "listens": 43}, {"date": "2018-08-08T00:00:00", "listens": 43}, {"date": "2017-12-24T00:00:00", "listens": 43}, {"date": "2017-12-31T00:00:00", "listens": 43}, {"date": "2017-10-28T00:00:00", "listens": 43}, {"date": "2018-07-27T00:00:00", "listens": 42}, {"date": "2017-01-03T00:00:00", "listens": 42}, {"date": "2017-10-31T00:00:00", "listens": 42}, {"date": "2017-10-14T00:00:00", "listens": 42}, {"date": "2018-04-05T00:00:00", "listens": 42}, {"date": "2017-12-26T00:00:00", "listens": 42}, {"date": "2017-08-24T00:00:00", "listens": 41}, {"date": "2018-06-14T00:00:00", "listens": 41}, {"date": "2018-02-17T00:00:00", "listens": 41}, {"date": "2018-09-01T00:00:00", "listens": 41}, {"date": "2018-05-07T00:00:00", "listens": 41}, {"date": "2018-09-14T00:00:00", "listens": 41}, {"date": "2018-03-28T00:00:00", "listens": 41}, {"date": "2017-09-04T00:00:00", "listens": 41}, {"date": "2017-08-21T00:00:00", "listens": 40}, {"date": "2017-12-04T00:00:00", "listens": 40}, {"date": "2018-08-24T00:00:00", "listens": 40}, {"date": "2018-05-05T00:00:00", "listens": 40}, {"date": "2016-10-18T00:00:00", "listens": 39}, {"date": "2017-04-04T00:00:00", "listens": 39}, {"date": "2018-07-07T00:00:00", "listens": 39}, {"date": "2017-06-15T00:00:00", "listens": 39}, {"date": "2017-03-27T00:00:00", "listens": 38}, {"date": "2017-10-22T00:00:00", "listens": 38}, {"date": "2016-07-04T00:00:00", "listens": 38}, {"date": "2017-10-04T00:00:00", "listens": 38}, {"date": "2018-07-14T00:00:00", "listens": 38}, {"date": "2017-02-27T00:00:00", "listens": 37}, {"date": "2018-03-21T00:00:00", "listens": 37}, {"date": "2018-04-23T00:00:00", "listens": 37}, {"date": "2018-05-31T00:00:00", "listens": 37}, {"date": "2017-05-08T00:00:00", "listens": 37}, {"date": "2017-11-21T00:00:00", "listens": 37}, {"date": "2017-12-05T00:00:00", "listens": 37}, {"date": "2017-08-26T00:00:00", "listens": 37}, {"date": "2017-09-26T00:00:00", "listens": 37}, {"date": "2017-06-28T00:00:00", "listens": 37}, {"date": "2017-12-20T00:00:00", "listens": 37}, {"date": "2018-08-22T00:00:00", "listens": 36}, {"date": "2017-05-29T00:00:00", "listens": 36}, {"date": "2018-05-30T00:00:00", "listens": 36}, {"date": "2018-10-30T00:00:00", "listens": 36}, {"date": "2018-06-05T00:00:00", "listens": 36}, {"date": "2018-02-23T00:00:00", "listens": 36}, {"date": "2018-06-28T00:00:00", "listens": 36}, {"date": "2018-11-09T00:00:00", "listens": 36}, {"date": "2017-05-10T00:00:00", "listens": 36}, {"date": "2017-10-02T00:00:00", "listens": 36}, {"date": "2017-06-25T00:00:00", "listens": 35}, {"date": "2016-10-20T00:00:00", "listens": 35}, {"date": "2018-02-08T00:00:00", "listens": 35}, {"date": "2017-03-28T00:00:00", "listens": 35}, {"date": "2017-11-20T00:00:00", "listens": 35}, {"date": "2018-07-12T00:00:00", "listens": 35}, {"date": "2018-04-08T00:00:00", "listens": 35}, {"date": "2018-06-10T00:00:00", "listens": 34}, {"date": "2017-07-03T00:00:00", "listens": 34}, {"date": "2019-01-13T00:00:00", "listens": 33}, {"date": "2017-09-16T00:00:00", "listens": 33}, {"date": "2018-02-19T00:00:00", "listens": 33}, {"date": "2018-05-22T00:00:00", "listens": 33}, {"date": "2018-12-26T00:00:00", "listens": 33}, {"date": "2017-12-19T00:00:00", "listens": 33}, {"date": "2018-10-29T00:00:00", "listens": 33}, {"date": "2017-10-11T00:00:00", "listens": 33}, {"date": "2017-11-22T00:00:00", "listens": 33}, {"date": "2017-03-14T00:00:00", "listens": 33}, {"date": "2017-09-22T00:00:00", "listens": 32}, {"date": "2016-06-29T00:00:00", "listens": 32}, {"date": "2018-08-14T00:00:00", "listens": 32}, {"date": "2017-07-15T00:00:00", "listens": 32}, {"date": "2018-12-02T00:00:00", "listens": 32}, {"date": "2018-08-21T00:00:00", "listens": 32}, {"date": "2017-01-05T00:00:00", "listens": 32}, {"date": "2018-06-09T00:00:00", "listens": 32}, {"date": "2018-11-16T00:00:00", "listens": 32}, {"date": "2018-03-10T00:00:00", "listens": 31}, {"date": "2017-05-05T00:00:00", "listens": 31}, {"date": "2018-12-28T00:00:00", "listens": 31}, {"date": "2017-05-15T00:00:00", "listens": 31}, {"date": "2018-05-29T00:00:00", "listens": 31}, {"date": "2018-04-16T00:00:00", "listens": 30}, {"date": "2018-04-07T00:00:00", "listens": 30}, {"date": "2017-07-18T00:00:00", "listens": 30}, {"date": "2016-12-23T00:00:00", "listens": 30}, {"date": "2017-09-27T00:00:00", "listens": 30}, {"date": "2017-12-17T00:00:00", "listens": 29}, {"date": "2018-12-03T00:00:00", "listens": 29}, {"date": "2017-08-09T00:00:00", "listens": 29}, {"date": "2017-02-23T00:00:00", "listens": 29}, {"date": "2018-11-25T00:00:00", "listens": 29}, {"date": "2017-06-17T00:00:00", "listens": 29}, {"date": "2018-06-07T00:00:00", "listens": 29}, {"date": "2017-03-07T00:00:00", "listens": 29}, {"date": "2018-12-25T00:00:00", "listens": 29}, {"date": "2018-02-22T00:00:00", "listens": 29}, {"date": "2018-03-17T00:00:00", "listens": 29}, {"date": "2018-10-06T00:00:00", "listens": 29}, {"date": "2017-11-09T00:00:00", "listens": 29}, {"date": "2017-11-30T00:00:00", "listens": 29}, {"date": "2018-07-24T00:00:00", "listens": 29}, {"date": "2017-12-29T00:00:00", "listens": 28}, {"date": "2018-02-20T00:00:00", "listens": 28}, {"date": "2017-11-14T00:00:00", "listens": 28}, {"date": "2018-07-06T00:00:00", "listens": 28}, {"date": "2019-01-19T00:00:00", "listens": 28}, {"date": "2017-07-02T00:00:00", "listens": 28}, {"date": "2017-04-13T00:00:00", "listens": 28}, {"date": "2018-08-06T00:00:00", "listens": 28}, {"date": "2017-10-20T00:00:00", "listens": 28}, {"date": "2018-08-19T00:00:00", "listens": 28}, {"date": "2018-06-16T00:00:00", "listens": 28}, {"date": "2017-10-13T00:00:00", "listens": 28}, {"date": "2018-02-04T00:00:00", "listens": 27}, {"date": "2018-08-11T00:00:00", "listens": 27}, {"date": "2017-06-20T00:00:00", "listens": 27}, {"date": "2017-12-22T00:00:00", "listens": 27}, {"date": "2017-11-18T00:00:00", "listens": 27}, {"date": "2016-10-25T00:00:00", "listens": 27}, {"date": "2018-09-23T00:00:00", "listens": 26}, {"date": "2019-01-06T00:00:00", "listens": 26}, {"date": "2017-07-16T00:00:00", "listens": 26}, {"date": "2019-01-12T00:00:00", "listens": 26}, {"date": "2018-01-03T00:00:00", "listens": 26}, {"date": "2017-06-19T00:00:00", "listens": 26}, {"date": "2016-11-05T00:00:00", "listens": 26}, {"date": "2018-11-04T00:00:00", "listens": 26}, {"date": "2018-01-01T00:00:00", "listens": 26}, {"date": "2017-10-24T00:00:00", "listens": 26}, {"date": "2017-10-10T00:00:00", "listens": 26}, {"date": "2017-09-05T00:00:00", "listens": 25}, {"date": "2013-10-11T00:00:00", "listens": 25}, {"date": "2017-05-06T00:00:00", "listens": 25}, {"date": "2017-12-10T00:00:00", "listens": 25}, {"date": "2017-07-17T00:00:00", "listens": 25}, {"date": "2017-10-18T00:00:00", "listens": 25}, {"date": "2017-09-03T00:00:00", "listens": 25}, {"date": "2018-07-30T00:00:00", "listens": 25}, {"date": "2018-05-26T00:00:00", "listens": 25}, {"date": "2017-09-08T00:00:00", "listens": 25}, {"date": "2018-05-02T00:00:00", "listens": 25}, {"date": "2018-12-21T00:00:00", "listens": 24}, {"date": "2017-11-04T00:00:00", "listens": 24}, {"date": "2017-12-28T00:00:00", "listens": 24}, {"date": "2016-12-06T00:00:00", "listens": 24}, {"date": "2018-11-23T00:00:00", "listens": 24}, {"date": "2018-02-24T00:00:00", "listens": 24}, {"date": "2017-10-09T00:00:00", "listens": 24}, {"date": "2018-06-13T00:00:00", "listens": 24}, {"date": "2018-01-02T00:00:00", "listens": 23}, {"date": "2017-12-30T00:00:00", "listens": 23}, {"date": "2017-04-22T00:00:00", "listens": 23}, {"date": "2017-10-25T00:00:00", "listens": 23}, {"date": "2018-05-01T00:00:00", "listens": 23}, {"date": "2019-01-01T00:00:00", "listens": 23}, {"date": "2017-04-27T00:00:00", "listens": 23}, {"date": "2017-09-20T00:00:00", "listens": 23}, {"date": "2018-01-13T00:00:00", "listens": 23}, {"date": "2018-07-25T00:00:00", "listens": 23}, {"date": "2017-11-28T00:00:00", "listens": 22}, {"date": "2013-10-09T00:00:00", "listens": 22}, {"date": "2017-02-20T00:00:00", "listens": 22}, {"date": "2018-09-22T00:00:00", "listens": 22}, {"date": "2018-02-15T00:00:00", "listens": 22}, {"date": "2017-01-07T00:00:00", "listens": 22}, {"date": "2016-11-13T00:00:00", "listens": 22}, {"date": "2017-02-26T00:00:00", "listens": 21}, {"date": "2017-10-05T00:00:00", "listens": 21}, {"date": "2018-02-12T00:00:00", "listens": 21}, {"date": "2018-10-14T00:00:00", "listens": 21}, {"date": "2017-11-05T00:00:00", "listens": 21}, {"date": "2017-07-24T00:00:00", "listens": 21}, {"date": "2018-03-04T00:00:00", "listens": 21}, {"date": "2018-07-16T00:00:00", "listens": 21}, {"date": "2015-04-11T00:00:00", "listens": 21}, {"date": "2013-10-10T00:00:00", "listens": 21}, {"date": "2016-11-03T00:00:00", "listens": 20}, {"date": "2015-11-20T00:00:00", "listens": 20}, {"date": "2018-03-24T00:00:00", "listens": 20}, {"date": "2017-02-01T00:00:00", "listens": 20}, {"date": "2017-06-21T00:00:00", "listens": 20}, {"date": "2017-04-03T00:00:00", "listens": 20}, {"date": "2018-06-30T00:00:00", "listens": 20}, {"date": "2017-08-27T00:00:00", "listens": 20}, {"date": "2017-09-12T00:00:00", "listens": 20}, {"date": "2019-01-05T00:00:00", "listens": 20}, {"date": "2017-09-17T00:00:00", "listens": 20}, {"date": "2015-12-30T00:00:00", "listens": 20}, {"date": "2018-04-09T00:00:00", "listens": 20}, {"date": "2017-11-29T00:00:00", "listens": 19}, {"date": "2016-11-20T00:00:00", "listens": 19}, {"date": "2018-04-29T00:00:00", "listens": 19}, {"date": "2018-12-30T00:00:00", "listens": 19}, {"date": "2017-09-29T00:00:00", "listens": 19}, {"date": "2017-03-04T00:00:00", "listens": 19}, {"date": "2018-08-18T00:00:00", "listens": 19}, {"date": "2017-11-06T00:00:00", "listens": 18}, {"date": "2017-10-17T00:00:00", "listens": 18}, {"date": "2018-12-31T00:00:00", "listens": 18}, {"date": "2017-11-03T00:00:00", "listens": 18}, {"date": "2016-09-21T00:00:00", "listens": 18}, {"date": "2018-01-09T00:00:00", "listens": 18}, {"date": "2018-11-11T00:00:00", "listens": 18}, {"date": "2018-03-01T00:00:00", "listens": 18}, {"date": "2017-05-09T00:00:00", "listens": 18}, {"date": "2017-04-05T00:00:00", "listens": 18}, {"date": "2018-07-31T00:00:00", "listens": 17}, {"date": "2017-08-20T00:00:00", "listens": 17}, {"date": "2015-11-24T00:00:00", "listens": 17}, {"date": "2017-11-25T00:00:00", "listens": 17}, {"date": "2017-03-13T00:00:00", "listens": 17}, {"date": "2017-06-24T00:00:00", "listens": 17}, {"date": "2016-09-23T00:00:00", "listens": 17}, {"date": "2018-08-23T00:00:00", "listens": 17}, {"date": "2017-09-06T00:00:00", "listens": 17}, {"date": "2017-04-16T00:00:00", "listens": 17}, {"date": "2018-06-27T00:00:00", "listens": 17}, {"date": "2018-10-21T00:00:00", "listens": 17}, {"date": "2017-09-24T00:00:00", "listens": 17}, {"date": "2016-12-08T00:00:00", "listens": 17}, {"date": "2017-11-17T00:00:00", "listens": 17}, {"date": "2016-11-24T00:00:00", "listens": 17}, {"date": "2016-10-04T00:00:00", "listens": 17}, {"date": "2018-08-10T00:00:00", "listens": 17}, {"date": "2019-01-20T00:00:00", "listens": 17}, {"date": "2018-09-29T00:00:00", "listens": 17}, {"date": "2017-03-21T00:00:00", "listens": 16}, {"date": "2018-08-28T00:00:00", "listens": 16}, {"date": "2018-02-28T00:00:00", "listens": 16}, {"date": "2017-08-03T00:00:00", "listens": 16}, {"date": "2017-07-21T00:00:00", "listens": 16}, {"date": "2015-11-25T00:00:00", "listens": 16}, {"date": "2018-12-29T00:00:00", "listens": 16}, {"date": "2017-05-14T00:00:00", "listens": 15}, {"date": "2018-05-21T00:00:00", "listens": 15}, {"date": "2016-09-16T00:00:00", "listens": 15}, {"date": "2017-12-16T00:00:00", "listens": 15}, {"date": "2017-12-23T00:00:00", "listens": 15}, {"date": "2017-04-06T00:00:00", "listens": 15}, {"date": "2016-10-07T00:00:00", "listens": 15}, {"date": "2017-04-18T00:00:00", "listens": 15}, {"date": "2016-12-15T00:00:00", "listens": 14}, {"date": "2016-12-25T00:00:00", "listens": 14}, {"date": "2017-12-18T00:00:00", "listens": 14}, {"date": "2016-01-08T00:00:00", "listens": 14}, {"date": "2017-07-19T00:00:00", "listens": 14}, {"date": "2016-10-26T00:00:00", "listens": 14}, {"date": "2018-01-05T00:00:00", "listens": 14}, {"date": "2015-11-19T00:00:00", "listens": 13}, {"date": "2017-12-13T00:00:00", "listens": 13}, {"date": "2017-01-27T00:00:00", "listens": 13}, {"date": "2018-12-01T00:00:00", "listens": 13}, {"date": "2016-12-11T00:00:00", "listens": 13}, {"date": "2018-03-31T00:00:00", "listens": 13}, {"date": "2017-05-20T00:00:00", "listens": 13}, {"date": "2015-12-03T00:00:00", "listens": 13}, {"date": "2018-04-24T00:00:00", "listens": 13}, {"date": "2018-10-15T00:00:00", "listens": 13}, {"date": "2017-08-30T00:00:00", "listens": 13}, {"date": "2015-11-17T00:00:00", "listens": 13}, {"date": "2018-06-26T00:00:00", "listens": 13}, {"date": "2017-07-27T00:00:00", "listens": 13}, {"date": "2018-07-22T00:00:00", "listens": 13}, {"date": "2017-02-28T00:00:00", "listens": 12}, {"date": "2016-06-30T00:00:00", "listens": 12}, {"date": "2017-07-26T00:00:00", "listens": 12}, {"date": "2018-07-23T00:00:00", "listens": 12}, {"date": "2018-11-22T00:00:00", "listens": 12}, {"date": "2015-10-21T00:00:00", "listens": 12}, {"date": "2018-04-28T00:00:00", "listens": 12}, {"date": "2018-12-23T00:00:00", "listens": 12}, {"date": "2017-08-06T00:00:00", "listens": 12}, {"date": "2018-08-04T00:00:00", "listens": 12}, {"date": "2018-09-09T00:00:00", "listens": 12}, {"date": "2016-07-05T00:00:00", "listens": 12}, {"date": "2017-06-11T00:00:00", "listens": 12}, {"date": "2018-08-15T00:00:00", "listens": 11}, {"date": "2018-04-30T00:00:00", "listens": 11}, {"date": "2018-11-24T00:00:00", "listens": 11}, {"date": "2014-08-18T00:00:00", "listens": 11}, {"date": "2016-10-05T00:00:00", "listens": 11}, {"date": "2017-01-19T00:00:00", "listens": 11}, {"date": "2017-09-30T00:00:00", "listens": 11}, {"date": "2017-07-09T00:00:00", "listens": 11}, {"date": "2013-10-22T00:00:00", "listens": 11}, {"date": "2017-10-01T00:00:00", "listens": 11}, {"date": "2013-10-12T00:00:00", "listens": 11}, {"date": "2018-02-11T00:00:00", "listens": 10}, {"date": "2018-03-18T00:00:00", "listens": 10}, {"date": "2016-09-27T00:00:00", "listens": 10}, {"date": "2017-04-24T00:00:00", "listens": 10}, {"date": "2017-07-23T00:00:00", "listens": 10}, {"date": "2017-01-28T00:00:00", "listens": 10}, {"date": "2017-10-15T00:00:00", "listens": 10}, {"date": "2015-12-08T00:00:00", "listens": 10}, {"date": "2017-01-04T00:00:00", "listens": 10}, {"date": "2018-03-29T00:00:00", "listens": 10}, {"date": "2017-08-31T00:00:00", "listens": 10}, {"date": "2017-08-05T00:00:00", "listens": 10}, {"date": "2018-06-23T00:00:00", "listens": 10}, {"date": "2017-07-28T00:00:00", "listens": 10}, {"date": "2017-08-13T00:00:00", "listens": 10}, {"date": "2017-08-16T00:00:00", "listens": 10}, {"date": "2017-11-26T00:00:00", "listens": 10}, {"date": "2018-07-29T00:00:00", "listens": 10}, {"date": "2018-10-20T00:00:00", "listens": 10}, {"date": "2013-10-14T00:00:00", "listens": 9}, {"date": "2017-09-23T00:00:00", "listens": 9}, {"date": "2018-09-15T00:00:00", "listens": 9}, {"date": "2016-07-14T00:00:00", "listens": 9}, {"date": "2016-08-17T00:00:00", "listens": 9}, {"date": "2017-02-25T00:00:00", "listens": 9}, {"date": "2017-07-22T00:00:00", "listens": 9}, {"date": "2016-08-14T00:00:00", "listens": 9}, {"date": "2017-04-15T00:00:00", "listens": 9}, {"date": "2015-12-13T00:00:00", "listens": 8}, {"date": "2016-12-14T00:00:00", "listens": 8}, {"date": "2017-07-31T00:00:00", "listens": 8}, {"date": "2018-01-28T00:00:00", "listens": 8}, {"date": "2017-08-02T00:00:00", "listens": 8}, {"date": "2018-08-17T00:00:00", "listens": 8}, {"date": "2015-07-15T00:00:00", "listens": 8}, {"date": "2017-10-21T00:00:00", "listens": 8}, {"date": "2018-04-26T00:00:00", "listens": 8}, {"date": "2016-01-09T00:00:00", "listens": 8}, {"date": "2017-04-07T00:00:00", "listens": 8}, {"date": "2016-01-31T00:00:00", "listens": 8}, {"date": "2013-10-13T00:00:00", "listens": 8}, {"date": "2018-03-25T00:00:00", "listens": 8}, {"date": "2017-05-11T00:00:00", "listens": 7}, {"date": "2018-04-15T00:00:00", "listens": 7}, {"date": "2017-06-02T00:00:00", "listens": 7}, {"date": "2017-08-01T00:00:00", "listens": 7}, {"date": "2017-10-29T00:00:00", "listens": 7}, {"date": "2016-09-22T00:00:00", "listens": 7}, {"date": "2016-02-23T00:00:00", "listens": 7}, {"date": "2016-12-19T00:00:00", "listens": 7}, {"date": "2018-04-01T00:00:00", "listens": 7}, {"date": "2017-07-29T00:00:00", "listens": 7}, {"date": "2013-10-18T00:00:00", "listens": 6}, {"date": "2018-12-22T00:00:00", "listens": 6}, {"date": "2018-11-10T00:00:00", "listens": 6}, {"date": "2017-08-12T00:00:00", "listens": 6}, {"date": "2016-10-08T00:00:00", "listens": 6}, {"date": "2017-04-09T00:00:00", "listens": 6}, {"date": "2017-08-10T00:00:00", "listens": 6}, {"date": "2017-04-29T00:00:00", "listens": 6}, {"date": "2016-10-15T00:00:00", "listens": 6}, {"date": "2017-09-10T00:00:00", "listens": 6}, {"date": "2017-11-19T00:00:00", "listens": 6}, {"date": "2015-05-03T00:00:00", "listens": 6}, {"date": "2016-10-13T00:00:00", "listens": 6}, {"date": "2015-12-09T00:00:00", "listens": 5}, {"date": "2017-01-21T00:00:00", "listens": 5}, {"date": "2018-05-19T00:00:00", "listens": 5}, {"date": "2017-11-01T00:00:00", "listens": 5}, {"date": "2018-01-14T00:00:00", "listens": 5}, {"date": "2017-03-11T00:00:00", "listens": 5}, {"date": "2017-07-30T00:00:00", "listens": 5}, {"date": "2018-11-18T00:00:00", "listens": 4}, {"date": "2016-10-03T00:00:00", "listens": 4}, {"date": "2016-10-11T00:00:00", "listens": 4}, {"date": "2016-01-20T00:00:00", "listens": 4}, {"date": "2017-12-03T00:00:00", "listens": 4}, {"date": "2017-08-08T00:00:00", "listens": 4}, {"date": "2016-10-16T00:00:00", "listens": 4}, {"date": "2017-11-12T00:00:00", "listens": 4}, {"date": "2015-12-14T00:00:00", "listens": 4}, {"date": "2017-05-26T00:00:00", "listens": 4}, {"date": "2016-09-24T00:00:00", "listens": 4}, {"date": "2017-03-15T00:00:00", "listens": 4}, {"date": "2016-12-12T00:00:00", "listens": 4}, {"date": "2017-05-07T00:00:00", "listens": 4}, {"date": "2016-04-18T00:00:00", "listens": 4}, {"date": "2017-08-25T00:00:00", "listens": 3}, {"date": "2017-08-04T00:00:00", "listens": 3}, {"date": "2017-05-03T00:00:00", "listens": 3}, {"date": "2018-02-10T00:00:00", "listens": 3}, {"date": "2017-09-13T00:00:00", "listens": 3}, {"date": "2016-09-28T00:00:00", "listens": 3}, {"date": "2017-10-06T00:00:00", "listens": 3}, {"date": "2017-02-04T00:00:00", "listens": 3}, {"date": "2017-05-17T00:00:00", "listens": 3}, {"date": "2017-06-05T00:00:00", "listens": 3}, {"date": "2017-02-17T00:00:00", "listens": 3}, {"date": "2016-07-06T00:00:00", "listens": 3}, {"date": "2016-05-17T00:00:00", "listens": 3}, {"date": "2018-02-25T00:00:00", "listens": 2}, {"date": "2013-10-19T00:00:00", "listens": 2}, {"date": "2016-01-18T00:00:00", "listens": 2}, {"date": "2014-08-19T00:00:00", "listens": 2}, {"date": "2015-12-18T00:00:00", "listens": 2}, {"date": "2016-11-11T00:00:00", "listens": 2}, {"date": "2016-10-31T00:00:00", "listens": 2}, {"date": "2015-05-06T00:00:00", "listens": 2}, {"date": "2018-08-16T00:00:00", "listens": 2}, {"date": "2017-04-30T00:00:00", "listens": 2}, {"date": "2013-12-27T00:00:00", "listens": 2}, {"date": "2015-11-27T00:00:00", "listens": 2}, {"date": "2015-10-23T00:00:00", "listens": 2}, {"date": "2017-11-24T00:00:00", "listens": 1}, {"date": "2016-01-14T00:00:00", "listens": 1}, {"date": "2017-03-24T00:00:00", "listens": 1}, {"date": "2015-11-18T00:00:00", "listens": 1}, {"date": "2016-10-22T00:00:00", "listens": 1}, {"date": "2018-02-18T00:00:00", "listens": 1}, {"date": "2016-05-12T00:00:00", "listens": 1}, {"date": "2016-10-02T00:00:00", "listens": 1}, {"date": "2017-08-17T00:00:00", "listens": 1}, {"date": "2017-05-13T00:00:00", "listens": 1}, {"date": "2016-01-19T00:00:00", "listens": 1}, {"date": "2018-07-01T00:00:00", "listens": 1}, {"date": "2016-12-20T00:00:00", "listens": 1}, {"date": "2017-05-31T00:00:00", "listens": 1}, {"date": "2016-12-02T00:00:00", "listens": 1}, {"date": "2017-01-29T00:00:00", "listens": 1}, {"date": "2017-03-22T00:00:00", "listens": 1}, {"date": "2016-10-21T00:00:00", "listens": 1}, {"date": "2017-05-01T00:00:00", "listens": 1}, {"date": "2017-05-22T00:00:00", "listens": 1}, {"date": "2016-01-13T00:00:00", "listens": 1}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>In the plots above you see my total songs listened. It immediately becomes clear that I got my data in early 2019, given the drop in 2019 and lack of data in 2020. But what is interesting is the steady increasing line the previous years. It shows that I slowly started using spotify more and more. The start coincides with when I started paying for Spotify as well, which is not very surprising (Yay for no ads and song selection 🤗).</p>
+<p>When looking at the number of songs per month, we can still see a decline in listening activity since the spike at October 2018. The peak that ranges from September 2018 to November 2018 can be explained by me starting a new internship where I was playing spotify while working the whole day. In October my total songs listened more than doubled compared to only two months earlier (1615 to 3273 songs played).</p>
+<p>Furthermore, we can see that I also used Spotify for a short while in 2016, but stopped using it again for about a year. Then I picked it up again in 2017 and never stopped using it afterwards. This is likely because I was using the web version of Spotify for a while, where you can use adblock to block the ads. But not being able to use it on your phone reduced the utility of Spotify pretty significantly, so I switched back over to my previous way, which was a combination of Poweramp and Google Play Music.</p>
+</section>
+<section id="daily-behaviour" class="level1">
+<h1>Daily behaviour 🕺</h1>
+<p>Well, I’m already learning a lot about Altair, cause creating this plot in its current form easily took three hours. Altair does not like it when you aggregate a value in several places. <em>But</em> the result is also quite a nice visual. I plotted the daily distribution per hours per year. Now, the value is the sum of the whole year, so it’s no wonder that the differences are really similar to what we say in the yearly distribution. More interesting would be the percentage per hour per year, which would tell me something about my listening behaviour throughout the years.</p>
+<p><em>The yearly visuals only show 2016 till 2019, because the others years don’t have enough data.</em></p>
+<div class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="9">
+
+<div id="altair-viz-2db76e8fed5e40c7a4da74da6c89da2d"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-2db76e8fed5e40c7a4da74da6c89da2d") {
+      outputDiv = document.getElementById("altair-viz-2db76e8fed5e40c7a4da74da6c89da2d");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"usermeta": {"embedOptions": {"theme": "latimes"}}, "config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "vconcat": [{"layer": [{"mark": "line", "encoding": {"color": {"type": "nominal", "field": "year"}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "title": "Sum of listens per hour per year", "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}]}, {"mark": {"type": "rule", "color": "#aaa"}, "encoding": {"x": {"type": "ordinal", "field": "hour"}}, "transform": [{"filter": {"selection": "selector001"}}]}, {"mark": "circle", "encoding": {"color": {"type": "nominal", "field": "year"}, "opacity": {"condition": {"value": 1, "selection": "selector001"}, "value": 0}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "selection": {"selector001": {"type": "single", "encodings": ["x"], "on": "mouseover", "nearest": true, "empty": "none"}}, "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5, "stroke": "white", "strokeWidth": 2}, "encoding": {"color": {"type": "nominal", "field": "year"}, "text": {"type": "quantitative", "aggregate": "sum", "field": "count"}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}, {"filter": {"selection": "selector001"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"color": {"type": "nominal", "field": "year"}, "text": {"type": "quantitative", "aggregate": "sum", "field": "count"}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}, {"filter": {"selection": "selector001"}}]}], "data": {"name": "data-0187552695ff6798193cfef9dfa2651e"}, "height": 200, "width": 640}, {"layer": [{"mark": "line", "encoding": {"color": {"type": "nominal", "field": "year"}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "title": "Percentage of listens per hour per year", "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}]}, {"mark": {"type": "rule", "color": "#aaa"}, "encoding": {"x": {"type": "ordinal", "field": "hour"}}, "transform": [{"filter": {"selection": "selector001"}}]}, {"mark": "circle", "encoding": {"color": {"type": "nominal", "field": "year"}, "opacity": {"condition": {"value": 1, "selection": "selector001"}, "value": 0}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "selection": {"selector001": {"type": "single", "encodings": ["x"], "on": "mouseover", "nearest": true, "empty": "none"}}, "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5, "stroke": "white", "strokeWidth": 2}, "encoding": {"color": {"type": "nominal", "field": "year"}, "text": {"type": "quantitative", "aggregate": "sum", "field": "count"}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}, {"filter": {"selection": "selector001"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"color": {"type": "nominal", "field": "year"}, "text": {"type": "quantitative", "aggregate": "sum", "field": "count"}, "x": {"type": "temporal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "field": "count", "title": "Listens"}}, "transform": [{"filter": {"field": "year", "oneOf": [2016, 2017, 2018, 2019]}}, {"filter": {"selection": "selector001"}}]}], "data": {"name": "data-48044bdc3cc0feeac970edfbb745f045"}, "height": 200, "width": 640}, {"data": {"name": "data-0187552695ff6798193cfef9dfa2651e"}, "mark": "bar", "encoding": {"x": {"type": "ordinal", "field": "hour", "title": "Hour"}, "y": {"type": "quantitative", "aggregate": "sum", "field": "count", "title": "Listens"}}, "height": 100, "title": "Sum of listens per hour", "width": 640}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-0187552695ff6798193cfef9dfa2651e": [{"year": 2013, "hour": 0, "count": 2}, {"year": 2013, "hour": 10, "count": 1}, {"year": 2013, "hour": 11, "count": 13}, {"year": 2013, "hour": 12, "count": 12}, {"year": 2013, "hour": 14, "count": 4}, {"year": 2013, "hour": 15, "count": 5}, {"year": 2013, "hour": 16, "count": 4}, {"year": 2013, "hour": 17, "count": 9}, {"year": 2013, "hour": 18, "count": 29}, {"year": 2013, "hour": 19, "count": 8}, {"year": 2013, "hour": 20, "count": 24}, {"year": 2013, "hour": 21, "count": 3}, {"year": 2013, "hour": 22, "count": 2}, {"year": 2013, "hour": 23, "count": 1}, {"year": 2014, "hour": 11, "count": 2}, {"year": 2014, "hour": 13, "count": 5}, {"year": 2014, "hour": 22, "count": 6}, {"year": 2015, "hour": 0, "count": 5}, {"year": 2015, "hour": 2, "count": 4}, {"year": 2015, "hour": 3, "count": 12}, {"year": 2015, "hour": 8, "count": 4}, {"year": 2015, "hour": 9, "count": 7}, {"year": 2015, "hour": 10, "count": 2}, {"year": 2015, "hour": 11, "count": 26}, {"year": 2015, "hour": 12, "count": 21}, {"year": 2015, "hour": 13, "count": 24}, {"year": 2015, "hour": 14, "count": 5}, {"year": 2015, "hour": 15, "count": 22}, {"year": 2015, "hour": 16, "count": 2}, {"year": 2015, "hour": 17, "count": 8}, {"year": 2015, "hour": 19, "count": 8}, {"year": 2015, "hour": 20, "count": 8}, {"year": 2015, "hour": 21, "count": 22}, {"year": 2015, "hour": 22, "count": 14}, {"year": 2015, "hour": 23, "count": 1}, {"year": 2016, "hour": 0, "count": 2}, {"year": 2016, "hour": 1, "count": 1}, {"year": 2016, "hour": 7, "count": 13}, {"year": 2016, "hour": 8, "count": 40}, {"year": 2016, "hour": 9, "count": 133}, {"year": 2016, "hour": 10, "count": 79}, {"year": 2016, "hour": 11, "count": 94}, {"year": 2016, "hour": 12, "count": 141}, {"year": 2016, "hour": 13, "count": 194}, {"year": 2016, "hour": 14, "count": 113}, {"year": 2016, "hour": 15, "count": 99}, {"year": 2016, "hour": 16, "count": 36}, {"year": 2016, "hour": 17, "count": 20}, {"year": 2016, "hour": 18, "count": 22}, {"year": 2016, "hour": 19, "count": 15}, {"year": 2016, "hour": 20, "count": 17}, {"year": 2016, "hour": 21, "count": 26}, {"year": 2016, "hour": 22, "count": 45}, {"year": 2016, "hour": 23, "count": 13}, {"year": 2017, "hour": 0, "count": 128}, {"year": 2017, "hour": 1, "count": 60}, {"year": 2017, "hour": 2, "count": 49}, {"year": 2017, "hour": 3, "count": 21}, {"year": 2017, "hour": 4, "count": 37}, {"year": 2017, "hour": 5, "count": 168}, {"year": 2017, "hour": 6, "count": 419}, {"year": 2017, "hour": 7, "count": 568}, {"year": 2017, "hour": 8, "count": 723}, {"year": 2017, "hour": 9, "count": 1034}, {"year": 2017, "hour": 10, "count": 892}, {"year": 2017, "hour": 11, "count": 940}, {"year": 2017, "hour": 12, "count": 1007}, {"year": 2017, "hour": 13, "count": 973}, {"year": 2017, "hour": 14, "count": 758}, {"year": 2017, "hour": 15, "count": 742}, {"year": 2017, "hour": 16, "count": 452}, {"year": 2017, "hour": 17, "count": 339}, {"year": 2017, "hour": 18, "count": 346}, {"year": 2017, "hour": 19, "count": 290}, {"year": 2017, "hour": 20, "count": 246}, {"year": 2017, "hour": 21, "count": 333}, {"year": 2017, "hour": 22, "count": 436}, {"year": 2017, "hour": 23, "count": 268}, {"year": 2018, "hour": 0, "count": 103}, {"year": 2018, "hour": 1, "count": 127}, {"year": 2018, "hour": 2, "count": 180}, {"year": 2018, "hour": 3, "count": 152}, {"year": 2018, "hour": 4, "count": 54}, {"year": 2018, "hour": 5, "count": 314}, {"year": 2018, "hour": 6, "count": 908}, {"year": 2018, "hour": 7, "count": 1502}, {"year": 2018, "hour": 8, "count": 1740}, {"year": 2018, "hour": 9, "count": 2071}, {"year": 2018, "hour": 10, "count": 2088}, {"year": 2018, "hour": 11, "count": 2086}, {"year": 2018, "hour": 12, "count": 2242}, {"year": 2018, "hour": 13, "count": 2113}, {"year": 2018, "hour": 14, "count": 2204}, {"year": 2018, "hour": 15, "count": 1576}, {"year": 2018, "hour": 16, "count": 1262}, {"year": 2018, "hour": 17, "count": 920}, {"year": 2018, "hour": 18, "count": 775}, {"year": 2018, "hour": 19, "count": 660}, {"year": 2018, "hour": 20, "count": 686}, {"year": 2018, "hour": 21, "count": 615}, {"year": 2018, "hour": 22, "count": 344}, {"year": 2018, "hour": 23, "count": 327}, {"year": 2019, "hour": 0, "count": 4}, {"year": 2019, "hour": 1, "count": 1}, {"year": 2019, "hour": 2, "count": 2}, {"year": 2019, "hour": 3, "count": 7}, {"year": 2019, "hour": 4, "count": 3}, {"year": 2019, "hour": 5, "count": 1}, {"year": 2019, "hour": 6, "count": 23}, {"year": 2019, "hour": 7, "count": 111}, {"year": 2019, "hour": 8, "count": 100}, {"year": 2019, "hour": 9, "count": 90}, {"year": 2019, "hour": 10, "count": 133}, {"year": 2019, "hour": 11, "count": 119}, {"year": 2019, "hour": 12, "count": 180}, {"year": 2019, "hour": 13, "count": 189}, {"year": 2019, "hour": 14, "count": 176}, {"year": 2019, "hour": 15, "count": 135}, {"year": 2019, "hour": 16, "count": 98}, {"year": 2019, "hour": 17, "count": 105}, {"year": 2019, "hour": 18, "count": 19}, {"year": 2019, "hour": 19, "count": 12}, {"year": 2019, "hour": 20, "count": 10}, {"year": 2019, "hour": 21, "count": 3}, {"year": 2019, "hour": 22, "count": 1}, {"year": 2019, "hour": 23, "count": 1}], "data-48044bdc3cc0feeac970edfbb745f045": [{"year": 2013, "hour": 0, "count": 0.02}, {"year": 2013, "hour": 10, "count": 0.01}, {"year": 2013, "hour": 11, "count": 0.11}, {"year": 2013, "hour": 12, "count": 0.1}, {"year": 2013, "hour": 14, "count": 0.03}, {"year": 2013, "hour": 15, "count": 0.04}, {"year": 2013, "hour": 16, "count": 0.03}, {"year": 2013, "hour": 17, "count": 0.08}, {"year": 2013, "hour": 18, "count": 0.25}, {"year": 2013, "hour": 19, "count": 0.07}, {"year": 2013, "hour": 20, "count": 0.21}, {"year": 2013, "hour": 21, "count": 0.03}, {"year": 2013, "hour": 22, "count": 0.02}, {"year": 2013, "hour": 23, "count": 0.01}, {"year": 2014, "hour": 11, "count": 0.15}, {"year": 2014, "hour": 13, "count": 0.38}, {"year": 2014, "hour": 22, "count": 0.46}, {"year": 2015, "hour": 0, "count": 0.03}, {"year": 2015, "hour": 2, "count": 0.02}, {"year": 2015, "hour": 3, "count": 0.06}, {"year": 2015, "hour": 8, "count": 0.02}, {"year": 2015, "hour": 9, "count": 0.04}, {"year": 2015, "hour": 10, "count": 0.01}, {"year": 2015, "hour": 11, "count": 0.13}, {"year": 2015, "hour": 12, "count": 0.11}, {"year": 2015, "hour": 13, "count": 0.12}, {"year": 2015, "hour": 14, "count": 0.03}, {"year": 2015, "hour": 15, "count": 0.11}, {"year": 2015, "hour": 16, "count": 0.01}, {"year": 2015, "hour": 17, "count": 0.04}, {"year": 2015, "hour": 19, "count": 0.04}, {"year": 2015, "hour": 20, "count": 0.04}, {"year": 2015, "hour": 21, "count": 0.11}, {"year": 2015, "hour": 22, "count": 0.07}, {"year": 2015, "hour": 23, "count": 0.01}, {"year": 2016, "hour": 0, "count": 0.0}, {"year": 2016, "hour": 1, "count": 0.0}, {"year": 2016, "hour": 7, "count": 0.01}, {"year": 2016, "hour": 8, "count": 0.04}, {"year": 2016, "hour": 9, "count": 0.12}, {"year": 2016, "hour": 10, "count": 0.07}, {"year": 2016, "hour": 11, "count": 0.09}, {"year": 2016, "hour": 12, "count": 0.13}, {"year": 2016, "hour": 13, "count": 0.18}, {"year": 2016, "hour": 14, "count": 0.1}, {"year": 2016, "hour": 15, "count": 0.09}, {"year": 2016, "hour": 16, "count": 0.03}, {"year": 2016, "hour": 17, "count": 0.02}, {"year": 2016, "hour": 18, "count": 0.02}, {"year": 2016, "hour": 19, "count": 0.01}, {"year": 2016, "hour": 20, "count": 0.02}, {"year": 2016, "hour": 21, "count": 0.02}, {"year": 2016, "hour": 22, "count": 0.04}, {"year": 2016, "hour": 23, "count": 0.01}, {"year": 2017, "hour": 0, "count": 0.01}, {"year": 2017, "hour": 1, "count": 0.01}, {"year": 2017, "hour": 2, "count": 0.0}, {"year": 2017, "hour": 3, "count": 0.0}, {"year": 2017, "hour": 4, "count": 0.0}, {"year": 2017, "hour": 5, "count": 0.01}, {"year": 2017, "hour": 6, "count": 0.04}, {"year": 2017, "hour": 7, "count": 0.05}, {"year": 2017, "hour": 8, "count": 0.06}, {"year": 2017, "hour": 9, "count": 0.09}, {"year": 2017, "hour": 10, "count": 0.08}, {"year": 2017, "hour": 11, "count": 0.08}, {"year": 2017, "hour": 12, "count": 0.09}, {"year": 2017, "hour": 13, "count": 0.09}, {"year": 2017, "hour": 14, "count": 0.07}, {"year": 2017, "hour": 15, "count": 0.07}, {"year": 2017, "hour": 16, "count": 0.04}, {"year": 2017, "hour": 17, "count": 0.03}, {"year": 2017, "hour": 18, "count": 0.03}, {"year": 2017, "hour": 19, "count": 0.03}, {"year": 2017, "hour": 20, "count": 0.02}, {"year": 2017, "hour": 21, "count": 0.03}, {"year": 2017, "hour": 22, "count": 0.04}, {"year": 2017, "hour": 23, "count": 0.02}, {"year": 2018, "hour": 0, "count": 0.0}, {"year": 2018, "hour": 1, "count": 0.01}, {"year": 2018, "hour": 2, "count": 0.01}, {"year": 2018, "hour": 3, "count": 0.01}, {"year": 2018, "hour": 4, "count": 0.0}, {"year": 2018, "hour": 5, "count": 0.01}, {"year": 2018, "hour": 6, "count": 0.04}, {"year": 2018, "hour": 7, "count": 0.06}, {"year": 2018, "hour": 8, "count": 0.07}, {"year": 2018, "hour": 9, "count": 0.08}, {"year": 2018, "hour": 10, "count": 0.08}, {"year": 2018, "hour": 11, "count": 0.08}, {"year": 2018, "hour": 12, "count": 0.09}, {"year": 2018, "hour": 13, "count": 0.08}, {"year": 2018, "hour": 14, "count": 0.09}, {"year": 2018, "hour": 15, "count": 0.06}, {"year": 2018, "hour": 16, "count": 0.05}, {"year": 2018, "hour": 17, "count": 0.04}, {"year": 2018, "hour": 18, "count": 0.03}, {"year": 2018, "hour": 19, "count": 0.03}, {"year": 2018, "hour": 20, "count": 0.03}, {"year": 2018, "hour": 21, "count": 0.02}, {"year": 2018, "hour": 22, "count": 0.01}, {"year": 2018, "hour": 23, "count": 0.01}, {"year": 2019, "hour": 0, "count": 0.0}, {"year": 2019, "hour": 1, "count": 0.0}, {"year": 2019, "hour": 2, "count": 0.0}, {"year": 2019, "hour": 3, "count": 0.0}, {"year": 2019, "hour": 4, "count": 0.0}, {"year": 2019, "hour": 5, "count": 0.0}, {"year": 2019, "hour": 6, "count": 0.02}, {"year": 2019, "hour": 7, "count": 0.07}, {"year": 2019, "hour": 8, "count": 0.07}, {"year": 2019, "hour": 9, "count": 0.06}, {"year": 2019, "hour": 10, "count": 0.09}, {"year": 2019, "hour": 11, "count": 0.08}, {"year": 2019, "hour": 12, "count": 0.12}, {"year": 2019, "hour": 13, "count": 0.12}, {"year": 2019, "hour": 14, "count": 0.12}, {"year": 2019, "hour": 15, "count": 0.09}, {"year": 2019, "hour": 16, "count": 0.06}, {"year": 2019, "hour": 17, "count": 0.07}, {"year": 2019, "hour": 18, "count": 0.01}, {"year": 2019, "hour": 19, "count": 0.01}, {"year": 2019, "hour": 20, "count": 0.01}, {"year": 2019, "hour": 21, "count": 0.0}, {"year": 2019, "hour": 22, "count": 0.0}, {"year": 2019, "hour": 23, "count": 0.0}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>There are several noteworthy things: 1. <strong>In 2016</strong>, there was a big spike between 13:00 and 14:00. 2016 is split between my third and fourth year at university, of which in the fourth year I also was on the board of the <a href="https://dorans.nl/">e-sports association</a>. I just barely didn’t have enough credits to get my bachelor’s degree in my third year, so my fourth year was pretty empty. The combination likely contributed to many days where I had lunch and then closed myself of with music, to work on association matters. 3. <strong>In 2016</strong>, there is a big spike at 9:00. This makes sense, because that was always the time I was cycling to my university. Over the years, I started listening to podcasts more, which is why you can see the 9:00 value decline over 4 years. 2. <strong>In 2018 and 2019</strong>, my listening during evening hours decreased quite significantly. Earlier, I had a spike at 22:00 but this completely faded during the first month of 2019. What happened? Not sure, to be frank. It might be that I had more nights planned with friends? 4. <strong>In 2017 and 2018</strong>, I somehow play 4% of my music daily before 7:00. Now, this is essentially impossible since I almost never get up before 7. I’m not sure why this is shown to be the case.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I’ve since learned that you can so things like define variables and aggregate values in Altair. An example can be found on their <a href="https://altair-viz.github.io/gallery/percentage_of_total.html">website</a>. However, did not go back and redo the analyses using that. That’s for another time. 😉</p>
+</div>
+</div>
+</section>
+<section id="weekly-behaviour" class="level1">
+<h1>Weekly behaviour</h1>
+<p>To get a clear view of weekly listening behaviour, we can create a heatmap with the hours and day of week, with the color indicating the number of listens on that hour. We can see that the working week made a lot of difference, with listening mainly focused on Tuesday, Wednesday, Thursday and Friday, with a little bit as well on Monday afternoon. We all need to wake up a bit first on Monday morning ☕.</p>
+<p>Interestingly enough, we see some hours that have no plays at all like Monday morning 2:00-3:00. I’m a bit skeptic that I <em>never</em> plays anything at all there, but I don’t have an explanation for it.</p>
+<div class="cell" data-execution_count="54">
+<div class="cell-output cell-output-display" data-execution_count="54">
+
+<div id="altair-viz-bf4ef19ad628418db4243dfa4afdcdcd"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-bf4ef19ad628418db4243dfa4afdcdcd") {
+      outputDiv = document.getElementById("altair-viz-bf4ef19ad628418db4243dfa4afdcdcd");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"usermeta": {"embedOptions": {"theme": "latimes"}}, "config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-53cc6d97a09df390653c97f4918e9c84"}, "mark": "rect", "encoding": {"color": {"type": "quantitative", "field": "count"}, "x": {"type": "ordinal", "field": "Hour of Day"}, "y": {"type": "nominal", "field": "Day of Week"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-53cc6d97a09df390653c97f4918e9c84": [{"Day of Week": 0, "Hour of Day": 0, "count": 12}, {"Day of Week": 0, "Hour of Day": 1, "count": 6}, {"Day of Week": 0, "Hour of Day": 3, "count": 11}, {"Day of Week": 0, "Hour of Day": 4, "count": 9}, {"Day of Week": 0, "Hour of Day": 5, "count": 97}, {"Day of Week": 0, "Hour of Day": 6, "count": 268}, {"Day of Week": 0, "Hour of Day": 7, "count": 326}, {"Day of Week": 0, "Hour of Day": 8, "count": 406}, {"Day of Week": 0, "Hour of Day": 9, "count": 422}, {"Day of Week": 0, "Hour of Day": 10, "count": 382}, {"Day of Week": 0, "Hour of Day": 11, "count": 444}, {"Day of Week": 0, "Hour of Day": 12, "count": 526}, {"Day of Week": 0, "Hour of Day": 13, "count": 515}, {"Day of Week": 0, "Hour of Day": 14, "count": 499}, {"Day of Week": 0, "Hour of Day": 15, "count": 464}, {"Day of Week": 0, "Hour of Day": 16, "count": 302}, {"Day of Week": 0, "Hour of Day": 17, "count": 297}, {"Day of Week": 0, "Hour of Day": 18, "count": 270}, {"Day of Week": 0, "Hour of Day": 19, "count": 133}, {"Day of Week": 0, "Hour of Day": 20, "count": 103}, {"Day of Week": 0, "Hour of Day": 21, "count": 115}, {"Day of Week": 0, "Hour of Day": 22, "count": 116}, {"Day of Week": 0, "Hour of Day": 23, "count": 64}, {"Day of Week": 1, "Hour of Day": 0, "count": 24}, {"Day of Week": 1, "Hour of Day": 1, "count": 6}, {"Day of Week": 1, "Hour of Day": 2, "count": 35}, {"Day of Week": 1, "Hour of Day": 3, "count": 2}, {"Day of Week": 1, "Hour of Day": 4, "count": 10}, {"Day of Week": 1, "Hour of Day": 5, "count": 133}, {"Day of Week": 1, "Hour of Day": 6, "count": 311}, {"Day of Week": 1, "Hour of Day": 7, "count": 402}, {"Day of Week": 1, "Hour of Day": 8, "count": 409}, {"Day of Week": 1, "Hour of Day": 9, "count": 527}, {"Day of Week": 1, "Hour of Day": 10, "count": 564}, {"Day of Week": 1, "Hour of Day": 11, "count": 583}, {"Day of Week": 1, "Hour of Day": 12, "count": 669}, {"Day of Week": 1, "Hour of Day": 13, "count": 599}, {"Day of Week": 1, "Hour of Day": 14, "count": 617}, {"Day of Week": 1, "Hour of Day": 15, "count": 435}, {"Day of Week": 1, "Hour of Day": 16, "count": 261}, {"Day of Week": 1, "Hour of Day": 17, "count": 180}, {"Day of Week": 1, "Hour of Day": 18, "count": 174}, {"Day of Week": 1, "Hour of Day": 19, "count": 169}, {"Day of Week": 1, "Hour of Day": 20, "count": 117}, {"Day of Week": 1, "Hour of Day": 21, "count": 94}, {"Day of Week": 1, "Hour of Day": 22, "count": 71}, {"Day of Week": 1, "Hour of Day": 23, "count": 30}, {"Day of Week": 2, "Hour of Day": 0, "count": 31}, {"Day of Week": 2, "Hour of Day": 2, "count": 23}, {"Day of Week": 2, "Hour of Day": 3, "count": 8}, {"Day of Week": 2, "Hour of Day": 4, "count": 7}, {"Day of Week": 2, "Hour of Day": 5, "count": 76}, {"Day of Week": 2, "Hour of Day": 6, "count": 325}, {"Day of Week": 2, "Hour of Day": 7, "count": 457}, {"Day of Week": 2, "Hour of Day": 8, "count": 567}, {"Day of Week": 2, "Hour of Day": 9, "count": 722}, {"Day of Week": 2, "Hour of Day": 10, "count": 544}, {"Day of Week": 2, "Hour of Day": 11, "count": 481}, {"Day of Week": 2, "Hour of Day": 12, "count": 547}, {"Day of Week": 2, "Hour of Day": 13, "count": 592}, {"Day of Week": 2, "Hour of Day": 14, "count": 553}, {"Day of Week": 2, "Hour of Day": 15, "count": 445}, {"Day of Week": 2, "Hour of Day": 16, "count": 231}, {"Day of Week": 2, "Hour of Day": 17, "count": 122}, {"Day of Week": 2, "Hour of Day": 18, "count": 43}, {"Day of Week": 2, "Hour of Day": 19, "count": 82}, {"Day of Week": 2, "Hour of Day": 20, "count": 192}, {"Day of Week": 2, "Hour of Day": 21, "count": 116}, {"Day of Week": 2, "Hour of Day": 22, "count": 78}, {"Day of Week": 2, "Hour of Day": 23, "count": 85}, {"Day of Week": 3, "Hour of Day": 0, "count": 6}, {"Day of Week": 3, "Hour of Day": 1, "count": 4}, {"Day of Week": 3, "Hour of Day": 2, "count": 16}, {"Day of Week": 3, "Hour of Day": 3, "count": 4}, {"Day of Week": 3, "Hour of Day": 4, "count": 18}, {"Day of Week": 3, "Hour of Day": 5, "count": 70}, {"Day of Week": 3, "Hour of Day": 6, "count": 230}, {"Day of Week": 3, "Hour of Day": 7, "count": 472}, {"Day of Week": 3, "Hour of Day": 8, "count": 573}, {"Day of Week": 3, "Hour of Day": 9, "count": 662}, {"Day of Week": 3, "Hour of Day": 10, "count": 580}, {"Day of Week": 3, "Hour of Day": 11, "count": 564}, {"Day of Week": 3, "Hour of Day": 12, "count": 618}, {"Day of Week": 3, "Hour of Day": 13, "count": 670}, {"Day of Week": 3, "Hour of Day": 14, "count": 529}, {"Day of Week": 3, "Hour of Day": 15, "count": 443}, {"Day of Week": 3, "Hour of Day": 16, "count": 398}, {"Day of Week": 3, "Hour of Day": 17, "count": 229}, {"Day of Week": 3, "Hour of Day": 18, "count": 198}, {"Day of Week": 3, "Hour of Day": 19, "count": 104}, {"Day of Week": 3, "Hour of Day": 20, "count": 134}, {"Day of Week": 3, "Hour of Day": 21, "count": 147}, {"Day of Week": 3, "Hour of Day": 22, "count": 166}, {"Day of Week": 3, "Hour of Day": 23, "count": 77}, {"Day of Week": 4, "Hour of Day": 0, "count": 25}, {"Day of Week": 4, "Hour of Day": 1, "count": 48}, {"Day of Week": 4, "Hour of Day": 2, "count": 49}, {"Day of Week": 4, "Hour of Day": 3, "count": 29}, {"Day of Week": 4, "Hour of Day": 4, "count": 18}, {"Day of Week": 4, "Hour of Day": 5, "count": 81}, {"Day of Week": 4, "Hour of Day": 6, "count": 171}, {"Day of Week": 4, "Hour of Day": 7, "count": 413}, {"Day of Week": 4, "Hour of Day": 8, "count": 417}, {"Day of Week": 4, "Hour of Day": 9, "count": 597}, {"Day of Week": 4, "Hour of Day": 10, "count": 574}, {"Day of Week": 4, "Hour of Day": 11, "count": 622}, {"Day of Week": 4, "Hour of Day": 12, "count": 553}, {"Day of Week": 4, "Hour of Day": 13, "count": 512}, {"Day of Week": 4, "Hour of Day": 14, "count": 569}, {"Day of Week": 4, "Hour of Day": 15, "count": 346}, {"Day of Week": 4, "Hour of Day": 16, "count": 276}, {"Day of Week": 4, "Hour of Day": 17, "count": 238}, {"Day of Week": 4, "Hour of Day": 18, "count": 162}, {"Day of Week": 4, "Hour of Day": 19, "count": 139}, {"Day of Week": 4, "Hour of Day": 20, "count": 125}, {"Day of Week": 4, "Hour of Day": 21, "count": 192}, {"Day of Week": 4, "Hour of Day": 22, "count": 151}, {"Day of Week": 4, "Hour of Day": 23, "count": 145}, {"Day of Week": 5, "Hour of Day": 0, "count": 64}, {"Day of Week": 5, "Hour of Day": 1, "count": 38}, {"Day of Week": 5, "Hour of Day": 2, "count": 38}, {"Day of Week": 5, "Hour of Day": 3, "count": 106}, {"Day of Week": 5, "Hour of Day": 4, "count": 32}, {"Day of Week": 5, "Hour of Day": 5, "count": 18}, {"Day of Week": 5, "Hour of Day": 6, "count": 44}, {"Day of Week": 5, "Hour of Day": 7, "count": 97}, {"Day of Week": 5, "Hour of Day": 8, "count": 167}, {"Day of Week": 5, "Hour of Day": 9, "count": 268}, {"Day of Week": 5, "Hour of Day": 10, "count": 320}, {"Day of Week": 5, "Hour of Day": 11, "count": 271}, {"Day of Week": 5, "Hour of Day": 12, "count": 321}, {"Day of Week": 5, "Hour of Day": 13, "count": 317}, {"Day of Week": 5, "Hour of Day": 14, "count": 255}, {"Day of Week": 5, "Hour of Day": 15, "count": 242}, {"Day of Week": 5, "Hour of Day": 16, "count": 235}, {"Day of Week": 5, "Hour of Day": 17, "count": 157}, {"Day of Week": 5, "Hour of Day": 18, "count": 174}, {"Day of Week": 5, "Hour of Day": 19, "count": 206}, {"Day of Week": 5, "Hour of Day": 20, "count": 172}, {"Day of Week": 5, "Hour of Day": 21, "count": 228}, {"Day of Week": 5, "Hour of Day": 22, "count": 220}, {"Day of Week": 5, "Hour of Day": 23, "count": 164}, {"Day of Week": 6, "Hour of Day": 0, "count": 82}, {"Day of Week": 6, "Hour of Day": 1, "count": 87}, {"Day of Week": 6, "Hour of Day": 2, "count": 74}, {"Day of Week": 6, "Hour of Day": 3, "count": 32}, {"Day of Week": 6, "Hour of Day": 5, "count": 8}, {"Day of Week": 6, "Hour of Day": 6, "count": 1}, {"Day of Week": 6, "Hour of Day": 7, "count": 27}, {"Day of Week": 6, "Hour of Day": 8, "count": 68}, {"Day of Week": 6, "Hour of Day": 9, "count": 137}, {"Day of Week": 6, "Hour of Day": 10, "count": 231}, {"Day of Week": 6, "Hour of Day": 11, "count": 315}, {"Day of Week": 6, "Hour of Day": 12, "count": 369}, {"Day of Week": 6, "Hour of Day": 13, "count": 293}, {"Day of Week": 6, "Hour of Day": 14, "count": 238}, {"Day of Week": 6, "Hour of Day": 15, "count": 204}, {"Day of Week": 6, "Hour of Day": 16, "count": 151}, {"Day of Week": 6, "Hour of Day": 17, "count": 178}, {"Day of Week": 6, "Hour of Day": 18, "count": 170}, {"Day of Week": 6, "Hour of Day": 19, "count": 160}, {"Day of Week": 6, "Hour of Day": 20, "count": 148}, {"Day of Week": 6, "Hour of Day": 21, "count": 110}, {"Day of Week": 6, "Hour of Day": 22, "count": 46}, {"Day of Week": 6, "Hour of Day": 23, "count": 46}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+</section>
+<section id="genres" class="level1">
+<h1>Genres 🎧</h1>
+<p>Now that we have some insight into my listening behaviour, we can analyze what I listen to a bit more closely. For example, what genres do I listen to most and how do these change? Here we get a bit closer to the visualization we got from Last.fm.</p>
+<p>However, before we can do that, we need to get the genres associated with our songs. This was not included in the data Spotify sent over, so we need to use their API to get this information. Spotify does not apply categories per song, but rather per artist. Internally, Spotify uses special URIs to indicate different concepts like artists, songs and albums. For example, a track can be indicated with <code>spotify:track:6rqhFgbbKwnb9MLmUQDhG6</code>.</p>
+<p>These URIs refer to a specific object, whereas the artist in the data I received does not. So we need to use the Spotify search function to retrieve the correct Spotify object of an artist, and then we can retrieve the genres from there. Now, either the data they sent is somewhat corrupted or their music management is a bit lackluster, because there were still quite some artists without an Spotify URI and/or without any defined genres. The latter makes sense, since this takes a lot of work by spotify.</p>
+<p>You can see the API calls and retrieval loop used in the two collapsed cells below.</p>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>SPOTIFY_API_KEY <span class="op">=</span> os.getenv(<span class="st">'SPOTIFY_API_KEY'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>SPOTIFY_CLIENT_ID <span class="op">=</span> os.getenv(<span class="st">'SPOTIFY_CLIENT_ID'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>spotify_search_url <span class="op">=</span> <span class="st">'https://api.spotify.com/v1/search?q=</span><span class="sc">{q}</span><span class="st">&amp;type=</span><span class="sc">{type}</span><span class="st">'</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>spotify_headers <span class="op">=</span> {<span class="st">"Accept"</span>: <span class="st">"application/json"</span>, <span class="st">"Authorization"</span>:<span class="st">"Bearer "</span> <span class="op">+</span> SPOTIFY_API_KEY, <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>client_credentials_manager <span class="op">=</span> SpotifyClientCredentials(SPOTIFY_CLIENT_ID, SPOTIFY_API_KEY)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>spotify <span class="op">=</span> spotipy.Spotify(client_credentials_manager<span class="op">=</span>client_credentials_manager)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>artist_ids <span class="op">=</span> []</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>genres <span class="op">=</span> []</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> artist <span class="kw">in</span> tqdm(df.master_metadata_album_artist_name):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> spotify.search(artist, <span class="bu">type</span><span class="op">=</span><span class="st">'artist'</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        artist_id <span class="op">=</span> response.get(<span class="st">'artists'</span>).get(<span class="st">'items'</span>)[<span class="dv">0</span>].get(<span class="st">'uri'</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        artist_genres <span class="op">=</span> response.get(<span class="st">'artists'</span>).get(<span class="st">'items'</span>)[<span class="dv">0</span>].get(<span class="st">'genres'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(e)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(response)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        artist_id <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        artist_genres <span class="op">=</span> []</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    genres.append(artist_genres)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    artist_ids.append(artist_id)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(artist_ids), <span class="bu">len</span>(genres))</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>genres_df <span class="op">=</span> pd.DataFrame(genres)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>artist_ids_df <span class="op">=</span> pd.DataFrame(artist_ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s have a short look at the data. I’m showing the first two rows (so the genres of the first two songs) and all the columns. The columns just have a number, but indicate the first to twenty-first genre of each song.</p>
+<div class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="13">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+      <th>14</th>
+      <th>15</th>
+      <th>16</th>
+      <th>17</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>east coast hip hop</td>
+      <td>hip hop</td>
+      <td>pop</td>
+      <td>pop rap</td>
+      <td>rap</td>
+      <td>trap music</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>catstep</td>
+      <td>complextro</td>
+      <td>edm</td>
+      <td>electro house</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 21 columns</p>
+</div>
+</div>
+</div>
+<p>Because we added all genres for each artist as a new column, we have quite a wide dataframe. The artist with the most genres has 21(!) genres. Let’s see who that is.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>comb <span class="op">=</span> pd.concat([df, genres_df], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>comb.loc[<span class="op">~</span>(comb[<span class="st">'20'</span>].isna())]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ts</th>
+      <th>ms_played</th>
+      <th>conn_country</th>
+      <th>master_metadata_track_name</th>
+      <th>master_metadata_album_artist_name</th>
+      <th>master_metadata_album_album_name</th>
+      <th>reason_start</th>
+      <th>reason_end</th>
+      <th>shuffle</th>
+      <th>skipped</th>
+      <th>...</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+      <th>14</th>
+      <th>15</th>
+      <th>16</th>
+      <th>17</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>32948</th>
+      <td>2018-10-26 21:01:59+00:00</td>
+      <td>255626</td>
+      <td>NL</td>
+      <td>Grounded</td>
+      <td>Pavement</td>
+      <td>Crooked Rain Crooked Rain</td>
+      <td>clickrow</td>
+      <td>trackdone</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>indie pop</td>
+      <td>indie rock</td>
+      <td>lo-fi</td>
+      <td>modern rock</td>
+      <td>new wave</td>
+      <td>noise pop</td>
+      <td>noise rock</td>
+      <td>post-punk</td>
+      <td>rock</td>
+      <td>slow core</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 46 columns</p>
+</div>
+</div>
+</div>
+<p>It’s some artist called Pavement! I’ve no idea who that is, but still interesting to see. The artist seems to be in the indie rock segment, where there are many subgenres, so it’s not that surprising. I’ve heard that metal has a similar amount of subgenres, so it would be cool to do this analysis for a metal fan 🤘.</p>
+<p>But, clearly I am not in that segment. Lets see how many genres an average artist of mine has. We’ll exclude artists with zero genres.</p>
+<div class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="15">
+
+<div id="altair-viz-a909c4c372af41bc863f9bb6c2b20c4a"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-a909c4c372af41bc863f9bb6c2b20c4a") {
+      outputDiv = document.getElementById("altair-viz-a909c4c372af41bc863f9bb6c2b20c4a");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"usermeta": {"embedOptions": {"theme": "latimes"}}, "config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-6e76e3fe6be6d83f28bc865336e992ca"}, "mark": {"type": "bar", "width": 13}, "encoding": {"tooltip": [{"type": "quantitative", "field": "genre_count"}, {"type": "quantitative", "aggregate": "count"}], "x": {"type": "quantitative", "field": "genre_count"}, "y": {"type": "quantitative", "aggregate": "count"}}, "title": "Number of genres per artist", "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-6e76e3fe6be6d83f28bc865336e992ca": [{"genre_count": 6}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 20}, {"genre_count": 10}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 11}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 10}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 9}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 10}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 13}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 11}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 14}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 11}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 11}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 13}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 12}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 11}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 11}, {"genre_count": 4}, {"genre_count": 12}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 14}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 10}, {"genre_count": 11}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 10}, {"genre_count": 6}, {"genre_count": 12}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 16}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 10}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 10}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 3}, {"genre_count": 10}, {"genre_count": 14}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 15}, {"genre_count": 9}, {"genre_count": 15}, {"genre_count": 12}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 13}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 13}, {"genre_count": 8}, {"genre_count": 11}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 12}, {"genre_count": 17}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 12}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 11}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 14}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 13}, {"genre_count": 12}, {"genre_count": 11}, {"genre_count": 8}, {"genre_count": 10}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 10}, {"genre_count": 9}, {"genre_count": 13}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 12}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 8}, {"genre_count": 13}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 19}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 11}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 13}, {"genre_count": 8}, {"genre_count": 13}, {"genre_count": 11}, {"genre_count": 13}, {"genre_count": 14}, {"genre_count": 9}, {"genre_count": 12}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 11}, {"genre_count": 7}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 8}, {"genre_count": 12}, {"genre_count": 10}, {"genre_count": 12}, {"genre_count": 13}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 11}, {"genre_count": 10}, {"genre_count": 10}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 11}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 12}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 10}, {"genre_count": 8}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 13}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 12}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 14}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 10}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 5}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 11}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 12}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 9}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 15}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 11}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 13}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 15}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 11}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 9}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 9}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 11}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 8}, {"genre_count": 12}, {"genre_count": 10}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 10}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 15}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 9}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 12}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 12}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 10}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 12}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 14}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 12}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 13}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 10}, {"genre_count": 8}, {"genre_count": 5}, {"genre_count": 10}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 12}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 9}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 15}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 12}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 1}, {"genre_count": 13}, {"genre_count": 8}, {"genre_count": 9}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 14}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 21}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 11}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 8}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 4}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 9}, {"genre_count": 8}, {"genre_count": 4}, {"genre_count": 8}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 7}, {"genre_count": 10}, {"genre_count": 9}, {"genre_count": 11}, {"genre_count": 9}, {"genre_count": 12}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 11}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 5}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 7}, {"genre_count": 6}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 15}, {"genre_count": 11}, {"genre_count": 11}, {"genre_count": 5}, {"genre_count": 5}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 10}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 8}, {"genre_count": 8}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 6}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 9}, {"genre_count": 5}, {"genre_count": 9}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 11}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 6}, {"genre_count": 4}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 5}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 1}, {"genre_count": 4}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 6}, {"genre_count": 3}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 3}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 3}, {"genre_count": 1}, {"genre_count": 2}, {"genre_count": 1}, {"genre_count": 1}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>If we take the percentage of the artists with three or less genres, we see this is 52%. This is quite high, and means many people are pretty specific with regards to what genres they fall into for Spotify. We see quite a long tail distribution, with only <strong>27% having more than 5 genres specified and only 2.8% more then 10 genres!</strong></p>
+</section>
+<section id="in-conclusion" class="level1">
+<h1>In conclusion</h1>
+<p>We have done a pretty thorough analysis of my listening history on Spotify. We evaluated the high level listening behaviour on a monthly and yearly basis. We have also seen my daily listening behaviour and how it has changed throughout the years. We also started on the analysis of the genres, which we will continue in part 2!</p>
+<p>It has been really interesting to see how my preferences with regards to music over these years, and it is definitely contributing to my ‘have everything tracked’ KPIs. Since all of Spotify’s data is accessible through the API, I might consider making a dashboard for these insights that updates automatically.</p>
+<p><img style="margin:auto;width:300px;" width="300" src="images/spotify_analysis/will-smith-hmm.gif"></p>
+<p>Unfortunately, we didn’t get to see the really cool stuff in this post. Things like recreation of the last.fm image and the changes in genres over time are very interesting, and I would have loved to already be able to show those. Please check out part 2 for that. I’ll add links to that here as soon as that’s out.</p>
+<p><strong>Topics covered in part 2:</strong> 1. What are my top genres? 2. Correlation between genres. 2. How have my genres changed over time? 3. Recreation of the Last.fm image.</p>
+<p><strong>Learnings</strong></p>
+<p>This blogpost has been a huge learning experience for me. It was my first time using Fastpages. It was my first time writing a blogpost in a jupyter notebook as well, and it was also my first time using Altair! All of those experiences were quite positive, and I especially like getting more familiar with Altair. Having a Grammar of Graphics tool in your toolbelt is an extremely valuable thing in the world of data science, although you might not use it on a daily basis.</p>
+<p>If you liked this blogpost, don’t hesitate to reach out to me on <a href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b">linkedin</a> or <a href="https://twitter.com/Bauke_B">twitter</a>. 😊</p>
+<p align="center">
+<a href="https://github.com/Baukebrenninkmeijer" style="display:inline-block;"><img src="https://img.shields.io/github/followers/Baukebrenninkmeijer.svg?label=GitHub&amp;style=social" alt="GitHub"></a> <a href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b" style="display:inline-block;"><img src="https://img.shields.io/badge/LinkedIn--_.svg?style=social&amp;logo=linkedin" alt="LinkedIn"></a>
+</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
