@@ -7,6 +7,13 @@
     "text": "Analyzing my Spotify listening history 🎵 - Part 3\n\n\n\n\n\n\n\nAnalysis\n\n\nMusic\n\n\nBI\n\n\n\n\nIn part 3 of this adventure we discover the audio features that Spotify attributes to songs. We see how they are influenced by specific genres and how some songs relate to different audio features like instrumentalness and energy.\n\n\n\n\n\n\nAug 20, 2020\n\n\nBauke Brenninkmeijer\n\n\n\n\n\n\n  \n\n\n\n\nAnalyzing my Spotify listening history 🎵 - Part 2\n\n\n\n\n\n\n\nAnalysis\n\n\nMusic\n\n\nBI\n\n\n\n\nIn part 2 of this series, we investigate how my genres have developed over time. We find interesting pattern with regards to some holidays and a general trend towards hip hop. Additionally, we see what some good ways of visualization are for these insights.\n\n\n\n\n\n\nAug 7, 2020\n\n\nBauke Brenninkmeijer\n\n\n\n\n\n\n  \n\n\n\n\nAnalyzing my Spotify listening history 🎵 - Part 1\n\n\n\n\n\n\n\nAnalysis\n\n\nMusic\n\n\nBI\n\n\n\n\nSoul searching through my choices in music. Using my spotify listening data, we perform a dive into my listening behaviour and how it changed over time. We also make a start at analyzing the evolution of genres.\n\n\n\n\n\n\nJul 31, 2020\n\n\nBauke Brenninkmeijer\n\n\n\n\n\n\n  \n\n\n\n\nAutomated product recognition for hospitality industry insights 🍺\n\n\n\n\n\n\n\nNLP\n\n\ninternship\n\n\n\n\nBridging the gap to a data driven hospitality industry business intelligence on raw data.\n\n\n\n\n\n\nJul 24, 2020\n\n\nBauke Brenninkmeijer\n\n\n\n\n\n\n  \n\n\n\n\nIntroduction to personal website\n\n\n\n\n\n\n\nintroduction\n\n\n\n\nIntroduction to personal website.\n\n\n\n\n\n\nJul 23, 2020\n\n\nBauke Brenninkmeijer\n\n\n\n\n\n\nNo matching items"
   },
   {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "Below, you can find my resume in PDF format.\n\n\n\nThis browser does not support PDFs. Please download the PDF to view it: Download PDF."
+  },
+  {
     "objectID": "posts/2020-08-07-spotify-listening-history-analysis-part-2.html",
     "href": "posts/2020-08-07-spotify-listening-history-analysis-part-2.html",
     "title": "Analyzing my Spotify listening history 🎵 - Part 2",
@@ -151,6 +158,13 @@
     "href": "about.html",
     "title": "Who am I?",
     "section": "",
-    "text": "About this blog"
+    "text": "I’m a deep learning practitioner🧠/data scientist📈. I have a background in computer science and data science, and thus both are very prevelant in my work. I have created some bots, some deep learning implementations and some libraries related to synthetic data.\n\n🔭 I’m currently working on setting up a personal website and synthetic data using GANs.\n🌱 I’m currently learning Full Stack (Deep/machine) Learning\n💬 Ask me about PyTorch and SOTA NLP or Computer Vision models! 🔥🔥\n😊 My favorite machine learning sources are HuggingFace, Sotabench and paperswithcode"
+  },
+  {
+    "objectID": "about.html#master-thesis",
+    "href": "about.html#master-thesis",
+    "title": "Who am I?",
+    "section": "Master Thesis",
+    "text": "Master Thesis\n\nIn my thesis, I researched improvements that we can make to Generative Adversarial Networks (GANs), to apply them better to tabular data. Contrary to GANs for vision tasks, GANs for tabular data are still very early work with only some researchers working on it. Apart from two improvements to the GAN architecture, I also wrote an open source library that focuses on how to evaluate synthetic data. You can find the github repos and the thesis PDF below.\n\n\n\n\nRepo for my thesis: Star\nRepo for evaluation library:  Star\nFind my thesis on the Radboud University website."
   }
 ]
