@@ -1,0 +1,24 @@
+project:
+  type: website
+
+website:
+  title: "Personal homepage"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
+  favicon: posts/images/favicon.png
+  open-graph: true
+  google-analytics: UA-55798897-4
+format:
+  html:
+    theme: litera
+    css: styles.css
+
+execute:
+  freeze: auto
+
+
