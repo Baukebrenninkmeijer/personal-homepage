@@ -2,18 +2,18 @@
 #
 # This config file is meant for settings that affect your whole blog.
 #
-# If you need help with YAML syntax, here are some quick references for you: 
+# If you need help with YAML syntax, here are some quick references for you:
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Personal Homepage
-description: Discovering the world of data science one blogpost at a time. 
+description: Discovering the world of data science one blogpost at a time.
 github_username: Baukebrenninkmeijer
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "blog"
 
 # OPTIONAL: override baseurl and url if using a custom domain
-# Note: leave out the trailing / from this value. 
+# Note: leave out the trailing / from this value.
 #url: "https://Baukebrenninkmeijer.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 url: "https://www.baukebrenninkmeijer.nl"
 
@@ -22,11 +22,11 @@ url: "https://www.baukebrenninkmeijer.nl"
 #
 #### Scenario One: If you do not have a Custom Domain #####
 #    -  if you are not using a custom domain, the baseurl *must* be set to your repo name
-# 
+#
 ####  Scenario Two: If you have a Custom Domain #####
 # 1. If your domain does NOT have a subpath, this leave this value as ""
-# 2. If your domain does have a subpath, you must preceed the value with a / and NOT have a / at the end.  
-#      For example: 
+# 2. If your domain does have a subpath, you must preceed the value with a / and NOT have a / at the end.
+#      For example:
 #           "" is valid
 #           "/blog"        is valid
 #            "/blog/site/" is invalid  ( / at the end)
@@ -41,8 +41,9 @@ baseurl: ""
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: Bauke_B
-    github: baukebrenninkmeijer
+    # twitter: Bauke_B
+    - { platform: github,  user_url: "https://github.com/baukebrenninkmeijer" }
+
 
 # Set this to true to get LaTeX math equation support
 use_math: true
