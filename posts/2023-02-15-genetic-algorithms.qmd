@@ -1,0 +1,22 @@
+---
+aliases:
+- /Analysis/Music/BI/2020/07/31/spotify-listening-history-analysis-part-1
+# author: Bauke Brenninkmeijer
+badges: true
+branch: master
+categories:
+- Genetic Algorithms
+- Machine learning
+date: '2023-02-15'
+image: images/spotify_analysis/p1/banner.png
+# output-file: 2020-07-31-spotify-listening-history-analysis-part-1.html
+title: Genetic Algorithms for image reconstruction
+# description: How we can leverage genetic algorithms to help with image reconstruction.
+toc: true
+format:
+  html:
+    code-fold: false
+draft: true
+---
+
+Genetic algorithms are a beautiful subset in the machine learning domain, that use evolutionairy techniques to arrive to solutions that other algorithms have trouble at. These techniques include the combining of solutions, often called crossover, and the slightly altering of solutions, called mutations.

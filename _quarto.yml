@@ -16,7 +16,9 @@ website:
   google-analytics: UA-55798897-4
 format:
   html:
-    theme: litera
+    theme:
+      light: flatly
+      dark: flatly
     css: styles.css
 
 execute:
