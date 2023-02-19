@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/Baukebrenninkmeijer/blog/index.html</loc>
-    <lastmod>2023-02-16T08:13:41.175Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/Baukebrenninkmeijer/blog/resume.html</loc>
-    <lastmod>2023-02-16T08:13:43.195Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-08-07-spotify-listening-history-analysis-part-2.html</loc>
-    <lastmod>2023-02-16T08:13:44.015Z</lastmod>
+    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-07-24-automated-product-recognition-for-hospitality-industry-insights.html</loc>
+    <lastmod>2023-02-19T23:03:42.537Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-08-20-spotify-listening-history-analysis-part-3.html</loc>
-    <lastmod>2023-02-16T08:13:44.971Z</lastmod>
+    <lastmod>2023-02-19T23:03:44.245Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-07-23-first-personal-post.html</loc>
-    <lastmod>2023-02-16T08:13:45.623Z</lastmod>
+    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2023-02-16-genetic-algorithms.html</loc>
+    <lastmod>2023-02-19T23:03:44.629Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-07-24-automated-product-recognition-for-hospitality-industry-insights.html</loc>
-    <lastmod>2023-02-16T08:13:46.459Z</lastmod>
+    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2023-02-15-genetic-algorithms.html</loc>
+    <lastmod>2023-02-19T23:03:46.197Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-07-31-spotify-listening-history-analysis-part-1.html</loc>
-    <lastmod>2023-02-16T08:13:47.071Z</lastmod>
+    <lastmod>2023-02-19T23:03:47.461Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-07-23-first-personal-post.html</loc>
+    <lastmod>2023-02-19T23:03:47.805Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/Baukebrenninkmeijer/blog/posts/2020-08-07-spotify-listening-history-analysis-part-2.html</loc>
+    <lastmod>2023-02-19T23:03:48.605Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/Baukebrenninkmeijer/blog/about.html</loc>
-    <lastmod>2023-02-16T08:13:47.399Z</lastmod>
+    <lastmod>2023-02-19T23:03:48.953Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/Baukebrenninkmeijer/blog/index.html</loc>
+    <lastmod>2023-02-19T23:03:49.393Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/Baukebrenninkmeijer/blog/resume.html</loc>
+    <lastmod>2023-02-19T23:03:49.693Z</lastmod>
   </url>
 </urlset>
