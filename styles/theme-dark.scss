@@ -1,0 +1,17 @@
+/*-- scss:defaults --*/
+// Base document colors
+// $body-bg: #181818;
+$dark-dark: rgba(0, 43, 54);
+$lighter-blue: rgba(7, 54, 66);
+$light-bg: rgba(253, 246, 227);
+$off-white: rgba(255, 255, 255, 0.75);
+$less-off-white: rgba(255, 255, 255, 0.9);
+
+$body-bg: $dark-dark;
+$navbar-bg: $lighter-blue;
+$body-color: $off-white;
+
+/*-- scss:rules --*/
+h1, h2, h3, h4, h5, h6, h7 {
+    color: $less-off-white !important;
+}

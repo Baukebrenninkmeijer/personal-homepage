@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Personal homepage"
+  title: "Bauke Brenninkmeijer"
   navbar:
     right:
       - about.qmd
@@ -17,9 +17,9 @@ website:
 format:
   html:
     theme:
-      light: flatly
-      dark: flatly
-    css: styles.css
+      light: [lux, 'styles/theme-light.scss']
+      dark: [lux, styles/theme-dark.scss]
+    css: styles/styles.scss
 
 execute:
   freeze: auto
