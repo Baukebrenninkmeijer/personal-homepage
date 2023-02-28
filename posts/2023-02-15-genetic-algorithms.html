@@ -249,7 +249,10 @@ ga('send', {
   <li><a href="#mutations" id="toc-mutations" class="nav-link" data-scroll-target="#mutations">Mutations</a></li>
   <li><a href="#procreation" id="toc-procreation" class="nav-link" data-scroll-target="#procreation">Procreation</a></li>
   <li><a href="#fitness-function" id="toc-fitness-function" class="nav-link" data-scroll-target="#fitness-function">Fitness function</a></li>
-  <li><a href="#pixelwise" id="toc-pixelwise" class="nav-link" data-scroll-target="#pixelwise">Pixelwise</a></li>
+  <li><a href="#pixelwise" id="toc-pixelwise" class="nav-link" data-scroll-target="#pixelwise">Pixelwise</a>
+  <ul class="collapse">
+  <li><a href="#mutation" id="toc-mutation" class="nav-link" data-scroll-target="#mutation">Mutation</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -352,6 +355,8 @@ for i in n_iterations:
 </details>
 </div>
 <p>The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself.</p>
+<section id="mutation" class="level3">
+<h3 class="anchored" data-anchor-id="mutation">Mutation</h3>
 <p>Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well. ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.</p>
 <p>As a last step, we apply the mutation and clip the values to the range [0, 1]. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is [0, 1] or [0, 255] for integer values, and plotting libraries like matplotlib will clip values for you if you don’t. To prevent hidden problems, we already make sure the domains and datatypes are correct.</p>
 <p>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <code>compute_fitness</code> method.</p>
@@ -364,6 +369,7 @@ for i in n_iterations:
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -790,25 +796,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-128"><a href="#cb5-128"></a></span>
 <span id="cb5-129"><a href="#cb5-129"></a>The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself.</span>
 <span id="cb5-130"><a href="#cb5-130"></a></span>
-<span id="cb5-131"><a href="#cb5-131"></a>Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well.  ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.</span>
-<span id="cb5-132"><a href="#cb5-132"></a></span>
-<span id="cb5-133"><a href="#cb5-133"></a>As a last step, we apply the mutation and clip the values to the range <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span>. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span> or <span class="co">[</span><span class="ot">0, 255</span><span class="co">]</span> for integer values, and plotting libraries like matplotlib will clip values for you if you don't. To prevent hidden problems, we already make sure the domains and datatypes are correct.</span>
+<span id="cb5-131"><a href="#cb5-131"></a></span>
+<span id="cb5-132"><a href="#cb5-132"></a><span class="fu">### Mutation</span></span>
+<span id="cb5-133"><a href="#cb5-133"></a>Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well.  ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.</span>
 <span id="cb5-134"><a href="#cb5-134"></a></span>
-<span id="cb5-135"><a href="#cb5-135"></a>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <span class="in">`compute_fitness`</span> method.</span>
+<span id="cb5-135"><a href="#cb5-135"></a>As a last step, we apply the mutation and clip the values to the range <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span>. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span> or <span class="co">[</span><span class="ot">0, 255</span><span class="co">]</span> for integer values, and plotting libraries like matplotlib will clip values for you if you don't. To prevent hidden problems, we already make sure the domains and datatypes are correct.</span>
 <span id="cb5-136"><a href="#cb5-136"></a></span>
-<span id="cb5-137"><a href="#cb5-137"></a></span>
-<span id="cb5-140"><a href="#cb5-140"></a><span class="in">```{python}</span></span>
-<span id="cb5-141"><a href="#cb5-141"></a><span class="co">#| echo: false</span></span>
-<span id="cb5-142"><a href="#cb5-142"></a></span>
-<span id="cb5-143"><a href="#cb5-143"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb5-144"><a href="#cb5-144"></a>ind <span class="op">=</span> PixelIndividual(shape<span class="op">=</span>(<span class="dv">100</span>, <span class="dv">100</span>), mutate_p<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-145"><a href="#cb5-145"></a>ind.mutate()</span>
-<span id="cb5-146"><a href="#cb5-146"></a>sns.histplot(ind.mutation.reshape(<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb5-147"><a href="#cb5-147"></a>plt.title(<span class="st">'Histogram of the mutation values'</span>)</span>
-<span id="cb5-148"><a href="#cb5-148"></a>plt.ylabel(<span class="st">'Count of bin values'</span>)</span>
-<span id="cb5-149"><a href="#cb5-149"></a>plt.xlabel(<span class="st">'Mutation value'</span>)</span>
-<span id="cb5-150"><a href="#cb5-150"></a>plt.show()</span>
-<span id="cb5-151"><a href="#cb5-151"></a><span class="in">```</span></span>
+<span id="cb5-137"><a href="#cb5-137"></a>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <span class="in">`compute_fitness`</span> method.</span>
+<span id="cb5-138"><a href="#cb5-138"></a></span>
+<span id="cb5-139"><a href="#cb5-139"></a></span>
+<span id="cb5-142"><a href="#cb5-142"></a><span class="in">```{python}</span></span>
+<span id="cb5-143"><a href="#cb5-143"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-144"><a href="#cb5-144"></a></span>
+<span id="cb5-145"><a href="#cb5-145"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb5-146"><a href="#cb5-146"></a>ind <span class="op">=</span> PixelIndividual(shape<span class="op">=</span>(<span class="dv">100</span>, <span class="dv">100</span>), mutate_p<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-147"><a href="#cb5-147"></a>ind.mutate()</span>
+<span id="cb5-148"><a href="#cb5-148"></a>sns.histplot(ind.mutation.reshape(<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb5-149"><a href="#cb5-149"></a>plt.title(<span class="st">'Histogram of the mutation values'</span>)</span>
+<span id="cb5-150"><a href="#cb5-150"></a>plt.ylabel(<span class="st">'Count of bin values'</span>)</span>
+<span id="cb5-151"><a href="#cb5-151"></a>plt.xlabel(<span class="st">'Mutation value'</span>)</span>
+<span id="cb5-152"><a href="#cb5-152"></a>plt.show()</span>
+<span id="cb5-153"><a href="#cb5-153"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
