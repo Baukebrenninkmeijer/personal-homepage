@@ -12,17 +12,17 @@ description: How we can leverage genetic algorithms to help with image reconstru
 toc: true
 format:
   html:
-    code-fold: show
+    # code-fold: show
     code-tools: true
     # highlight-style: github
     code-line-numbers: true
-    code-overflow: wrap
+    code-overflow: scroll
     code-block-border-left: true
 ---
 
 ## Introduction
 
-![Best individual, target and two loss metrics](images/genetic-algorithms/4dots_final_state.png){#fig-4dots-training}
+![Best individual, target and two loss metrics](images/genetic-algorithms/4dots_final_state.png){#fig-4dots-endstate}
 
 Genetic algorithms are a beautiful subset in the machine learning domain, that use evolutionairy techniques to arrive to solutions that other algorithms have trouble at. These techniques include the combining of solutions, often called crossover, and the slightly altering of solutions, called mutations.
 
@@ -46,12 +46,12 @@ for i in n_iterations:
 ```
 
 
-## Mutations
+### Mutations
 Let's start with the most simple version of changes made to candidates: mutations. In any organism with DNA (or some form of it), we see mutations; slight changes in the genetic code. In organism, it's typically the results of an incorrect copy of DNA code, but in this case we are intentionally applying mutation to create slight variations.
 
 For human cells, a mutated cell can start to misbehave, which is generally cleaned up by our immune system. However, sometimes they're missed or not easy to clean up and can lead to serious consequences such as cancer. We also know mutations from sci-fi and monster stories, which result in zombies and the like, but that's unfortunately not what we are talking about today.
 
-## Procreation
+### Procreation
 Procreation is very important for this algorithm, because it allows the combining of two (or more) individuals into a new individual. Hopefully, this leads to to an individual that has all good qualities of their parents and none of the bad. In the rest of this post, the terms procreation, crossover and combine are used interchangeably for this concept.
 
 An example with two individuals and their crossover. In this example, and individual is defined by its genes: 4 binary digits. The crossover in this case is just taking the first two digits of the first individual and the latter two of the second individual.
@@ -66,11 +66,11 @@ def crossover(a, b):
 print(f'Result of crossover: {crossover(ind1, ind2)}')
 ```
 
-## Fitness function
+### Fitness function
 To assess which individuals are the most fit, you need some metric. Depending on the problem, naturally you can use many different versions. In our case, image reconstruction, we are going to use the mean-squared error of the pixel values $l = \frac{1}{n} \sum_{i=1}^{n}(c_i - T)^2$ where $n$ is the size of the population, $c_i$ is candidate $i$ and $T$ the target image. This works nicely with our data and as always, penalizes the largest errors the most.
 
 ## Pixelwise
-In this method, we try to recreate the target image by manipulating individual pixels and comibing whole pixel arrays. The genes of an individual is a pixel array the size of the target image. For some RGB image, this will be a three dimensional, for exmaple (200, 200, 3).
+In this method, we try to recreate the target image by manipulating individual pixels and comibing whole pixel arrays. The genes of an individual is a pixel array the size of the target image. For some RGB image, this will be a three dimensional, for example (200, 200, 3).
 
 Let's first deine a pixel individual and set its genes to the shape that we want. We also give an option to pass genes, which is handy for the crossover step later. Lastly, we define that probability to mutate `mutate_p` and the delta of a mutation `mutate_d`. The main methods of the individual are already defined here as well.
 
@@ -82,10 +82,61 @@ import numpy as np
 from typing import Tuple
 import matplotlib.pyplot as plt
 
+class PixelIndividual:
+    """Individual with pixel grid for genes."""
+
+    def __init__(
+        self,
+        shape: Tuple,
+        genes: np.ndarray | None = None,
+        mutate_d: float = 0.05,
+        mutate_p: float = 0.2,
+    ):
+        assert 0 <= mutate_d <= 1
+        assert 0 <= mutate_p <= 1
+        self.shape = shape
+        self.mutate_d = mutate_d
+        self.mutate_p = mutate_p
+        if genes is None:
+            self.genes = (np.random.rand(*shape)).astype(np.float32)
+        else:
+            self.genes = genes
+
+    def show(self):
+        plt.imshow(self.genes)
+        plt.show()
+
+    def crossover(self, other: PixelIndividual) -> PixelIndividual:
+        filter = np.random.randint(low=0, high=2, size=self.genes.shape)
+        output = np.where(filter, self.genes, other.genes)
+        return PixelIndividual(shape=self.shape, genes=output)
+        return PixelIndividual(shape=self.shape, genes=np.mean([self.genes, other.genes], axis=0))
+
+    def mutate(self):
+        if self.mutate_p > np.random.rand():
+            self.mutation = (
+                (np.random.rand(*self.shape) * self.mutate_d) - (self.mutate_d * 0.5)).astype(np.float32)
+            self.genes = np.clip(self.genes + self.mutation, a_min=0.0, a_max=1.0)
+
+    def compute_fitness(self, target: np.ndarray):
+        assert self.genes.dtype.name == 'float32', f'genes dtype should be float32 but found {self.genes.dtype.name}.'
+        self.fitness = ((self.genes - target) ** 2).mean()
+
+    def copy(self) -> PixelIndividual:
+        return PixelIndividual(shape=self.shape, genes=self.genes)
+
+    def get_image(self) -> np.ndarray:
+        return self.genes
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}(shape={self.shape}, fitness={self.fitness:.4f})'
+
 ```
+
 
 ```{python}
 #| column: page
+#| eval: false
 
 class PixelIndividual:
     """Individual with pixel grid for genes."""
@@ -105,34 +156,29 @@ class PixelIndividual:
         else:
             self.genes = genes
 
-    def crossover(self, other) -> PixelIndividual:
+
+```
+
+### Crossover
+
+The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself. The `filter_arr` creates an array of random zeros and ones. We use it as a filter to decide which value to pick.
+
+```{python}
+#| column: page
+#| eval: false
+
+ def crossover(self, other: PixelIndividual) -> PixelIndividual:
         filter_arr = np.random.randint(low=0, high=2, size=self.genes.shape)
         output = np.where(filter_arr, self.genes, other.genes)
         return PixelIndividual(shape=self.shape, genes=output)
-
-    def mutate(self):
-        if self.mutate_p > np.random.rand():
-            self.mutation = ((np.random.rand(*self.shape) * self.mutate_d) - (self.mutate_d * 0.5)).astype(np.float32)
-            self.genes = np.clip(self.genes + self.mutation, a_min=0.0, a_max=1.0)
-
-    def compute_fitness(self, target):
-        assert self.genes.dtype.name == 'float32', f'genes dtype should be float32 but found {self.genes.dtype.name}.'
-        self.fitness = ((self.genes - target) ** 2).mean()
 ```
-
-The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself.
-
 
 ### Mutation
 Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well.  ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.
 
-As a last step, we apply the mutation and clip the values to the range [0, 1]. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is [0, 1] or [0, 255] for integer values, and plotting libraries like matplotlib will clip values for you if you don't. To prevent hidden problems, we already make sure the domains and datatypes are correct.
-
-Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the `compute_fitness` method.
-
-
 ```{python}
 #| echo: false
+#| output: freeze
 
 import seaborn as sns
 ind = PixelIndividual(shape=(100, 100), mutate_p=1)
@@ -143,3 +189,52 @@ plt.ylabel('Count of bin values')
 plt.xlabel('Mutation value')
 plt.show()
 ```
+
+As a last step, we apply the mutation and clip the values to the range [0, 1]. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is [0, 1] or [0, 255] for integer values, and plotting libraries like matplotlib will clip values for you if you don't. To prevent hidden problems, we already make sure the domains and datatypes are correct.
+
+```{python}
+#| column: page
+#| eval: false
+
+    def mutate(self):
+        if self.mutate_p > np.random.rand():
+            self.mutation = (np.random.rand(*self.shape) * self.mutate_d) - (self.mutate_d * 0.5)
+            self.mutation = self.mutation.astype(np.float32)
+            self.genes = np.clip(self.genes + self.mutation, a_min=0.0, a_max=1.0)
+
+```
+
+Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the `compute_fitness` method. This is because this is the last step of each iteration, and generally should represent if things went correctly.
+
+The fitness method is in this case the mean-squared error.
+
+```{python}
+#| column: page
+#| eval: false
+
+
+    def compute_fitness(self, target: np.ndarray):
+        assert self.genes.dtype.name == 'float32', (
+            f'genes dtype should be float32 but found {self.genes.dtype.name}.'
+        )
+        self.fitness = ((self.genes - target) ** 2).mean()
+```
+
+### Result
+
+Some of the results are pretty cool. With smaller images, it works quite fast but for larger it can take several hours to several days to get any good results. The mario image took around 12 hours to create, and while you can clearly see the outlines, it's far from perfect.
+
+#### Toy example: 10x10 matrix
+
+This run is for just 200 iterations and takes around a minute. The right most graph shows the fitness distribution of the current population. The fitness function here was sum of squared errors, rather than mean.
+
+![Best individual, target and two loss metrics of a 10x10 pixel grid with 4 dots](images/genetic-algorithms/4dots_training.gif){#fig-4dots-training .column-screen}
+
+
+#### Slightly less toy example: 100x100 matrix with gradient
+
+This run is for 10k iterations and takes around a 1-2 hours. The right most graph shows the fitness distribution of the current population. You can see the graph struggle to show a clear distribution. This seems to mean that the whole distribution is very close, although the values on the x-axis are pretty big, so I'm not entirely sure why it cannot show a good distribution.
+
+You can see an immediate steep decline in loss, which is attributed to the initial high variety in individuals. The further the iterations go, the more we have selected the optimal individuals and the more of the population can be considered brothers and sisters of the original best individual. When the problem is complex and high-dimensional, this happens more and more, since it's quite unlikely that other candidates can present a better solution from mutation within the timeframe of the best candidate taking over the population.
+
+![Best individual, target and two loss metrics of a 100x100 pixel grid with gradient](images/genetic-algorithms/gradient_training_optimized_compressed.gif){#fig-gradient-training .column-screen}
