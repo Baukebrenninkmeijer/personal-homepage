@@ -200,7 +200,7 @@ ga('send', {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <div class="quarto-title-block"><div><h1 class="title">Genetic Algorithms for image reconstruction 🧬</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+      <div class="quarto-title-block"><div><h1 class="title">Genetic Algorithms for image reconstruction 🧬</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
                   <div>
         <div class="description">
           How we can leverage genetic algorithms to help with image reconstruction.
@@ -245,13 +245,15 @@ ga('send', {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#the-algorithm" id="toc-the-algorithm" class="nav-link" data-scroll-target="#the-algorithm">The algorithm</a></li>
-  </ul></li>
   <li><a href="#mutations" id="toc-mutations" class="nav-link" data-scroll-target="#mutations">Mutations</a></li>
   <li><a href="#procreation" id="toc-procreation" class="nav-link" data-scroll-target="#procreation">Procreation</a></li>
   <li><a href="#fitness-function" id="toc-fitness-function" class="nav-link" data-scroll-target="#fitness-function">Fitness function</a></li>
+  </ul></li>
   <li><a href="#pixelwise" id="toc-pixelwise" class="nav-link" data-scroll-target="#pixelwise">Pixelwise</a>
   <ul class="collapse">
+  <li><a href="#crossover" id="toc-crossover" class="nav-link" data-scroll-target="#crossover">Crossover</a></li>
   <li><a href="#mutation" id="toc-mutation" class="nav-link" data-scroll-target="#mutation">Mutation</a></li>
+  <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Result</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -264,7 +266,7 @@ ga('send', {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<div id="fig-4dots-training" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-4dots-endstate" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/genetic-algorithms/4dots_final_state.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;1: Best individual, target and two loss metrics</figcaption><p></p>
@@ -284,19 +286,16 @@ for i in n_iterations:
     2. randomly mutate individuals
     3. retain fittest individuals</code></pre>
 </section>
-</section>
-<section id="mutations" class="level2">
-<h2 class="anchored" data-anchor-id="mutations">Mutations</h2>
+<section id="mutations" class="level3">
+<h3 class="anchored" data-anchor-id="mutations">Mutations</h3>
 <p>Let’s start with the most simple version of changes made to candidates: mutations. In any organism with DNA (or some form of it), we see mutations; slight changes in the genetic code. In organism, it’s typically the results of an incorrect copy of DNA code, but in this case we are intentionally applying mutation to create slight variations.</p>
 <p>For human cells, a mutated cell can start to misbehave, which is generally cleaned up by our immune system. However, sometimes they’re missed or not easy to clean up and can lead to serious consequences such as cancer. We also know mutations from sci-fi and monster stories, which result in zombies and the like, but that’s unfortunately not what we are talking about today.</p>
 </section>
-<section id="procreation" class="level2">
-<h2 class="anchored" data-anchor-id="procreation">Procreation</h2>
+<section id="procreation" class="level3">
+<h3 class="anchored" data-anchor-id="procreation">Procreation</h3>
 <p>Procreation is very important for this algorithm, because it allows the combining of two (or more) individuals into a new individual. Hopefully, this leads to to an individual that has all good qualities of their parents and none of the bad. In the rest of this post, the terms procreation, crossover and combine are used interchangeably for this concept.</p>
 <p>An example with two individuals and their crossover. In this example, and individual is defined by its genes: 4 binary digits. The crossover in this case is just taking the first two digits of the first individual and the latter two of the second individual.</p>
 <div class="cell" data-execution_count="1">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>ind1 <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
 <span id="cb2-2"><a href="#cb2-2"></a>ind2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -304,23 +303,21 @@ for i in n_iterations:
 <span id="cb2-5"><a href="#cb2-5"></a>  <span class="cf">return</span> a[:<span class="dv">2</span>] <span class="op">+</span> b[<span class="dv">2</span>:]</span>
 <span id="cb2-6"><a href="#cb2-6"></a></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="bu">print</span>(<span class="ss">f'Result of crossover: </span><span class="sc">{</span>crossover(ind1, ind2)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Result of crossover: [0, 0, 1, 1]</code></pre>
 </div>
 </div>
 </section>
-<section id="fitness-function" class="level2">
-<h2 class="anchored" data-anchor-id="fitness-function">Fitness function</h2>
+<section id="fitness-function" class="level3">
+<h3 class="anchored" data-anchor-id="fitness-function">Fitness function</h3>
 <p>To assess which individuals are the most fit, you need some metric. Depending on the problem, naturally you can use many different versions. In our case, image reconstruction, we are going to use the mean-squared error of the pixel values <span class="math inline">\(l = \frac{1}{n} \sum_{i=1}^{n}(c_i - T)^2\)</span> where <span class="math inline">\(n\)</span> is the size of the population, <span class="math inline">\(c_i\)</span> is candidate <span class="math inline">\(i\)</span> and <span class="math inline">\(T\)</span> the target image. This works nicely with our data and as always, penalizes the largest errors the most.</p>
+</section>
 </section>
 <section id="pixelwise" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="pixelwise">Pixelwise</h2>
-<p>In this method, we try to recreate the target image by manipulating individual pixels and comibing whole pixel arrays. The genes of an individual is a pixel array the size of the target image. For some RGB image, this will be a three dimensional, for exmaple (200, 200, 3).</p>
+<p>In this method, we try to recreate the target image by manipulating individual pixels and comibing whole pixel arrays. The genes of an individual is a pixel array the size of the target image. For some RGB image, this will be a three dimensional, for example (200, 200, 3).</p>
 <p>Let’s first deine a pixel individual and set its genes to the shape that we want. We also give an option to pass genes, which is handy for the crossover step later. Lastly, we define that probability to mutate <code>mutate_p</code> and the delta of a mutation <code>mutate_d</code>. The main methods of the individual are already defined here as well.</p>
 <div class="cell column-page" data-execution_count="3">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> PixelIndividual:</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    <span class="co">"""Individual with pixel grid for genes."""</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -337,38 +334,72 @@ for i in n_iterations:
 <span id="cb4-14"><a href="#cb4-14"></a>        <span class="cf">if</span> genes <span class="kw">is</span> <span class="va">None</span>:</span>
 <span id="cb4-15"><a href="#cb4-15"></a>            <span class="va">self</span>.genes <span class="op">=</span> (np.random.rand(<span class="op">*</span>shape)).astype(np.float32)</span>
 <span id="cb4-16"><a href="#cb4-16"></a>        <span class="cf">else</span>:</span>
-<span id="cb4-17"><a href="#cb4-17"></a>            <span class="va">self</span>.genes <span class="op">=</span> genes</span>
-<span id="cb4-18"><a href="#cb4-18"></a></span>
-<span id="cb4-19"><a href="#cb4-19"></a>    <span class="kw">def</span> crossover(<span class="va">self</span>, other) <span class="op">-&gt;</span> PixelIndividual:</span>
-<span id="cb4-20"><a href="#cb4-20"></a>        filter_arr <span class="op">=</span> np.random.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="va">self</span>.genes.shape)</span>
-<span id="cb4-21"><a href="#cb4-21"></a>        output <span class="op">=</span> np.where(filter_arr, <span class="va">self</span>.genes, other.genes)</span>
-<span id="cb4-22"><a href="#cb4-22"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>output)</span>
-<span id="cb4-23"><a href="#cb4-23"></a></span>
-<span id="cb4-24"><a href="#cb4-24"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
-<span id="cb4-25"><a href="#cb4-25"></a>        <span class="cf">if</span> <span class="va">self</span>.mutate_p <span class="op">&gt;</span> np.random.rand():</span>
-<span id="cb4-26"><a href="#cb4-26"></a>            <span class="va">self</span>.mutation <span class="op">=</span> ((np.random.rand(<span class="op">*</span><span class="va">self</span>.shape) <span class="op">*</span> <span class="va">self</span>.mutate_d) <span class="op">-</span> (<span class="va">self</span>.mutate_d <span class="op">*</span> <span class="fl">0.5</span>)).astype(np.float32)</span>
-<span id="cb4-27"><a href="#cb4-27"></a>            <span class="va">self</span>.genes <span class="op">=</span> np.clip(<span class="va">self</span>.genes <span class="op">+</span> <span class="va">self</span>.mutation, a_min<span class="op">=</span><span class="fl">0.0</span>, a_max<span class="op">=</span><span class="fl">1.0</span>)</span>
-<span id="cb4-28"><a href="#cb4-28"></a></span>
-<span id="cb4-29"><a href="#cb4-29"></a>    <span class="kw">def</span> compute_fitness(<span class="va">self</span>, target):</span>
-<span id="cb4-30"><a href="#cb4-30"></a>        <span class="cf">assert</span> <span class="va">self</span>.genes.dtype.name <span class="op">==</span> <span class="st">'float32'</span>, <span class="ss">f'genes dtype should be float32 but found </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>genes<span class="sc">.</span>dtype<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.'</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a>        <span class="va">self</span>.fitness <span class="op">=</span> ((<span class="va">self</span>.genes <span class="op">-</span> target) <span class="op">**</span> <span class="dv">2</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb4-17"><a href="#cb4-17"></a>            <span class="va">self</span>.genes <span class="op">=</span> genes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself.</p>
-<section id="mutation" class="level3">
+<section id="crossover" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="crossover">Crossover</h3>
+<p>The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself. The <code>filter_arr</code> creates an array of random zeros and ones. We use it as a filter to decide which value to pick.</p>
+<div class="cell column-page" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a> <span class="kw">def</span> crossover(<span class="va">self</span>, other: PixelIndividual) <span class="op">-&gt;</span> PixelIndividual:</span>
+<span id="cb5-2"><a href="#cb5-2"></a>        filter_arr <span class="op">=</span> np.random.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="va">self</span>.genes.shape)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>        output <span class="op">=</span> np.where(filter_arr, <span class="va">self</span>.genes, other.genes)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mutation" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="mutation">Mutation</h3>
 <p>Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well. ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.</p>
-<p>As a last step, we apply the mutation and clip the values to the range [0, 1]. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is [0, 1] or [0, 255] for integer values, and plotting libraries like matplotlib will clip values for you if you don’t. To prevent hidden problems, we already make sure the domains and datatypes are correct.</p>
-<p>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <code>compute_fitness</code> method.</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
-<p><img src="2023-02-15-genetic-algorithms_files/figure-html/cell-5-output-1.png" width="593" height="442"></p>
+<p><img src="2023-02-15-genetic-algorithms_files/figure-html/cell-6-output-1.png" width="593" height="449"></p>
 </div>
+</div>
+<p>As a last step, we apply the mutation and clip the values to the range [0, 1]. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is [0, 1] or [0, 255] for integer values, and plotting libraries like matplotlib will clip values for you if you don’t. To prevent hidden problems, we already make sure the domains and datatypes are correct.</p>
+<div class="cell column-page" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
+<span id="cb6-2"><a href="#cb6-2"></a>        <span class="cf">if</span> <span class="va">self</span>.mutate_p <span class="op">&gt;</span> np.random.rand():</span>
+<span id="cb6-3"><a href="#cb6-3"></a>            <span class="va">self</span>.mutation <span class="op">=</span> (np.random.rand(<span class="op">*</span><span class="va">self</span>.shape) <span class="op">*</span> <span class="va">self</span>.mutate_d) <span class="op">-</span> (<span class="va">self</span>.mutate_d <span class="op">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>            <span class="va">self</span>.mutation <span class="op">=</span> <span class="va">self</span>.mutation.astype(np.float32)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>            <span class="va">self</span>.genes <span class="op">=</span> np.clip(<span class="va">self</span>.genes <span class="op">+</span> <span class="va">self</span>.mutation, a_min<span class="op">=</span><span class="fl">0.0</span>, a_max<span class="op">=</span><span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <code>compute_fitness</code> method. This is because this is the last step of each iteration, and generally should represent if things went correctly.</p>
+<p>The fitness method is in this case the mean-squared error.</p>
+<div class="cell column-page" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>    <span class="kw">def</span> compute_fitness(<span class="va">self</span>, target: np.ndarray):</span>
+<span id="cb7-2"><a href="#cb7-2"></a>        <span class="cf">assert</span> <span class="va">self</span>.genes.dtype.name <span class="op">==</span> <span class="st">'float32'</span>, (</span>
+<span id="cb7-3"><a href="#cb7-3"></a>            <span class="ss">f'genes dtype should be float32 but found </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>genes<span class="sc">.</span>dtype<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.'</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>        )</span>
+<span id="cb7-5"><a href="#cb7-5"></a>        <span class="va">self</span>.fitness <span class="op">=</span> ((<span class="va">self</span>.genes <span class="op">-</span> target) <span class="op">**</span> <span class="dv">2</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="result" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="result">Result</h3>
+<p>Some of the results are pretty cool. With smaller images, it works quite fast but for larger it can take several hours to several days to get any good results. The mario image took around 12 hours to create, and while you can clearly see the outlines, it’s far from perfect.</p>
+<section id="toy-example-10x10-matrix" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="toy-example-10x10-matrix">Toy example: 10x10 matrix</h4>
+<p>This run is for just 200 iterations and takes around a minute. The right most graph shows the fitness distribution of the current population. The fitness function here was sum of squared errors, rather than mean.</p>
+<div id="fig-4dots-training" class="quarto-figure quarto-figure-center column-screen anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="images/genetic-algorithms/4dots_training.gif" class="column-screen img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Best individual, target and two loss metrics of a 10x10 pixel grid with 4 dots</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="slightly-less-toy-example-100x100-matrix-with-gradient" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="slightly-less-toy-example-100x100-matrix-with-gradient">Slightly less toy example: 100x100 matrix with gradient</h4>
+<p>This run is for 10k iterations and takes around a 1-2 hours. The right most graph shows the fitness distribution of the current population. You can see the graph struggle to show a clear distribution. This seems to mean that the whole distribution is very close, although the values on the x-axis are pretty big, so I’m not entirely sure why it cannot show a good distribution.</p>
+<p>You can see an immediate steep decline in loss, which is attributed to the initial high variety in individuals. The further the iterations go, the more we have selected the optimal individuals and the more of the population can be considered brothers and sisters of the original best individual. When the problem is complex and high-dimensional, this happens more and more, since it’s quite unlikely that other candidates can present a better solution from mutation within the timeframe of the best candidate taking over the population.</p>
+<div id="fig-gradient-training" class="quarto-figure quarto-figure-center column-screen anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="images/genetic-algorithms/gradient_training_optimized_compressed.gif" class="column-screen img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Best individual, target and two loss metrics of a 100x100 pixel grid with gradient</figcaption><p></p>
+</figure>
 </div>
 
 
 <!-- -->
 
+</section>
 </section>
 </section>
 
@@ -672,151 +703,246 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="an">author:</span><span class="co"> Bauke Brenninkmeijer</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="an">badges:</span><span class="co"> true</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="an">branch:</span><span class="co"> master</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="an">categories:</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">- Genetic Algorithms</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">- Machine learning</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="an">date:</span><span class="co"> '2023-02-16'</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="an">image:</span><span class="co"> images/genetic-algorithms/banner.png</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="an">title:</span><span class="co"> Genetic Algorithms for image reconstruction 🧬</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="an">description:</span><span class="co"> How we can leverage genetic algorithms to help with image reconstruction.</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="an">toc:</span><span class="co"> true</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="an">format:</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">  html:</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">    code-fold: show</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">    code-tools: true</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">    # highlight-style: github</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">    code-line-numbers: true</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">    code-overflow: wrap</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">    code-block-border-left: true</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">---</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="fu">## Introduction</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="al">![Best individual, target and two loss metrics](images/genetic-algorithms/4dots_final_state.png)</span>{#fig-4dots-training}</span>
-<span id="cb5-26"><a href="#cb5-26"></a></span>
-<span id="cb5-27"><a href="#cb5-27"></a>Genetic algorithms are a beautiful subset in the machine learning domain, that use evolutionairy techniques to arrive to solutions that other algorithms have trouble at. These techniques include the combining of solutions, often called crossover, and the slightly altering of solutions, called mutations.</span>
-<span id="cb5-28"><a href="#cb5-28"></a></span>
-<span id="cb5-29"><a href="#cb5-29"></a>In this post, I'll show two versions genetic algorithms that can be used for image reconstruction given a target image. In the real world, it will have few applications but it's a great theoretical exercise and practice for understanding of the algorithms and image manipulation. However, they are unmistakingly usefull and have been applied in many domains, one being Neural Architecture Search, a method to find the best architecture for a neural network given a specific problem.</span>
-<span id="cb5-30"><a href="#cb5-30"></a></span>
-<span id="cb5-31"><a href="#cb5-31"></a>While other optimization methods, such a gradient descent are incredibly powerful for problems that provide a smooth non-stochastic optimization curve. However, for problems that might have many different good solutions that are not easily findable following a single trajectory in parameter space, genetic algorithms can provide unexpected solutions.</span>
-<span id="cb5-32"><a href="#cb5-32"></a></span>
-<span id="cb5-33"><a href="#cb5-33"></a>As in nature, genetic algorithms are based on natural selection and survival of the fittest. That means that each iteration, we select the best candidates for the problem at hand and continue with those. Each individual represents a solutions, and by slightly altering and combining solutions we hope to come to a better solution each iteration. As you can understand, this is a very generic approach that can be applied to all types of problems.</span>
-<span id="cb5-34"><a href="#cb5-34"></a></span>
-<span id="cb5-35"><a href="#cb5-35"></a><span class="fu">### The algorithm</span></span>
-<span id="cb5-36"><a href="#cb5-36"></a></span>
-<span id="cb5-37"><a href="#cb5-37"></a>Generally, the algorithms for genetic algorithms follows roughly the same outline and is as follows:</span>
-<span id="cb5-38"><a href="#cb5-38"></a></span>
-<span id="cb5-39"><a href="#cb5-39"></a><span class="in">```</span></span>
-<span id="cb5-40"><a href="#cb5-40"></a><span class="in">pop = create initial popluation with n individuals</span></span>
-<span id="cb5-41"><a href="#cb5-41"></a></span>
-<span id="cb5-42"><a href="#cb5-42"></a><span class="in">for i in n_iterations:</span></span>
-<span id="cb5-43"><a href="#cb5-43"></a><span class="in">    1. randomly combine/reproduce individuals</span></span>
-<span id="cb5-44"><a href="#cb5-44"></a><span class="in">    2. randomly mutate individuals</span></span>
-<span id="cb5-45"><a href="#cb5-45"></a><span class="in">    3. retain fittest individuals</span></span>
-<span id="cb5-46"><a href="#cb5-46"></a><span class="in">```</span></span>
-<span id="cb5-47"><a href="#cb5-47"></a></span>
-<span id="cb5-48"><a href="#cb5-48"></a></span>
-<span id="cb5-49"><a href="#cb5-49"></a><span class="fu">## Mutations</span></span>
-<span id="cb5-50"><a href="#cb5-50"></a>Let's start with the most simple version of changes made to candidates: mutations. In any organism with DNA (or some form of it), we see mutations; slight changes in the genetic code. In organism, it's typically the results of an incorrect copy of DNA code, but in this case we are intentionally applying mutation to create slight variations.</span>
-<span id="cb5-51"><a href="#cb5-51"></a></span>
-<span id="cb5-52"><a href="#cb5-52"></a>For human cells, a mutated cell can start to misbehave, which is generally cleaned up by our immune system. However, sometimes they're missed or not easy to clean up and can lead to serious consequences such as cancer. We also know mutations from sci-fi and monster stories, which result in zombies and the like, but that's unfortunately not what we are talking about today.</span>
-<span id="cb5-53"><a href="#cb5-53"></a></span>
-<span id="cb5-54"><a href="#cb5-54"></a><span class="fu">## Procreation</span></span>
-<span id="cb5-55"><a href="#cb5-55"></a>Procreation is very important for this algorithm, because it allows the combining of two (or more) individuals into a new individual. Hopefully, this leads to to an individual that has all good qualities of their parents and none of the bad. In the rest of this post, the terms procreation, crossover and combine are used interchangeably for this concept.</span>
-<span id="cb5-56"><a href="#cb5-56"></a></span>
-<span id="cb5-57"><a href="#cb5-57"></a>An example with two individuals and their crossover. In this example, and individual is defined by its genes: 4 binary digits. The crossover in this case is just taking the first two digits of the first individual and the latter two of the second individual.</span>
-<span id="cb5-58"><a href="#cb5-58"></a></span>
-<span id="cb5-61"><a href="#cb5-61"></a><span class="in">```{python}</span></span>
-<span id="cb5-62"><a href="#cb5-62"></a>ind1 <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
-<span id="cb5-63"><a href="#cb5-63"></a>ind2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
-<span id="cb5-64"><a href="#cb5-64"></a></span>
-<span id="cb5-65"><a href="#cb5-65"></a><span class="kw">def</span> crossover(a, b):</span>
-<span id="cb5-66"><a href="#cb5-66"></a>  <span class="cf">return</span> a[:<span class="dv">2</span>] <span class="op">+</span> b[<span class="dv">2</span>:]</span>
-<span id="cb5-67"><a href="#cb5-67"></a></span>
-<span id="cb5-68"><a href="#cb5-68"></a><span class="bu">print</span>(<span class="ss">f'Result of crossover: </span><span class="sc">{</span>crossover(ind1, ind2)<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb5-69"><a href="#cb5-69"></a><span class="in">```</span></span>
-<span id="cb5-70"><a href="#cb5-70"></a></span>
-<span id="cb5-71"><a href="#cb5-71"></a><span class="fu">## Fitness function</span></span>
-<span id="cb5-72"><a href="#cb5-72"></a>To assess which individuals are the most fit, you need some metric. Depending on the problem, naturally you can use many different versions. In our case, image reconstruction, we are going to use the mean-squared error of the pixel values $l = \frac{1}{n} \sum_{i=1}^{n}(c_i - T)^2$ where $n$ is the size of the population, $c_i$ is candidate $i$ and $T$ the target image. This works nicely with our data and as always, penalizes the largest errors the most.</span>
-<span id="cb5-73"><a href="#cb5-73"></a></span>
-<span id="cb5-74"><a href="#cb5-74"></a><span class="fu">## Pixelwise</span></span>
-<span id="cb5-75"><a href="#cb5-75"></a>In this method, we try to recreate the target image by manipulating individual pixels and comibing whole pixel arrays. The genes of an individual is a pixel array the size of the target image. For some RGB image, this will be a three dimensional, for exmaple (200, 200, 3).</span>
-<span id="cb5-76"><a href="#cb5-76"></a></span>
-<span id="cb5-77"><a href="#cb5-77"></a>Let's first deine a pixel individual and set its genes to the shape that we want. We also give an option to pass genes, which is handy for the crossover step later. Lastly, we define that probability to mutate <span class="in">`mutate_p`</span> and the delta of a mutation <span class="in">`mutate_d`</span>. The main methods of the individual are already defined here as well.</span>
-<span id="cb5-78"><a href="#cb5-78"></a></span>
-<span id="cb5-81"><a href="#cb5-81"></a><span class="in">```{python}</span></span>
-<span id="cb5-82"><a href="#cb5-82"></a><span class="co">#| echo: false</span></span>
-<span id="cb5-83"><a href="#cb5-83"></a></span>
-<span id="cb5-84"><a href="#cb5-84"></a><span class="im">from</span> __future__ <span class="im">import</span> annotations</span>
-<span id="cb5-85"><a href="#cb5-85"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-86"><a href="#cb5-86"></a><span class="im">from</span> typing <span class="im">import</span> Tuple</span>
-<span id="cb5-87"><a href="#cb5-87"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-88"><a href="#cb5-88"></a></span>
-<span id="cb5-89"><a href="#cb5-89"></a><span class="in">```</span></span>
-<span id="cb5-90"><a href="#cb5-90"></a></span>
-<span id="cb5-93"><a href="#cb5-93"></a><span class="in">```{python}</span></span>
-<span id="cb5-94"><a href="#cb5-94"></a><span class="co">#| column: page</span></span>
-<span id="cb5-95"><a href="#cb5-95"></a></span>
-<span id="cb5-96"><a href="#cb5-96"></a><span class="kw">class</span> PixelIndividual:</span>
-<span id="cb5-97"><a href="#cb5-97"></a>    <span class="co">"""Individual with pixel grid for genes."""</span></span>
-<span id="cb5-98"><a href="#cb5-98"></a></span>
-<span id="cb5-99"><a href="#cb5-99"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
-<span id="cb5-100"><a href="#cb5-100"></a>        <span class="va">self</span>,</span>
-<span id="cb5-101"><a href="#cb5-101"></a>        shape: Tuple,</span>
-<span id="cb5-102"><a href="#cb5-102"></a>        genes: np.ndarray <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span>,</span>
-<span id="cb5-103"><a href="#cb5-103"></a>        mutate_d: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span id="cb5-104"><a href="#cb5-104"></a>        mutate_p: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.2</span></span>
-<span id="cb5-105"><a href="#cb5-105"></a>    ):</span>
-<span id="cb5-106"><a href="#cb5-106"></a>        <span class="va">self</span>.shape <span class="op">=</span> shape</span>
-<span id="cb5-107"><a href="#cb5-107"></a>        <span class="va">self</span>.mutate_d <span class="op">=</span> mutate_d</span>
-<span id="cb5-108"><a href="#cb5-108"></a>        <span class="va">self</span>.mutate_p <span class="op">=</span> mutate_p</span>
-<span id="cb5-109"><a href="#cb5-109"></a>        <span class="cf">if</span> genes <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb5-110"><a href="#cb5-110"></a>            <span class="va">self</span>.genes <span class="op">=</span> (np.random.rand(<span class="op">*</span>shape)).astype(np.float32)</span>
-<span id="cb5-111"><a href="#cb5-111"></a>        <span class="cf">else</span>:</span>
-<span id="cb5-112"><a href="#cb5-112"></a>            <span class="va">self</span>.genes <span class="op">=</span> genes</span>
-<span id="cb5-113"><a href="#cb5-113"></a></span>
-<span id="cb5-114"><a href="#cb5-114"></a>    <span class="kw">def</span> crossover(<span class="va">self</span>, other) <span class="op">-&gt;</span> PixelIndividual:</span>
-<span id="cb5-115"><a href="#cb5-115"></a>        filter_arr <span class="op">=</span> np.random.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="va">self</span>.genes.shape)</span>
-<span id="cb5-116"><a href="#cb5-116"></a>        output <span class="op">=</span> np.where(filter_arr, <span class="va">self</span>.genes, other.genes)</span>
-<span id="cb5-117"><a href="#cb5-117"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>output)</span>
-<span id="cb5-118"><a href="#cb5-118"></a></span>
-<span id="cb5-119"><a href="#cb5-119"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
-<span id="cb5-120"><a href="#cb5-120"></a>        <span class="cf">if</span> <span class="va">self</span>.mutate_p <span class="op">&gt;</span> np.random.rand():</span>
-<span id="cb5-121"><a href="#cb5-121"></a>            <span class="va">self</span>.mutation <span class="op">=</span> ((np.random.rand(<span class="op">*</span><span class="va">self</span>.shape) <span class="op">*</span> <span class="va">self</span>.mutate_d) <span class="op">-</span> (<span class="va">self</span>.mutate_d <span class="op">*</span> <span class="fl">0.5</span>)).astype(np.float32)</span>
-<span id="cb5-122"><a href="#cb5-122"></a>            <span class="va">self</span>.genes <span class="op">=</span> np.clip(<span class="va">self</span>.genes <span class="op">+</span> <span class="va">self</span>.mutation, a_min<span class="op">=</span><span class="fl">0.0</span>, a_max<span class="op">=</span><span class="fl">1.0</span>)</span>
-<span id="cb5-123"><a href="#cb5-123"></a></span>
-<span id="cb5-124"><a href="#cb5-124"></a>    <span class="kw">def</span> compute_fitness(<span class="va">self</span>, target):</span>
-<span id="cb5-125"><a href="#cb5-125"></a>        <span class="cf">assert</span> <span class="va">self</span>.genes.dtype.name <span class="op">==</span> <span class="st">'float32'</span>, <span class="ss">f'genes dtype should be float32 but found </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>genes<span class="sc">.</span>dtype<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.'</span></span>
-<span id="cb5-126"><a href="#cb5-126"></a>        <span class="va">self</span>.fitness <span class="op">=</span> ((<span class="va">self</span>.genes <span class="op">-</span> target) <span class="op">**</span> <span class="dv">2</span>).mean()</span>
-<span id="cb5-127"><a href="#cb5-127"></a><span class="in">```</span></span>
-<span id="cb5-128"><a href="#cb5-128"></a></span>
-<span id="cb5-129"><a href="#cb5-129"></a>The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself.</span>
-<span id="cb5-130"><a href="#cb5-130"></a></span>
-<span id="cb5-131"><a href="#cb5-131"></a></span>
-<span id="cb5-132"><a href="#cb5-132"></a><span class="fu">### Mutation</span></span>
-<span id="cb5-133"><a href="#cb5-133"></a>Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well.  ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.</span>
-<span id="cb5-134"><a href="#cb5-134"></a></span>
-<span id="cb5-135"><a href="#cb5-135"></a>As a last step, we apply the mutation and clip the values to the range <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span>. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span> or <span class="co">[</span><span class="ot">0, 255</span><span class="co">]</span> for integer values, and plotting libraries like matplotlib will clip values for you if you don't. To prevent hidden problems, we already make sure the domains and datatypes are correct.</span>
-<span id="cb5-136"><a href="#cb5-136"></a></span>
-<span id="cb5-137"><a href="#cb5-137"></a>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <span class="in">`compute_fitness`</span> method.</span>
-<span id="cb5-138"><a href="#cb5-138"></a></span>
-<span id="cb5-139"><a href="#cb5-139"></a></span>
-<span id="cb5-142"><a href="#cb5-142"></a><span class="in">```{python}</span></span>
-<span id="cb5-143"><a href="#cb5-143"></a><span class="co">#| echo: false</span></span>
-<span id="cb5-144"><a href="#cb5-144"></a></span>
-<span id="cb5-145"><a href="#cb5-145"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb5-146"><a href="#cb5-146"></a>ind <span class="op">=</span> PixelIndividual(shape<span class="op">=</span>(<span class="dv">100</span>, <span class="dv">100</span>), mutate_p<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-147"><a href="#cb5-147"></a>ind.mutate()</span>
-<span id="cb5-148"><a href="#cb5-148"></a>sns.histplot(ind.mutation.reshape(<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb5-149"><a href="#cb5-149"></a>plt.title(<span class="st">'Histogram of the mutation values'</span>)</span>
-<span id="cb5-150"><a href="#cb5-150"></a>plt.ylabel(<span class="st">'Count of bin values'</span>)</span>
-<span id="cb5-151"><a href="#cb5-151"></a>plt.xlabel(<span class="st">'Mutation value'</span>)</span>
-<span id="cb5-152"><a href="#cb5-152"></a>plt.show()</span>
-<span id="cb5-153"><a href="#cb5-153"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">---</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="an">author:</span><span class="co"> Bauke Brenninkmeijer</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="an">badges:</span><span class="co"> true</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="an">branch:</span><span class="co"> master</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="an">categories:</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">- Genetic Algorithms</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">- Machine learning</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="an">date:</span><span class="co"> '2023-02-16'</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="an">image:</span><span class="co"> images/genetic-algorithms/banner.png</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="an">title:</span><span class="co"> Genetic Algorithms for image reconstruction 🧬</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="an">description:</span><span class="co"> How we can leverage genetic algorithms to help with image reconstruction.</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="an">format:</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">  html:</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">    # code-fold: show</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">    code-tools: true</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">    # highlight-style: github</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">    code-line-numbers: true</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">    code-overflow: scroll</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">    code-block-border-left: true</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">---</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="fu">## Introduction</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="al">![Best individual, target and two loss metrics](images/genetic-algorithms/4dots_final_state.png)</span>{#fig-4dots-endstate}</span>
+<span id="cb8-26"><a href="#cb8-26"></a></span>
+<span id="cb8-27"><a href="#cb8-27"></a>Genetic algorithms are a beautiful subset in the machine learning domain, that use evolutionairy techniques to arrive to solutions that other algorithms have trouble at. These techniques include the combining of solutions, often called crossover, and the slightly altering of solutions, called mutations.</span>
+<span id="cb8-28"><a href="#cb8-28"></a></span>
+<span id="cb8-29"><a href="#cb8-29"></a>In this post, I'll show two versions genetic algorithms that can be used for image reconstruction given a target image. In the real world, it will have few applications but it's a great theoretical exercise and practice for understanding of the algorithms and image manipulation. However, they are unmistakingly usefull and have been applied in many domains, one being Neural Architecture Search, a method to find the best architecture for a neural network given a specific problem.</span>
+<span id="cb8-30"><a href="#cb8-30"></a></span>
+<span id="cb8-31"><a href="#cb8-31"></a>While other optimization methods, such a gradient descent are incredibly powerful for problems that provide a smooth non-stochastic optimization curve. However, for problems that might have many different good solutions that are not easily findable following a single trajectory in parameter space, genetic algorithms can provide unexpected solutions.</span>
+<span id="cb8-32"><a href="#cb8-32"></a></span>
+<span id="cb8-33"><a href="#cb8-33"></a>As in nature, genetic algorithms are based on natural selection and survival of the fittest. That means that each iteration, we select the best candidates for the problem at hand and continue with those. Each individual represents a solutions, and by slightly altering and combining solutions we hope to come to a better solution each iteration. As you can understand, this is a very generic approach that can be applied to all types of problems.</span>
+<span id="cb8-34"><a href="#cb8-34"></a></span>
+<span id="cb8-35"><a href="#cb8-35"></a><span class="fu">### The algorithm</span></span>
+<span id="cb8-36"><a href="#cb8-36"></a></span>
+<span id="cb8-37"><a href="#cb8-37"></a>Generally, the algorithms for genetic algorithms follows roughly the same outline and is as follows:</span>
+<span id="cb8-38"><a href="#cb8-38"></a></span>
+<span id="cb8-39"><a href="#cb8-39"></a><span class="in">```</span></span>
+<span id="cb8-40"><a href="#cb8-40"></a><span class="in">pop = create initial popluation with n individuals</span></span>
+<span id="cb8-41"><a href="#cb8-41"></a></span>
+<span id="cb8-42"><a href="#cb8-42"></a><span class="in">for i in n_iterations:</span></span>
+<span id="cb8-43"><a href="#cb8-43"></a><span class="in">    1. randomly combine/reproduce individuals</span></span>
+<span id="cb8-44"><a href="#cb8-44"></a><span class="in">    2. randomly mutate individuals</span></span>
+<span id="cb8-45"><a href="#cb8-45"></a><span class="in">    3. retain fittest individuals</span></span>
+<span id="cb8-46"><a href="#cb8-46"></a><span class="in">```</span></span>
+<span id="cb8-47"><a href="#cb8-47"></a></span>
+<span id="cb8-48"><a href="#cb8-48"></a></span>
+<span id="cb8-49"><a href="#cb8-49"></a><span class="fu">### Mutations</span></span>
+<span id="cb8-50"><a href="#cb8-50"></a>Let's start with the most simple version of changes made to candidates: mutations. In any organism with DNA (or some form of it), we see mutations; slight changes in the genetic code. In organism, it's typically the results of an incorrect copy of DNA code, but in this case we are intentionally applying mutation to create slight variations.</span>
+<span id="cb8-51"><a href="#cb8-51"></a></span>
+<span id="cb8-52"><a href="#cb8-52"></a>For human cells, a mutated cell can start to misbehave, which is generally cleaned up by our immune system. However, sometimes they're missed or not easy to clean up and can lead to serious consequences such as cancer. We also know mutations from sci-fi and monster stories, which result in zombies and the like, but that's unfortunately not what we are talking about today.</span>
+<span id="cb8-53"><a href="#cb8-53"></a></span>
+<span id="cb8-54"><a href="#cb8-54"></a><span class="fu">### Procreation</span></span>
+<span id="cb8-55"><a href="#cb8-55"></a>Procreation is very important for this algorithm, because it allows the combining of two (or more) individuals into a new individual. Hopefully, this leads to to an individual that has all good qualities of their parents and none of the bad. In the rest of this post, the terms procreation, crossover and combine are used interchangeably for this concept.</span>
+<span id="cb8-56"><a href="#cb8-56"></a></span>
+<span id="cb8-57"><a href="#cb8-57"></a>An example with two individuals and their crossover. In this example, and individual is defined by its genes: 4 binary digits. The crossover in this case is just taking the first two digits of the first individual and the latter two of the second individual.</span>
+<span id="cb8-58"><a href="#cb8-58"></a></span>
+<span id="cb8-61"><a href="#cb8-61"></a><span class="in">```{python}</span></span>
+<span id="cb8-62"><a href="#cb8-62"></a>ind1 <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb8-63"><a href="#cb8-63"></a>ind2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb8-64"><a href="#cb8-64"></a></span>
+<span id="cb8-65"><a href="#cb8-65"></a><span class="kw">def</span> crossover(a, b):</span>
+<span id="cb8-66"><a href="#cb8-66"></a>  <span class="cf">return</span> a[:<span class="dv">2</span>] <span class="op">+</span> b[<span class="dv">2</span>:]</span>
+<span id="cb8-67"><a href="#cb8-67"></a></span>
+<span id="cb8-68"><a href="#cb8-68"></a><span class="bu">print</span>(<span class="ss">f'Result of crossover: </span><span class="sc">{</span>crossover(ind1, ind2)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb8-69"><a href="#cb8-69"></a><span class="in">```</span></span>
+<span id="cb8-70"><a href="#cb8-70"></a></span>
+<span id="cb8-71"><a href="#cb8-71"></a><span class="fu">### Fitness function</span></span>
+<span id="cb8-72"><a href="#cb8-72"></a>To assess which individuals are the most fit, you need some metric. Depending on the problem, naturally you can use many different versions. In our case, image reconstruction, we are going to use the mean-squared error of the pixel values $l = \frac{1}{n} \sum_{i=1}^{n}(c_i - T)^2$ where $n$ is the size of the population, $c_i$ is candidate $i$ and $T$ the target image. This works nicely with our data and as always, penalizes the largest errors the most.</span>
+<span id="cb8-73"><a href="#cb8-73"></a></span>
+<span id="cb8-74"><a href="#cb8-74"></a><span class="fu">## Pixelwise</span></span>
+<span id="cb8-75"><a href="#cb8-75"></a>In this method, we try to recreate the target image by manipulating individual pixels and comibing whole pixel arrays. The genes of an individual is a pixel array the size of the target image. For some RGB image, this will be a three dimensional, for example (200, 200, 3).</span>
+<span id="cb8-76"><a href="#cb8-76"></a></span>
+<span id="cb8-77"><a href="#cb8-77"></a>Let's first deine a pixel individual and set its genes to the shape that we want. We also give an option to pass genes, which is handy for the crossover step later. Lastly, we define that probability to mutate <span class="in">`mutate_p`</span> and the delta of a mutation <span class="in">`mutate_d`</span>. The main methods of the individual are already defined here as well.</span>
+<span id="cb8-78"><a href="#cb8-78"></a></span>
+<span id="cb8-81"><a href="#cb8-81"></a><span class="in">```{python}</span></span>
+<span id="cb8-82"><a href="#cb8-82"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-83"><a href="#cb8-83"></a></span>
+<span id="cb8-84"><a href="#cb8-84"></a><span class="im">from</span> __future__ <span class="im">import</span> annotations</span>
+<span id="cb8-85"><a href="#cb8-85"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-86"><a href="#cb8-86"></a><span class="im">from</span> typing <span class="im">import</span> Tuple</span>
+<span id="cb8-87"><a href="#cb8-87"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-88"><a href="#cb8-88"></a></span>
+<span id="cb8-89"><a href="#cb8-89"></a><span class="kw">class</span> PixelIndividual:</span>
+<span id="cb8-90"><a href="#cb8-90"></a>    <span class="co">"""Individual with pixel grid for genes."""</span></span>
+<span id="cb8-91"><a href="#cb8-91"></a></span>
+<span id="cb8-92"><a href="#cb8-92"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
+<span id="cb8-93"><a href="#cb8-93"></a>        <span class="va">self</span>,</span>
+<span id="cb8-94"><a href="#cb8-94"></a>        shape: Tuple,</span>
+<span id="cb8-95"><a href="#cb8-95"></a>        genes: np.ndarray <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb8-96"><a href="#cb8-96"></a>        mutate_d: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span id="cb8-97"><a href="#cb8-97"></a>        mutate_p: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span id="cb8-98"><a href="#cb8-98"></a>    ):</span>
+<span id="cb8-99"><a href="#cb8-99"></a>        <span class="cf">assert</span> <span class="dv">0</span> <span class="op">&lt;=</span> mutate_d <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb8-100"><a href="#cb8-100"></a>        <span class="cf">assert</span> <span class="dv">0</span> <span class="op">&lt;=</span> mutate_p <span class="op">&lt;=</span> <span class="dv">1</span></span>
+<span id="cb8-101"><a href="#cb8-101"></a>        <span class="va">self</span>.shape <span class="op">=</span> shape</span>
+<span id="cb8-102"><a href="#cb8-102"></a>        <span class="va">self</span>.mutate_d <span class="op">=</span> mutate_d</span>
+<span id="cb8-103"><a href="#cb8-103"></a>        <span class="va">self</span>.mutate_p <span class="op">=</span> mutate_p</span>
+<span id="cb8-104"><a href="#cb8-104"></a>        <span class="cf">if</span> genes <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb8-105"><a href="#cb8-105"></a>            <span class="va">self</span>.genes <span class="op">=</span> (np.random.rand(<span class="op">*</span>shape)).astype(np.float32)</span>
+<span id="cb8-106"><a href="#cb8-106"></a>        <span class="cf">else</span>:</span>
+<span id="cb8-107"><a href="#cb8-107"></a>            <span class="va">self</span>.genes <span class="op">=</span> genes</span>
+<span id="cb8-108"><a href="#cb8-108"></a></span>
+<span id="cb8-109"><a href="#cb8-109"></a>    <span class="kw">def</span> show(<span class="va">self</span>):</span>
+<span id="cb8-110"><a href="#cb8-110"></a>        plt.imshow(<span class="va">self</span>.genes)</span>
+<span id="cb8-111"><a href="#cb8-111"></a>        plt.show()</span>
+<span id="cb8-112"><a href="#cb8-112"></a></span>
+<span id="cb8-113"><a href="#cb8-113"></a>    <span class="kw">def</span> crossover(<span class="va">self</span>, other: PixelIndividual) <span class="op">-&gt;</span> PixelIndividual:</span>
+<span id="cb8-114"><a href="#cb8-114"></a>        <span class="bu">filter</span> <span class="op">=</span> np.random.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="va">self</span>.genes.shape)</span>
+<span id="cb8-115"><a href="#cb8-115"></a>        output <span class="op">=</span> np.where(<span class="bu">filter</span>, <span class="va">self</span>.genes, other.genes)</span>
+<span id="cb8-116"><a href="#cb8-116"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>output)</span>
+<span id="cb8-117"><a href="#cb8-117"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>np.mean([<span class="va">self</span>.genes, other.genes], axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb8-118"><a href="#cb8-118"></a></span>
+<span id="cb8-119"><a href="#cb8-119"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
+<span id="cb8-120"><a href="#cb8-120"></a>        <span class="cf">if</span> <span class="va">self</span>.mutate_p <span class="op">&gt;</span> np.random.rand():</span>
+<span id="cb8-121"><a href="#cb8-121"></a>            <span class="va">self</span>.mutation <span class="op">=</span> (</span>
+<span id="cb8-122"><a href="#cb8-122"></a>                (np.random.rand(<span class="op">*</span><span class="va">self</span>.shape) <span class="op">*</span> <span class="va">self</span>.mutate_d) <span class="op">-</span> (<span class="va">self</span>.mutate_d <span class="op">*</span> <span class="fl">0.5</span>)).astype(np.float32)</span>
+<span id="cb8-123"><a href="#cb8-123"></a>            <span class="va">self</span>.genes <span class="op">=</span> np.clip(<span class="va">self</span>.genes <span class="op">+</span> <span class="va">self</span>.mutation, a_min<span class="op">=</span><span class="fl">0.0</span>, a_max<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb8-124"><a href="#cb8-124"></a></span>
+<span id="cb8-125"><a href="#cb8-125"></a>    <span class="kw">def</span> compute_fitness(<span class="va">self</span>, target: np.ndarray):</span>
+<span id="cb8-126"><a href="#cb8-126"></a>        <span class="cf">assert</span> <span class="va">self</span>.genes.dtype.name <span class="op">==</span> <span class="st">'float32'</span>, <span class="ss">f'genes dtype should be float32 but found </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>genes<span class="sc">.</span>dtype<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.'</span></span>
+<span id="cb8-127"><a href="#cb8-127"></a>        <span class="va">self</span>.fitness <span class="op">=</span> ((<span class="va">self</span>.genes <span class="op">-</span> target) <span class="op">**</span> <span class="dv">2</span>).mean()</span>
+<span id="cb8-128"><a href="#cb8-128"></a></span>
+<span id="cb8-129"><a href="#cb8-129"></a>    <span class="kw">def</span> copy(<span class="va">self</span>) <span class="op">-&gt;</span> PixelIndividual:</span>
+<span id="cb8-130"><a href="#cb8-130"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span><span class="va">self</span>.genes)</span>
+<span id="cb8-131"><a href="#cb8-131"></a></span>
+<span id="cb8-132"><a href="#cb8-132"></a>    <span class="kw">def</span> get_image(<span class="va">self</span>) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb8-133"><a href="#cb8-133"></a>        <span class="cf">return</span> <span class="va">self</span>.genes</span>
+<span id="cb8-134"><a href="#cb8-134"></a></span>
+<span id="cb8-135"><a href="#cb8-135"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb8-136"><a href="#cb8-136"></a>        <span class="cf">return</span> <span class="ss">f'</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>__class__<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">(shape=</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>shape<span class="sc">}</span><span class="ss">, fitness=</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>fitness<span class="sc">:.4f}</span><span class="ss">)'</span></span>
+<span id="cb8-137"><a href="#cb8-137"></a></span>
+<span id="cb8-138"><a href="#cb8-138"></a><span class="in">```</span></span>
+<span id="cb8-139"><a href="#cb8-139"></a></span>
+<span id="cb8-140"><a href="#cb8-140"></a></span>
+<span id="cb8-143"><a href="#cb8-143"></a><span class="in">```{python}</span></span>
+<span id="cb8-144"><a href="#cb8-144"></a><span class="co">#| column: page</span></span>
+<span id="cb8-145"><a href="#cb8-145"></a><span class="co">#| eval: false</span></span>
+<span id="cb8-146"><a href="#cb8-146"></a></span>
+<span id="cb8-147"><a href="#cb8-147"></a><span class="kw">class</span> PixelIndividual:</span>
+<span id="cb8-148"><a href="#cb8-148"></a>    <span class="co">"""Individual with pixel grid for genes."""</span></span>
+<span id="cb8-149"><a href="#cb8-149"></a></span>
+<span id="cb8-150"><a href="#cb8-150"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
+<span id="cb8-151"><a href="#cb8-151"></a>        <span class="va">self</span>,</span>
+<span id="cb8-152"><a href="#cb8-152"></a>        shape: Tuple,</span>
+<span id="cb8-153"><a href="#cb8-153"></a>        genes: np.ndarray <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb8-154"><a href="#cb8-154"></a>        mutate_d: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span id="cb8-155"><a href="#cb8-155"></a>        mutate_p: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb8-156"><a href="#cb8-156"></a>    ):</span>
+<span id="cb8-157"><a href="#cb8-157"></a>        <span class="va">self</span>.shape <span class="op">=</span> shape</span>
+<span id="cb8-158"><a href="#cb8-158"></a>        <span class="va">self</span>.mutate_d <span class="op">=</span> mutate_d</span>
+<span id="cb8-159"><a href="#cb8-159"></a>        <span class="va">self</span>.mutate_p <span class="op">=</span> mutate_p</span>
+<span id="cb8-160"><a href="#cb8-160"></a>        <span class="cf">if</span> genes <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb8-161"><a href="#cb8-161"></a>            <span class="va">self</span>.genes <span class="op">=</span> (np.random.rand(<span class="op">*</span>shape)).astype(np.float32)</span>
+<span id="cb8-162"><a href="#cb8-162"></a>        <span class="cf">else</span>:</span>
+<span id="cb8-163"><a href="#cb8-163"></a>            <span class="va">self</span>.genes <span class="op">=</span> genes</span>
+<span id="cb8-164"><a href="#cb8-164"></a></span>
+<span id="cb8-165"><a href="#cb8-165"></a></span>
+<span id="cb8-166"><a href="#cb8-166"></a><span class="in">```</span></span>
+<span id="cb8-167"><a href="#cb8-167"></a></span>
+<span id="cb8-168"><a href="#cb8-168"></a><span class="fu">### Crossover</span></span>
+<span id="cb8-169"><a href="#cb8-169"></a></span>
+<span id="cb8-170"><a href="#cb8-170"></a>The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself. The <span class="in">`filter_arr`</span> creates an array of random zeros and ones. We use it as a filter to decide which value to pick.</span>
+<span id="cb8-171"><a href="#cb8-171"></a></span>
+<span id="cb8-174"><a href="#cb8-174"></a><span class="in">```{python}</span></span>
+<span id="cb8-175"><a href="#cb8-175"></a><span class="co">#| column: page</span></span>
+<span id="cb8-176"><a href="#cb8-176"></a><span class="co">#| eval: false</span></span>
+<span id="cb8-177"><a href="#cb8-177"></a></span>
+<span id="cb8-178"><a href="#cb8-178"></a> <span class="kw">def</span> crossover(<span class="va">self</span>, other: PixelIndividual) <span class="op">-&gt;</span> PixelIndividual:</span>
+<span id="cb8-179"><a href="#cb8-179"></a>        filter_arr <span class="op">=</span> np.random.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="va">self</span>.genes.shape)</span>
+<span id="cb8-180"><a href="#cb8-180"></a>        output <span class="op">=</span> np.where(filter_arr, <span class="va">self</span>.genes, other.genes)</span>
+<span id="cb8-181"><a href="#cb8-181"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>output)</span>
+<span id="cb8-182"><a href="#cb8-182"></a><span class="in">```</span></span>
+<span id="cb8-183"><a href="#cb8-183"></a></span>
+<span id="cb8-184"><a href="#cb8-184"></a><span class="fu">### Mutation</span></span>
+<span id="cb8-185"><a href="#cb8-185"></a>Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well.  ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.</span>
+<span id="cb8-186"><a href="#cb8-186"></a></span>
+<span id="cb8-189"><a href="#cb8-189"></a><span class="in">```{python}</span></span>
+<span id="cb8-190"><a href="#cb8-190"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-191"><a href="#cb8-191"></a><span class="co">#| output: freeze</span></span>
+<span id="cb8-192"><a href="#cb8-192"></a></span>
+<span id="cb8-193"><a href="#cb8-193"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb8-194"><a href="#cb8-194"></a>ind <span class="op">=</span> PixelIndividual(shape<span class="op">=</span>(<span class="dv">100</span>, <span class="dv">100</span>), mutate_p<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-195"><a href="#cb8-195"></a>ind.mutate()</span>
+<span id="cb8-196"><a href="#cb8-196"></a>sns.histplot(ind.mutation.reshape(<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb8-197"><a href="#cb8-197"></a>plt.title(<span class="st">'Histogram of the mutation values'</span>)</span>
+<span id="cb8-198"><a href="#cb8-198"></a>plt.ylabel(<span class="st">'Count of bin values'</span>)</span>
+<span id="cb8-199"><a href="#cb8-199"></a>plt.xlabel(<span class="st">'Mutation value'</span>)</span>
+<span id="cb8-200"><a href="#cb8-200"></a>plt.show()</span>
+<span id="cb8-201"><a href="#cb8-201"></a><span class="in">```</span></span>
+<span id="cb8-202"><a href="#cb8-202"></a></span>
+<span id="cb8-203"><a href="#cb8-203"></a>As a last step, we apply the mutation and clip the values to the range <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span>. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is <span class="co">[</span><span class="ot">0, 1</span><span class="co">]</span> or <span class="co">[</span><span class="ot">0, 255</span><span class="co">]</span> for integer values, and plotting libraries like matplotlib will clip values for you if you don't. To prevent hidden problems, we already make sure the domains and datatypes are correct.</span>
+<span id="cb8-204"><a href="#cb8-204"></a></span>
+<span id="cb8-207"><a href="#cb8-207"></a><span class="in">```{python}</span></span>
+<span id="cb8-208"><a href="#cb8-208"></a><span class="co">#| column: page</span></span>
+<span id="cb8-209"><a href="#cb8-209"></a><span class="co">#| eval: false</span></span>
+<span id="cb8-210"><a href="#cb8-210"></a></span>
+<span id="cb8-211"><a href="#cb8-211"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
+<span id="cb8-212"><a href="#cb8-212"></a>        <span class="cf">if</span> <span class="va">self</span>.mutate_p <span class="op">&gt;</span> np.random.rand():</span>
+<span id="cb8-213"><a href="#cb8-213"></a>            <span class="va">self</span>.mutation <span class="op">=</span> (np.random.rand(<span class="op">*</span><span class="va">self</span>.shape) <span class="op">*</span> <span class="va">self</span>.mutate_d) <span class="op">-</span> (<span class="va">self</span>.mutate_d <span class="op">*</span> <span class="fl">0.5</span>)</span>
+<span id="cb8-214"><a href="#cb8-214"></a>            <span class="va">self</span>.mutation <span class="op">=</span> <span class="va">self</span>.mutation.astype(np.float32)</span>
+<span id="cb8-215"><a href="#cb8-215"></a>            <span class="va">self</span>.genes <span class="op">=</span> np.clip(<span class="va">self</span>.genes <span class="op">+</span> <span class="va">self</span>.mutation, a_min<span class="op">=</span><span class="fl">0.0</span>, a_max<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb8-216"><a href="#cb8-216"></a></span>
+<span id="cb8-217"><a href="#cb8-217"></a><span class="in">```</span></span>
+<span id="cb8-218"><a href="#cb8-218"></a></span>
+<span id="cb8-219"><a href="#cb8-219"></a>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <span class="in">`compute_fitness`</span> method. This is because this is the last step of each iteration, and generally should represent if things went correctly.</span>
+<span id="cb8-220"><a href="#cb8-220"></a></span>
+<span id="cb8-221"><a href="#cb8-221"></a>The fitness method is in this case the mean-squared error.</span>
+<span id="cb8-222"><a href="#cb8-222"></a></span>
+<span id="cb8-225"><a href="#cb8-225"></a><span class="in">```{python}</span></span>
+<span id="cb8-226"><a href="#cb8-226"></a><span class="co">#| column: page</span></span>
+<span id="cb8-227"><a href="#cb8-227"></a><span class="co">#| eval: false</span></span>
+<span id="cb8-228"><a href="#cb8-228"></a></span>
+<span id="cb8-229"><a href="#cb8-229"></a></span>
+<span id="cb8-230"><a href="#cb8-230"></a>    <span class="kw">def</span> compute_fitness(<span class="va">self</span>, target: np.ndarray):</span>
+<span id="cb8-231"><a href="#cb8-231"></a>        <span class="cf">assert</span> <span class="va">self</span>.genes.dtype.name <span class="op">==</span> <span class="st">'float32'</span>, (</span>
+<span id="cb8-232"><a href="#cb8-232"></a>            <span class="ss">f'genes dtype should be float32 but found </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>genes<span class="sc">.</span>dtype<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.'</span></span>
+<span id="cb8-233"><a href="#cb8-233"></a>        )</span>
+<span id="cb8-234"><a href="#cb8-234"></a>        <span class="va">self</span>.fitness <span class="op">=</span> ((<span class="va">self</span>.genes <span class="op">-</span> target) <span class="op">**</span> <span class="dv">2</span>).mean()</span>
+<span id="cb8-235"><a href="#cb8-235"></a><span class="in">```</span></span>
+<span id="cb8-236"><a href="#cb8-236"></a></span>
+<span id="cb8-237"><a href="#cb8-237"></a><span class="fu">### Result</span></span>
+<span id="cb8-238"><a href="#cb8-238"></a></span>
+<span id="cb8-239"><a href="#cb8-239"></a>Some of the results are pretty cool. With smaller images, it works quite fast but for larger it can take several hours to several days to get any good results. The mario image took around 12 hours to create, and while you can clearly see the outlines, it's far from perfect.</span>
+<span id="cb8-240"><a href="#cb8-240"></a></span>
+<span id="cb8-241"><a href="#cb8-241"></a><span class="fu">#### Toy example: 10x10 matrix</span></span>
+<span id="cb8-242"><a href="#cb8-242"></a></span>
+<span id="cb8-243"><a href="#cb8-243"></a>This run is for just 200 iterations and takes around a minute. The right most graph shows the fitness distribution of the current population. The fitness function here was sum of squared errors, rather than mean.</span>
+<span id="cb8-244"><a href="#cb8-244"></a></span>
+<span id="cb8-245"><a href="#cb8-245"></a><span class="al">![Best individual, target and two loss metrics of a 10x10 pixel grid with 4 dots](images/genetic-algorithms/4dots_training.gif)</span>{#fig-4dots-training .column-screen}</span>
+<span id="cb8-246"><a href="#cb8-246"></a></span>
+<span id="cb8-247"><a href="#cb8-247"></a></span>
+<span id="cb8-248"><a href="#cb8-248"></a><span class="fu">#### Slightly less toy example: 100x100 matrix with gradient</span></span>
+<span id="cb8-249"><a href="#cb8-249"></a></span>
+<span id="cb8-250"><a href="#cb8-250"></a>This run is for 10k iterations and takes around a 1-2 hours. The right most graph shows the fitness distribution of the current population. You can see the graph struggle to show a clear distribution. This seems to mean that the whole distribution is very close, although the values on the x-axis are pretty big, so I'm not entirely sure why it cannot show a good distribution.</span>
+<span id="cb8-251"><a href="#cb8-251"></a></span>
+<span id="cb8-252"><a href="#cb8-252"></a>You can see an immediate steep decline in loss, which is attributed to the initial high variety in individuals. The further the iterations go, the more we have selected the optimal individuals and the more of the population can be considered brothers and sisters of the original best individual. When the problem is complex and high-dimensional, this happens more and more, since it's quite unlikely that other candidates can present a better solution from mutation within the timeframe of the best candidate taking over the population.</span>
+<span id="cb8-253"><a href="#cb8-253"></a></span>
+<span id="cb8-254"><a href="#cb8-254"></a><span class="al">![Best individual, target and two loss metrics of a 100x100 pixel grid with gradient](images/genetic-algorithms/gradient_training_optimized_compressed.gif)</span>{#fig-gradient-training .column-screen}</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
