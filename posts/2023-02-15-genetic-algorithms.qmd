@@ -220,7 +220,7 @@ The fitness method is in this case the mean-squared error.
         self.fitness = ((self.genes - target) ** 2).mean()
 ```
 
-### Result
+### Results
 
 Some of the results are pretty cool. With smaller images, it works quite fast but for larger it can take several hours to several days to get any good results. The mario image took around 12 hours to create, and while you can clearly see the outlines, it's far from perfect.
 
@@ -238,3 +238,19 @@ This run is for 10k iterations and takes around a 1-2 hours. The right most grap
 You can see an immediate steep decline in loss, which is attributed to the initial high variety in individuals. The further the iterations go, the more we have selected the optimal individuals and the more of the population can be considered brothers and sisters of the original best individual. When the problem is complex and high-dimensional, this happens more and more, since it's quite unlikely that other candidates can present a better solution from mutation within the timeframe of the best candidate taking over the population.
 
 ![Best individual, target and two loss metrics of a 100x100 pixel grid with gradient](images/genetic-algorithms/gradient_training_optimized_compressed.gif){#fig-gradient-training .column-screen}
+
+#### The real deal
+
+![Best individual, target and two loss metrics of Mario](images/genetic-algorithms/tr.gif){#fig-gradient-training .column-screen}
+
+## Polygons
+
+The second method of approximating images is using a population of polygons. Polygons are shapes with 3 or more corners in no specific order. This could be a triangle, square but also also an hourglass shape has 4 corners but the middle lines cross.
+
+
+
+### Crossover
+
+### Mutation
+
+###
