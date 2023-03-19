@@ -10,6 +10,7 @@ image: images/genetic-algorithms/banner.png
 title: Genetic Algorithms for image reconstruction 🧬
 description: How we can leverage genetic algorithms to help with image reconstruction.
 toc: true
+jupyter: p310
 format:
   html:
     # code-fold: show
@@ -18,6 +19,7 @@ format:
     code-line-numbers: true
     code-overflow: scroll
     code-block-border-left: true
+    code-block-bg: true
 ---
 
 ## Introduction
@@ -241,16 +243,73 @@ You can see an immediate steep decline in loss, which is attributed to the initi
 
 #### The real deal
 
-![Best individual, target and two loss metrics of Mario](images/genetic-algorithms/tr.gif){#fig-gradient-training .column-screen}
+![Best individual, target and two loss metrics of Mario](images/genetic-algorithms/mario_training_optimized.gif){#fig-gradient-training .column-screen}
 
 ## Polygons
 
-The second method of approximating images is using a population of polygons. Polygons are shapes with 3 or more corners in no specific order. This could be a triangle, square but also also an hourglass shape has 4 corners but the middle lines cross.
+The second method of approximating images is using a population of polygons. Polygons are shapes with 3 or more points connected in no specific order. This could be a triangle, square but also also an hourglass shape has 4 points where the middle lines cross. While we could randomly add or remove points, in this case I chose to leave it at 3 points.
 
+### Individuals
 
+The individuals here are slightly more complex than the pixel versions. That is because the polygons have their own definitions. Each individual's genes are composed of a starting amount of 10-20 polygons.
 
 ### Crossover
 
+Crossovers are done simply by randomly taking a polygon of either parents. If one of the parents has more polygons, we randomly add polygons in those indices as well.
+
+```{python}
+#| column: page
+#| eval: false
+
+def crossover(self, other):
+    child = copy.deepcopy(self)
+    for idx, poly in enumerate(other.polygons):
+        if 0.5 < np.random.random():
+            try:
+                child.polygons[idx] = poly
+            except:
+                # When idx is out of range of child.polygons, we append.
+                child.polygons.append(poly)
+    return child
+
+```
+
 ### Mutation
 
-###
+Mutation in this case has to be done at the "genes" level rather than the individual level. So the `mutate` method of the individuals here is surpisingly simple.
+
+```{python}
+#| column: page
+#| eval: false
+
+def mutate(self):
+    for polygon in self.polygons:
+        polygon.mutate()
+
+    # deletion chance
+    if np.random.random() < self.add_or_del_p and len(self.polygons) > 1:
+        idx = np.random.randint(0, len(self.polygons) - 1)
+        self.polygons.pop(idx)
+
+    # addition chance
+    if np.random.random() < self.add_or_del_p:
+        self.polygons.append(
+            Polygon(
+                canvas_size=self.canvas_size,
+                mutate_delta=self.mutate_delta,
+                mutate_p=self.mutate_p,
+            )
+        )
+```
+
+There are three steps:
+
+1. Mutate each polygon individually (i.e. change the location of the points and the colour)
+2. Randomly delete a polygon
+3. Randomly add a polygon
+
+### Penalty
+
+Because we do not want a model that just keeps adding polygons, we will penalize based on the number of polygons. The problem here is that you do not want to penalize it too much. If the difference of the penalty of one extra polygon is greater than the average difference in fitness between different individuals, then just removing a polygon will almost always be the best option. This happened several times, and you just end up with an empty white grid very fast.
+
+The penalty was calculated as follows: $p = 1 + \lvert pop\rvert * r_{pen}$ where $p$ is the eventual penalty, $\lvert pop\rvert$ is the total population size and $r_{pen}$ is the penalty rate. The penalty is applied as multiplier to the loss, which is the same as before - MSE. Hence the computation becomes $L_{pen} = L * p$ where $L$ and $L_{pen}$ indicate the loss initially and penalized, respectively.

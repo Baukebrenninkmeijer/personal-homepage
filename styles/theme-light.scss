@@ -8,4 +8,9 @@ $body-bg: $light-bg;
 $link-color: #75AADB;
 
 // Code blocks
-$code-block-bg-alpha: -.8;
+// $code-block-bg-alpha: -.8;
+$code-block-bg: rgb(255 239 197);
+
+div.sourceCode {
+    border: 1px solid lightgrey !important;
+}
