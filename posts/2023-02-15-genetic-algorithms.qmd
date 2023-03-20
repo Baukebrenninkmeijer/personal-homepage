@@ -10,7 +10,7 @@ image: images/genetic-algorithms/banner.png
 title: Genetic Algorithms for image reconstruction 🧬
 description: How we can leverage genetic algorithms to help with image reconstruction.
 toc: true
-jupyter: p310
+# jupyter: p310
 format:
   html:
     # code-fold: show
