@@ -10,7 +10,6 @@ image: images/genetic-algorithms/banner.png
 title: Genetic Algorithms for image reconstruction 🧬
 description: How we can leverage genetic algorithms to help with image reconstruction.
 toc: true
-# jupyter: p310
 format:
   html:
     # code-fold: show
@@ -20,7 +19,13 @@ format:
     code-overflow: scroll
     code-block-border-left: true
     code-block-bg: true
+    code-copy: true
 ---
+
+:::{.callout-tip}
+All code for this project can be found my [github page](https://github.com/Baukebrenninkmeijer/genetic-algorithms)
+:::
+
 
 ## Introduction
 
@@ -30,7 +35,7 @@ Genetic algorithms are a beautiful subset in the machine learning domain, that u
 
 In this post, I'll show two versions genetic algorithms that can be used for image reconstruction given a target image. In the real world, it will have few applications but it's a great theoretical exercise and practice for understanding of the algorithms and image manipulation. However, they are unmistakingly usefull and have been applied in many domains, one being Neural Architecture Search, a method to find the best architecture for a neural network given a specific problem.
 
-While other optimization methods, such a gradient descent are incredibly powerful for problems that provide a smooth non-stochastic optimization curve. However, for problems that might have many different good solutions that are not easily findable following a single trajectory in parameter space, genetic algorithms can provide unexpected solutions.
+While other optimization methods, such a gradient descent, are incredibly powerful for problems that provide a smooth non-stochastic optimization curve, they frequently lack the variance needed for problems with solutions not easily findable following a single trajectory in parameter space. This is where genetic algorithms can provide unexpected solutions.
 
 As in nature, genetic algorithms are based on natural selection and survival of the fittest. That means that each iteration, we select the best candidates for the problem at hand and continue with those. Each individual represents a solutions, and by slightly altering and combining solutions we hope to come to a better solution each iteration. As you can understand, this is a very generic approach that can be applied to all types of problems.
 
@@ -153,10 +158,7 @@ class PixelIndividual:
         self.shape = shape
         self.mutate_d = mutate_d
         self.mutate_p = mutate_p
-        if genes is None:
-            self.genes = (np.random.rand(*shape)).astype(np.float32)
-        else:
-            self.genes = genes
+        self.genes = np.random.rand(*shape).astype(np.float32) if not genes else genes
 
 
 ```
@@ -176,7 +178,7 @@ The second method is our choice of what happens during crossover. How to impleme
 ```
 
 ### Mutation
-Then, onto the mutation part, which is fairly simple. We just create some noise of a certain magnitude, shift it so half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well.  ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.
+Then, onto the mutation part. We create some noise of a certain magnitude, shift it so the mean is zero and half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well, ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.
 
 ```{python}
 #| echo: false
@@ -251,7 +253,7 @@ The second method of approximating images is using a population of polygons. Pol
 
 ### Individuals
 
-The individuals here are slightly more complex than the pixel versions. That is because the polygons have their own definitions. Each individual's genes are composed of a starting amount of 10-20 polygons.
+The individuals here are slightly more complex than the pixel versions. That is because the polygons have their own class. Each individual's genes are composed of a starting amount of 10-20 polygons.
 
 ### Crossover
 
@@ -276,6 +278,8 @@ def crossover(self, other):
 
 ### Mutation
 
+#### Individual
+
 Mutation in this case has to be done at the "genes" level rather than the individual level. So the `mutate` method of the individuals here is surpisingly simple.
 
 ```{python}
@@ -283,6 +287,7 @@ Mutation in this case has to be done at the "genes" level rather than the indivi
 #| eval: false
 
 def mutate(self):
+    """mutate method for an individual"""
     for polygon in self.polygons:
         polygon.mutate()
 
@@ -308,8 +313,133 @@ There are three steps:
 2. Randomly delete a polygon
 3. Randomly add a polygon
 
+#### Genes
+
+```{python}
+#| column: page
+#| eval: false
+
+    def mutate(self):
+        """mutate method for a gene"""
+        changed = False
+        for coord in self.coords:
+            if self.mutate_p > np.random.random():
+                changed = True
+                coord[0] += np.random.randint(0, int(self.x_size * self.mutate_d)) - int(
+                    self.x_size * self.mutate_d * 0.5
+                )
+                coord[0] = np.clip(coord[0], 0, self.x_size)
+                coord[1] += np.random.randint(0, int(self.y_size * self.mutate_d)) - int(self.y_size * self.mutate_d * 0.5)
+                coord[1] = np.clip(coord[1], 0, self.y_size)
+
+        if self.mutate_p > np.random.random():
+            self.color += (np.random.random(self.color_c) * self.mutate_d) - (self.mutate_d * 0.5)
+            self.color = np.clip(self.color, 0, 1)
+
+        if changed:
+            assert (0 <= self.color).all() and (self.color <= 1.0).all()
+            for x, y in self.coords:
+                assert 0 <= x <= self.x_size
+                assert 0 <= y <= self.y_size
+            self.calc_size()
+```
+
+This mutation is conceptually straight forward: 
+
+1. Mutate the location of each point with `mutate_d` as the fractional delta (i.e. 0.1 is 10% variation in position) based on the whole canvas width and height. 
+2. Mutate the colour of each polygon slightly. The approach is similar to the location, with `mutate_d` indicating a fraction delta. In this case the max is 1, so taking the random output is enough here. Because our colour is RGB, we input the `self.color_c` into random to get the desired number of channels (3). 
+
+To see what this looks like if we just have some polygons and keep mutating them. 
+
+![Mutations of several polygons over time](images/genetic-algorithms/polygon_mutation.gif){#fig-polygon-mutation}
+
 ### Penalty
 
-Because we do not want a model that just keeps adding polygons, we will penalize based on the number of polygons. The problem here is that you do not want to penalize it too much. If the difference of the penalty of one extra polygon is greater than the average difference in fitness between different individuals, then just removing a polygon will almost always be the best option. This happened several times, and you just end up with an empty white grid very fast.
+Because we do not want a model that just keeps adding polygons, we will penalize based on the number of polygons. The problem here is that you do not want to penalize it too much. If the difference of the penalty of one extra polygon is greater than the average difference in fitness between different individuals, then just removing a polygon will almost always be the best option. This happened at numerous attempts, and you just end up with an empty white grid very fast.
 
-The penalty was calculated as follows: $p = 1 + \lvert pop\rvert * r_{pen}$ where $p$ is the eventual penalty, $\lvert pop\rvert$ is the total population size and $r_{pen}$ is the penalty rate. The penalty is applied as multiplier to the loss, which is the same as before - MSE. Hence the computation becomes $L_{pen} = L * p$ where $L$ and $L_{pen}$ indicate the loss initially and penalized, respectively.
+The penalty was calculated as follows: $p = 1 + \lvert pop\rvert * r_{pen}$ where $p$ is the eventual penalty, $\lvert pop\rvert$ is the total population size and $r_{pen}$ is the penalty rate. The penalty is applied as multiplier to the loss, which is the same as before: MSE. Hence the computation becomes $L_{pen} = L * p$ where $L$ and $L_{pen}$ indicate the loss initially and penalized, respectively.
+
+### Population crossover
+
+The last interesting section is how to achieve the population crossover here. 
+
+
+```{python}
+#| column: page
+#| eval: false
+
+    def combine(self):
+        pairs = list(permutations(self.pop, r=2))
+        sample_pairs = random.choices(pairs, k=self.popsize)  # Sample popsize pairs out of all combinations. N out of N*(N-1)
+
+        # sample all permutations in the sample_top_n percent of the population.
+        sample_pairs += list(
+            permutations(self.pop[: int(len(self.pop) * self.sample_top_n)], r=2)
+        )
+
+        # Create copies of the copy_top_perc fraction of the population
+        children = [
+            self.get_best().copy() for _ in range(max(int(self.copy_top_perc * len(self.pop)), 2))
+        ]
+
+        # Add crossover of the picked pairs and add to the children.
+        children += [x.crossover(y) for (x, y) in sample_pairs]
+        self.pop += children
+```
+
+As stated before, we want to have a good balance between selecting fit individuals but also retaining the variance of the whole population. I try to find a balance in this by both selecting from the total population while also sampling the top `x` percent more than the rest and even copying the top `y` percent. 
+
+### Results
+
+#### Polygon Fox
+
+Since we are playing with polygons, I decided a target that was made of polygons might be suitable. This fox has some clear advantages for polygons, with big blue areas and a pointy bright fox head in the middle. 
+
+![Best individual using polygon approach, target and two loss metrics of a fox image](images/genetic-algorithms/fox_training_optimized.gif){#fig-polygon-fox .column-screen}
+
+We observe a sharp incline in the number of polygons, even though it does not really seem to result in a clear improvement in fit. It seems the penalty was not tuned appropriate for this case. In this middle, we do see the fox head shape become apparant, but the algorithm fails to fill in the finer details of the head. 
+
+#### Rick & Morty
+
+![Best individual using polygon approach, target and two loss metrics of a rick and morty image](images/genetic-algorithms/rick_polygon_optimized.gif){#fig-polygon-rick .column-screen}
+
+It's clear that this image has too much detail for this algorithms. Many of the planes are too small to easily get picked up by the mean-square-error reduction. The best fit is often achieved by having big polygons match up with the background. Additionally, the meandering of the number of polygons is a clear indication that the penalty was nicely balanced, since there was no clear preference. 
+
+
+#### Hyper parameter grid search
+
+```{python}
+#| echo: false
+
+import pandas as pd
+import plotly.express as px
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+results_df = pd.read_parquet('images/genetic-algorithms/grid_search_results_650it_polygons.parquet')
+px.parallel_coordinates(results_df, color='fitness', labels=results_df.columns)
+```
+
+To verify some results, I ran a hyper parameter search. I fixed the mutation probability and delta for this experiment, but in hindsight I should run it to include those. 
+
+From the figure, if you select only the lowest losses, it becomes clear that most of the hyper parameters do not significantly impact the outcome. Going down, we first see that the addition/deletion probability starts to fade, with only the fewer values returning low losses. After that, the `sample_top_n`=0 is dropped, meaning that some sampling of the top candidates does improve results.   
+
+It is interesting to see that the number of polygons doesn't seem to have a big impact, and it's strange to see `copy_top_perc` not have much impact while the `sample_top_n` does. They should represent some level of similarity in their results. 
+
+### Future improvements
+
+For the pixel approach, a more balanced approach between crossover and mutation seems appropriate. It's clear the algorithm quickly descents to a point where only mutations seems to be carrying improvements. Tuning the ratios to have a healthier balance with crossover would hopefully result in a slower but longer and more persistent decline of the loss. 
+
+
+For the polygon approach, I think one possible improvement is to have polygons that work on different scales. This means that we would have some polygons that work on large areas and other on small areas and we restrict the number in both or fix them to some proportion. That might allow the algorithm to fill in some finer details while also filling the big areas. 
+
+Additionally, the same improvement for the polygons might have to be made as for the pixels. The polygons also quickly seemed to descent into a situation where all individuals are very similar, hence more and stickier crossing over would be good. 
+
+Lastly, functionality that allows the addition and deletion of polygon points might bring an interesting variation. This could support pentagons, hexagons and more. 
+
+
+## Conclusion
+
+In this post I showed two approaches that can replicate an image given some target using genetic algorithms. Both approaches have some advantages and some drawbacks, but both have their use. While this example is mainly for academic purposes, the core genetic algorithm has many applications and this practice both improves understanding and awareness of it. 
+
+Personally, I've really enjoyed working on this project with both the academic understanding as well as the engineering of it being sometimes challenging. I hope you, the reader, has learned something from this post and can use it in your own work. 
