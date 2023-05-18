@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,9 +20,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,43 +50,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -148,7 +119,7 @@ ga('send', {
 
 <link rel="stylesheet" href="../styles/styles.scss">
 <meta property="og:title" content="Bauke Brenninkmeijer - Analyzing my Spotify listening history 🎵 - Part 3">
-<meta property="og:description" content="In part 3 of this adventure we discover the audio features that Spotify attributes to songs.">
+<meta property="og:description" content="In part 3 of this adventure we discover the audio features that Spotify attributes to songs. We see how they are influenced by specific genres and how some songs relate to different audio features like instrumentalness and energy.">
 <meta property="og:image" content="https://github.com/Baukebrenninkmeijer/blog/posts/images/spotify_analysis/p3/banner-spotify-part-3.png">
 <meta property="og:site-name" content="Bauke Brenninkmeijer">
 <meta property="og:image:height" content="403">
@@ -166,34 +137,38 @@ ga('send', {
     <span class="navbar-title">Bauke Brenninkmeijer</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">
+    <a class="nav-link" href="../talks.html" rel="" target="">
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
  <span class="menu-text">Who am I?</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resume.html">
+    <a class="nav-link" href="../resume.html" rel="" target="">
  <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/"><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/" rel="" target=""><i class="bi bi-linkedin" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -410,12 +385,12 @@ ga('send', {
 </div>
 </div>
 <p>Let’s see if we get some more clarity if we look at the energy per artist.</p>
-<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Important
 </div>
 </div>
@@ -425,246 +400,248 @@ Important
 </div>
 <div class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="17">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="2" halign="left">energy</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-    </tr>
-    <tr>
-      <th>master_metadata_album_artist_name</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>6ix9ine</th>
-      <td>260</td>
-      <td>0.699400</td>
-    </tr>
-    <tr>
-      <th>KIDS SEE GHOSTS</th>
-      <td>302</td>
-      <td>0.691255</td>
-    </tr>
-    <tr>
-      <th>Fresku</th>
-      <td>264</td>
-      <td>0.657288</td>
-    </tr>
-    <tr>
-      <th>Tchami</th>
-      <td>370</td>
-      <td>0.644843</td>
-    </tr>
-    <tr>
-      <th>Netsky</th>
-      <td>466</td>
-      <td>0.639095</td>
-    </tr>
-    <tr>
-      <th>Kid Cudi</th>
-      <td>853</td>
-      <td>0.634662</td>
-    </tr>
-    <tr>
-      <th>Kendrick Lamar</th>
-      <td>2740</td>
-      <td>0.633111</td>
-    </tr>
-    <tr>
-      <th>Mac Miller</th>
-      <td>527</td>
-      <td>0.628738</td>
-    </tr>
-    <tr>
-      <th>Flume</th>
-      <td>593</td>
-      <td>0.627781</td>
-    </tr>
-    <tr>
-      <th>Travis Scott</th>
-      <td>265</td>
-      <td>0.623781</td>
-    </tr>
-    <tr>
-      <th>Yellow Claw</th>
-      <td>2533</td>
-      <td>0.618704</td>
-    </tr>
-    <tr>
-      <th>Various Artists</th>
-      <td>1594</td>
-      <td>0.618487</td>
-    </tr>
-    <tr>
-      <th>Eminem</th>
-      <td>1567</td>
-      <td>0.616364</td>
-    </tr>
-    <tr>
-      <th>Yung Internet</th>
-      <td>373</td>
-      <td>0.607120</td>
-    </tr>
-    <tr>
-      <th>G-Eazy</th>
-      <td>926</td>
-      <td>0.605303</td>
-    </tr>
-    <tr>
-      <th>Lil Dicky</th>
-      <td>303</td>
-      <td>0.588901</td>
-    </tr>
-    <tr>
-      <th>Kanye West</th>
-      <td>1070</td>
-      <td>0.571160</td>
-    </tr>
-    <tr>
-      <th>Parov Stelar</th>
-      <td>264</td>
-      <td>0.563025</td>
-    </tr>
-    <tr>
-      <th>Vitalic</th>
-      <td>275</td>
-      <td>0.543753</td>
-    </tr>
-    <tr>
-      <th>Frank Sinatra</th>
-      <td>804</td>
-      <td>0.512106</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">energy</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6ix9ine</td>
+<td>260</td>
+<td>0.699400</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">KIDS SEE GHOSTS</td>
+<td>302</td>
+<td>0.691255</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Fresku</td>
+<td>264</td>
+<td>0.657288</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Tchami</td>
+<td>370</td>
+<td>0.644843</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Netsky</td>
+<td>466</td>
+<td>0.639095</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kid Cudi</td>
+<td>853</td>
+<td>0.634662</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Kendrick Lamar</td>
+<td>2740</td>
+<td>0.633111</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Mac Miller</td>
+<td>527</td>
+<td>0.628738</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Flume</td>
+<td>593</td>
+<td>0.627781</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Travis Scott</td>
+<td>265</td>
+<td>0.623781</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Yellow Claw</td>
+<td>2533</td>
+<td>0.618704</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Various Artists</td>
+<td>1594</td>
+<td>0.618487</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Eminem</td>
+<td>1567</td>
+<td>0.616364</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Yung Internet</td>
+<td>373</td>
+<td>0.607120</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">G-Eazy</td>
+<td>926</td>
+<td>0.605303</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Lil Dicky</td>
+<td>303</td>
+<td>0.588901</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Kanye West</td>
+<td>1070</td>
+<td>0.571160</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Parov Stelar</td>
+<td>264</td>
+<td>0.563025</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Vitalic</td>
+<td>275</td>
+<td>0.543753</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Frank Sinatra</td>
+<td>804</td>
+<td>0.512106</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
 <p>These results I find quite surprising. Yellow Claw, a Dutch trap duo whom I would consider to be generally pretty high energy is equal or below quite some hip hop artists, like Mac Miller and Kid Cudi. We can see the maximum energy in here is 6ix9ine, with a solid 0.69 😂. There is no denying that 6ix9ine is at that level of energy. However, KIDS SEE GHOSTS, the front for Kid Cudi and Kanye West, somehow also has 0.69, while I’d say that is much lower in energy. If we look at Reborn, the most popular song on the album, it’s clearly a pretty slow song.</p>
-<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/z2JpyynS3x8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/z2JpyynS3x8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>Alternatively, we can look at the energy of my top songs. Here we get a clearer picture of the effect of different songs.</p>
 <div class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display" data-execution_count="18">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th colspan="2" halign="left">energy</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-    </tr>
-    <tr>
-      <th>master_metadata_album_artist_name</th>
-      <th>master_metadata_track_name</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="6" valign="top">Kendrick Lamar</th>
-      <th>HUMBLE.</th>
-      <td>125</td>
-      <td>0.6210</td>
-    </tr>
-    <tr>
-      <th>DNA.</th>
-      <td>124</td>
-      <td>0.5230</td>
-    </tr>
-    <tr>
-      <th>ELEMENT.</th>
-      <td>93</td>
-      <td>0.7050</td>
-    </tr>
-    <tr>
-      <th>LOYALTY. FEAT. RIHANNA.</th>
-      <td>81</td>
-      <td>0.5350</td>
-    </tr>
-    <tr>
-      <th>YAH.</th>
-      <td>81</td>
-      <td>0.7000</td>
-    </tr>
-    <tr>
-      <th>FEEL.</th>
-      <td>80</td>
-      <td>0.7950</td>
-    </tr>
-    <tr>
-      <th>Travis Scott</th>
-      <th>goosebumps</th>
-      <td>99</td>
-      <td>0.7280</td>
-    </tr>
-    <tr>
-      <th rowspan="8" valign="top">Yellow Claw</th>
-      <th>City on Lockdown (feat. Juicy J &amp; Lil Debbie)</th>
-      <td>96</td>
-      <td>0.8410</td>
-    </tr>
-    <tr>
-      <th>Good Day (feat. DJ Snake &amp; Elliphant)</th>
-      <td>87</td>
-      <td>0.5660</td>
-    </tr>
-    <tr>
-      <th>Open (feat. Moksi &amp; Jonna Fraser)</th>
-      <td>87</td>
-      <td>0.5920</td>
-    </tr>
-    <tr>
-      <th>Without You (feat. The Galaxy &amp; Gia Koka)</th>
-      <td>82</td>
-      <td>0.4880</td>
-    </tr>
-    <tr>
-      <th>Invitation (feat. Yade Lauren)</th>
-      <td>80</td>
-      <td>0.6620</td>
-    </tr>
-    <tr>
-      <th>Love &amp; War (feat. Yade Lauren)</th>
-      <td>78</td>
-      <td>0.5330</td>
-    </tr>
-    <tr>
-      <th>Last Paradise (feat. Sody)</th>
-      <td>78</td>
-      <td>0.5930</td>
-    </tr>
-    <tr>
-      <th>Stacks (feat. Quavo, Tinie Tempah &amp; Cesqeaux)</th>
-      <td>77</td>
-      <td>0.0812</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">energy</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+<th data-quarto-table-cell-role="th">master_metadata_track_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="6" data-quarto-table-cell-role="th" data-valign="top">Kendrick Lamar</td>
+<td data-quarto-table-cell-role="th">HUMBLE.</td>
+<td>125</td>
+<td>0.6210</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">DNA.</td>
+<td>124</td>
+<td>0.5230</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ELEMENT.</td>
+<td>93</td>
+<td>0.7050</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">LOYALTY. FEAT. RIHANNA.</td>
+<td>81</td>
+<td>0.5350</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">YAH.</td>
+<td>81</td>
+<td>0.7000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">FEEL.</td>
+<td>80</td>
+<td>0.7950</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Travis Scott</td>
+<td data-quarto-table-cell-role="th">goosebumps</td>
+<td>99</td>
+<td>0.7280</td>
+</tr>
+<tr class="even">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">Yellow Claw</td>
+<td data-quarto-table-cell-role="th">City on Lockdown (feat. Juicy J &amp; Lil Debbie)</td>
+<td>96</td>
+<td>0.8410</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Good Day (feat. DJ Snake &amp; Elliphant)</td>
+<td>87</td>
+<td>0.5660</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Open (feat. Moksi &amp; Jonna Fraser)</td>
+<td>87</td>
+<td>0.5920</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Without You (feat. The Galaxy &amp; Gia Koka)</td>
+<td>82</td>
+<td>0.4880</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Invitation (feat. Yade Lauren)</td>
+<td>80</td>
+<td>0.6620</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Love &amp; War (feat. Yade Lauren)</td>
+<td>78</td>
+<td>0.5330</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Last Paradise (feat. Sody)</td>
+<td>78</td>
+<td>0.5930</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Stacks (feat. Quavo, Tinie Tempah &amp; Cesqeaux)</td>
+<td>77</td>
+<td>0.0812</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
 <p>There are some pretty interesting facts here. First of, we can see see that my idea of Yellow Claw being very high energy is debunked, at least with Spotify’s definition of energy. Because some of these values are very strange, even more so when compared to some other artists and songs. Take for example the song <em>without you</em> from Yellow Claw. This is a dubstep/brostep song, with a pretty high tempo but has a value of 0.4880 for its energy level. This is lower than Frank Sinatra had on average in the previous table. In my opinion, something is wrong there. Furthermore, we can also see that their song <em>Stacks</em> has an energy value of 0.0812, which, by all accounts, should be an anomaly. My expectation is that they trained a neural network with some hand labeled songs, and then applied that to all songs to estimate these values, and something went wrong in the case of this song.</p>
-<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/Ek96g0oRTwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ek96g0oRTwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="instrumentalness" class="level2">
 <h2 class="anchored" data-anchor-id="instrumentalness">Instrumentalness</h2>
@@ -680,67 +657,68 @@ Important
 <p>This is potentially interesting, since, naturally, hip-hop has a lot of vocals (so low instrumentalness), but genres like electro house and EDM generally don’t have many vocals, so how is this plot explained with almost nothing around 1. We can quickly see why by looking at the most influential artists for the largest genres. I’m showing the top 10 most played artists with their largest genre (e.g.&nbsp;if an artist is tagged as ‘rap’ and ‘west coast hip hop’, we use the more general rap)</p>
 <div class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display" data-execution_count="20">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>count</th>
-    </tr>
-    <tr>
-      <th>top_1_genres</th>
-      <th>master_metadata_album_artist_name</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="3" valign="top">edm</th>
-      <th>Yellow Claw</th>
-      <td>2531</td>
-    </tr>
-    <tr>
-      <th>Flume</th>
-      <td>592</td>
-    </tr>
-    <tr>
-      <th>Tchami</th>
-      <td>370</td>
-    </tr>
-    <tr>
-      <th rowspan="7" valign="top">rap</th>
-      <th>Kendrick Lamar</th>
-      <td>2738</td>
-    </tr>
-    <tr>
-      <th>Eminem</th>
-      <td>1564</td>
-    </tr>
-    <tr>
-      <th>Kanye West</th>
-      <td>1065</td>
-    </tr>
-    <tr>
-      <th>G-Eazy</th>
-      <td>926</td>
-    </tr>
-    <tr>
-      <th>Kid Cudi</th>
-      <td>852</td>
-    </tr>
-    <tr>
-      <th>Mac Miller</th>
-      <td>527</td>
-    </tr>
-    <tr>
-      <th>Lil Dicky</th>
-      <td>303</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">top_1_genres</th>
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">edm</td>
+<td data-quarto-table-cell-role="th">Yellow Claw</td>
+<td>2531</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Flume</td>
+<td>592</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Tchami</td>
+<td>370</td>
+</tr>
+<tr class="even">
+<td rowspan="7" data-quarto-table-cell-role="th" data-valign="top">rap</td>
+<td data-quarto-table-cell-role="th">Kendrick Lamar</td>
+<td>2738</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Eminem</td>
+<td>1564</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kanye West</td>
+<td>1065</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">G-Eazy</td>
+<td>926</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kid Cudi</td>
+<td>852</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Mac Miller</td>
+<td>527</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Lil Dicky</td>
+<td>303</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -748,127 +726,128 @@ Important
 <p>However, if we redo this analysis, but we drop the most general genres, we get much more interesting results. To be specific, I’ve ignored the values <em>pop</em>, <em>edm</em>, <em>rap</em>, <em>pop rap</em> and <em>hip hop</em>, unless there were no other genre labels. In that case, we still take that genre. The result is below, and quite interesting. The table shows the top 20 most played artists and the genre they belong to.</p>
 <div class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display" data-execution_count="21">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>master_metadata_album_artist_name</th>
-    </tr>
-    <tr>
-      <th>top_1_genres_filtered</th>
-      <th>master_metadata_album_artist_name</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>chicago rap</th>
-      <th>Kanye West</th>
-      <td>1065</td>
-    </tr>
-    <tr>
-      <th>christmas</th>
-      <th>Frank Sinatra</th>
-      <td>804</td>
-    </tr>
-    <tr>
-      <th>conscious hip hop</th>
-      <th>Kendrick Lamar</th>
-      <td>2738</td>
-    </tr>
-    <tr>
-      <th>detroit hip hop</th>
-      <th>Eminem</th>
-      <td>1564</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">downtempo</th>
-      <th>Flume</th>
-      <td>592</td>
-    </tr>
-    <tr>
-      <th>Parov Stelar</th>
-      <td>263</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">dutch hip hop</th>
-      <th>Yung Internet</th>
-      <td>373</td>
-    </tr>
-    <tr>
-      <th>Fresku</th>
-      <td>263</td>
-    </tr>
-    <tr>
-      <th rowspan="3" valign="top">electro house</th>
-      <th>Yellow Claw</th>
-      <td>2531</td>
-    </tr>
-    <tr>
-      <th>Tchami</th>
-      <td>370</td>
-    </tr>
-    <tr>
-      <th>Vitalic</th>
-      <td>274</td>
-    </tr>
-    <tr>
-      <th>emo rap</th>
-      <th>6ix9ine</th>
-      <td>260</td>
-    </tr>
-    <tr>
-      <th>house</th>
-      <th>FISHER</th>
-      <td>247</td>
-    </tr>
-    <tr>
-      <th>indie pop rap</th>
-      <th>G-Eazy</th>
-      <td>926</td>
-    </tr>
-    <tr>
-      <th>liquid funk</th>
-      <th>Netsky</th>
-      <td>466</td>
-    </tr>
-    <tr>
-      <th rowspan="5" valign="top">rap</th>
-      <th>Kid Cudi</th>
-      <td>852</td>
-    </tr>
-    <tr>
-      <th>Mac Miller</th>
-      <td>527</td>
-    </tr>
-    <tr>
-      <th>Lil Dicky</th>
-      <td>303</td>
-    </tr>
-    <tr>
-      <th>KIDS SEE GHOSTS</th>
-      <td>302</td>
-    </tr>
-    <tr>
-      <th>Travis Scott</th>
-      <td>264</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">top_1_genres_filtered</th>
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">chicago rap</td>
+<td data-quarto-table-cell-role="th">Kanye West</td>
+<td>1065</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">christmas</td>
+<td data-quarto-table-cell-role="th">Frank Sinatra</td>
+<td>804</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">conscious hip hop</td>
+<td data-quarto-table-cell-role="th">Kendrick Lamar</td>
+<td>2738</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">detroit hip hop</td>
+<td data-quarto-table-cell-role="th">Eminem</td>
+<td>1564</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">downtempo</td>
+<td data-quarto-table-cell-role="th">Flume</td>
+<td>592</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Parov Stelar</td>
+<td>263</td>
+</tr>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" data-valign="top">dutch hip hop</td>
+<td data-quarto-table-cell-role="th">Yung Internet</td>
+<td>373</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Fresku</td>
+<td>263</td>
+</tr>
+<tr class="odd">
+<td rowspan="3" data-quarto-table-cell-role="th" data-valign="top">electro house</td>
+<td data-quarto-table-cell-role="th">Yellow Claw</td>
+<td>2531</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Tchami</td>
+<td>370</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Vitalic</td>
+<td>274</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">emo rap</td>
+<td data-quarto-table-cell-role="th">6ix9ine</td>
+<td>260</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">house</td>
+<td data-quarto-table-cell-role="th">FISHER</td>
+<td>247</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">indie pop rap</td>
+<td data-quarto-table-cell-role="th">G-Eazy</td>
+<td>926</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">liquid funk</td>
+<td data-quarto-table-cell-role="th">Netsky</td>
+<td>466</td>
+</tr>
+<tr class="even">
+<td rowspan="5" data-quarto-table-cell-role="th" data-valign="top">rap</td>
+<td data-quarto-table-cell-role="th">Kid Cudi</td>
+<td>852</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Mac Miller</td>
+<td>527</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Lil Dicky</td>
+<td>303</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">KIDS SEE GHOSTS</td>
+<td>302</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Travis Scott</td>
+<td>264</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
 <p>Without the super general genres, we can finally start to see some trends. Given the fact that <em>rap</em> is still the main genre of 5 artists, this often seems to be one of few labels applied, possibly with the other labels I was removing. The results is that these artists do not belong to any specific subgenres within hip hop, which is cool to see. Does this also mean they are per definition mainstream?</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -891,129 +870,130 @@ Note
 <p>We can see my music is quite a bit louder than average, with almost all of the mass of the distribution being between -10 and 0, with a small tail between -15 and -10. In the general distribution, the tail extends quite a bit beyond -20, whereas there is virtually nothing beyond -18 in my distribution. Let’s see who is responsible for all of this noise 😠. Let’s plot the loudness of my top 20 most listened artists.</p>
 <div class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display" data-execution_count="23">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="2" halign="left">loudness</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-    </tr>
-    <tr>
-      <th>master_metadata_album_artist_name</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>6ix9ine</th>
-      <td>260</td>
-      <td>-5.624454</td>
-    </tr>
-    <tr>
-      <th>Travis Scott</th>
-      <td>265</td>
-      <td>-5.832879</td>
-    </tr>
-    <tr>
-      <th>Kid Cudi</th>
-      <td>853</td>
-      <td>-6.496838</td>
-    </tr>
-    <tr>
-      <th>Kanye West</th>
-      <td>1070</td>
-      <td>-6.535216</td>
-    </tr>
-    <tr>
-      <th>KIDS SEE GHOSTS</th>
-      <td>302</td>
-      <td>-6.612129</td>
-    </tr>
-    <tr>
-      <th>Fresku</th>
-      <td>264</td>
-      <td>-6.614091</td>
-    </tr>
-    <tr>
-      <th>Netsky</th>
-      <td>466</td>
-      <td>-6.690002</td>
-    </tr>
-    <tr>
-      <th>G-Eazy</th>
-      <td>926</td>
-      <td>-6.849693</td>
-    </tr>
-    <tr>
-      <th>Yellow Claw</th>
-      <td>2533</td>
-      <td>-6.875627</td>
-    </tr>
-    <tr>
-      <th>Kendrick Lamar</th>
-      <td>2740</td>
-      <td>-7.033027</td>
-    </tr>
-    <tr>
-      <th>Eminem</th>
-      <td>1567</td>
-      <td>-7.094228</td>
-    </tr>
-    <tr>
-      <th>Various Artists</th>
-      <td>1594</td>
-      <td>-7.189992</td>
-    </tr>
-    <tr>
-      <th>Tchami</th>
-      <td>370</td>
-      <td>-7.304330</td>
-    </tr>
-    <tr>
-      <th>Flume</th>
-      <td>593</td>
-      <td>-7.348245</td>
-    </tr>
-    <tr>
-      <th>Mac Miller</th>
-      <td>527</td>
-      <td>-7.576696</td>
-    </tr>
-    <tr>
-      <th>Parov Stelar</th>
-      <td>264</td>
-      <td>-7.825705</td>
-    </tr>
-    <tr>
-      <th>Yung Internet</th>
-      <td>373</td>
-      <td>-7.844906</td>
-    </tr>
-    <tr>
-      <th>Vitalic</th>
-      <td>275</td>
-      <td>-8.272200</td>
-    </tr>
-    <tr>
-      <th>Frank Sinatra</th>
-      <td>804</td>
-      <td>-8.528413</td>
-    </tr>
-    <tr>
-      <th>Lil Dicky</th>
-      <td>303</td>
-      <td>-9.120274</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">loudness</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6ix9ine</td>
+<td>260</td>
+<td>-5.624454</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Travis Scott</td>
+<td>265</td>
+<td>-5.832879</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Kid Cudi</td>
+<td>853</td>
+<td>-6.496838</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kanye West</td>
+<td>1070</td>
+<td>-6.535216</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">KIDS SEE GHOSTS</td>
+<td>302</td>
+<td>-6.612129</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Fresku</td>
+<td>264</td>
+<td>-6.614091</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Netsky</td>
+<td>466</td>
+<td>-6.690002</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">G-Eazy</td>
+<td>926</td>
+<td>-6.849693</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Yellow Claw</td>
+<td>2533</td>
+<td>-6.875627</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kendrick Lamar</td>
+<td>2740</td>
+<td>-7.033027</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Eminem</td>
+<td>1567</td>
+<td>-7.094228</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Various Artists</td>
+<td>1594</td>
+<td>-7.189992</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Tchami</td>
+<td>370</td>
+<td>-7.304330</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Flume</td>
+<td>593</td>
+<td>-7.348245</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Mac Miller</td>
+<td>527</td>
+<td>-7.576696</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Parov Stelar</td>
+<td>264</td>
+<td>-7.825705</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Yung Internet</td>
+<td>373</td>
+<td>-7.844906</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Vitalic</td>
+<td>275</td>
+<td>-8.272200</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Frank Sinatra</td>
+<td>804</td>
+<td>-8.528413</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Lil Dicky</td>
+<td>303</td>
+<td>-9.120274</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -1036,205 +1016,207 @@ Note
 <p>If we look at the most positive and most negative songs with more than 5 plays, we see some interesting results.</p>
 <div class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display" data-execution_count="25">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th colspan="2" halign="left">valence</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-    </tr>
-    <tr>
-      <th>master_metadata_album_artist_name</th>
-      <th>master_metadata_track_name</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Lil Dicky</th>
-      <th>White Crime</th>
-      <td>19</td>
-      <td>0.00000</td>
-    </tr>
-    <tr>
-      <th>Eminem</th>
-      <th>White America</th>
-      <td>31</td>
-      <td>0.00000</td>
-    </tr>
-    <tr>
-      <th>Kanye West</th>
-      <th>Fade</th>
-      <td>37</td>
-      <td>0.00000</td>
-    </tr>
-    <tr>
-      <th>Ellen Allien</th>
-      <th>Stormy Memories</th>
-      <td>10</td>
-      <td>0.00001</td>
-    </tr>
-    <tr>
-      <th>Hollen</th>
-      <th>Sleeping Dogs - Original</th>
-      <td>11</td>
-      <td>0.01400</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>Ed Sheeran</th>
-      <th>Shape of You</th>
-      <td>9</td>
-      <td>0.93100</td>
-    </tr>
-    <tr>
-      <th>Fresku</th>
-      <th>Chickie (skit)</th>
-      <td>15</td>
-      <td>0.93800</td>
-    </tr>
-    <tr>
-      <th>Victor Ruiz</th>
-      <th>Brujeria</th>
-      <td>7</td>
-      <td>0.96000</td>
-    </tr>
-    <tr>
-      <th>Kendrick Lamar</th>
-      <th>Momma</th>
-      <td>36</td>
-      <td>0.96300</td>
-    </tr>
-    <tr>
-      <th>Yung Internet</th>
-      <th>Helemaal Top (feat. Donnie)</th>
-      <td>48</td>
-      <td>0.96300</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">valence</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+<th data-quarto-table-cell-role="th">master_metadata_track_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Lil Dicky</td>
+<td data-quarto-table-cell-role="th">White Crime</td>
+<td>19</td>
+<td>0.00000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Eminem</td>
+<td data-quarto-table-cell-role="th">White America</td>
+<td>31</td>
+<td>0.00000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Kanye West</td>
+<td data-quarto-table-cell-role="th">Fade</td>
+<td>37</td>
+<td>0.00000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Ellen Allien</td>
+<td data-quarto-table-cell-role="th">Stormy Memories</td>
+<td>10</td>
+<td>0.00001</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Hollen</td>
+<td data-quarto-table-cell-role="th">Sleeping Dogs - Original</td>
+<td>11</td>
+<td>0.01400</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Ed Sheeran</td>
+<td data-quarto-table-cell-role="th">Shape of You</td>
+<td>9</td>
+<td>0.93100</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Fresku</td>
+<td data-quarto-table-cell-role="th">Chickie (skit)</td>
+<td>15</td>
+<td>0.93800</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Victor Ruiz</td>
+<td data-quarto-table-cell-role="th">Brujeria</td>
+<td>7</td>
+<td>0.96000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kendrick Lamar</td>
+<td data-quarto-table-cell-role="th">Momma</td>
+<td>36</td>
+<td>0.96300</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Yung Internet</td>
+<td data-quarto-table-cell-role="th">Helemaal Top (feat. Donnie)</td>
+<td>48</td>
+<td>0.96300</td>
+</tr>
+</tbody>
 </table>
+
 <p>1171 rows × 2 columns</p>
 </div>
 </div>
 </div>
 <p>We can see that there are likely some errors in here, with <em>White Crime</em> and <em>White America</em> both having a score of 0.0. On the positive side, we see Yung Internet with <em>Helemaal Top</em>, which is a song about feeling great. Furthermore, we have Kendrick Lamar’s <em>Momma</em>. This is interesting cause it does not typically resonate as a very happy or cheerful song. We’ll attribute this to the Spotify interpretation of this value. See for yourself:</p>
-<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/q1AOP6NtGuc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/q1AOP6NtGuc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>If we take a higher level view, we can look at the artists and identify more broader trends.</p>
 <div class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display" data-execution_count="26">
-
 <div>
 
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="2" halign="left">valence</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-    </tr>
-    <tr>
-      <th>master_metadata_album_artist_name</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Kanye West</th>
-      <td>1070</td>
-      <td>0.327687</td>
-    </tr>
-    <tr>
-      <th>Tchami</th>
-      <td>370</td>
-      <td>0.360095</td>
-    </tr>
-    <tr>
-      <th>Netsky</th>
-      <td>466</td>
-      <td>0.383689</td>
-    </tr>
-    <tr>
-      <th>KIDS SEE GHOSTS</th>
-      <td>302</td>
-      <td>0.414606</td>
-    </tr>
-    <tr>
-      <th>Yellow Claw</th>
-      <td>2533</td>
-      <td>0.430344</td>
-    </tr>
-    <tr>
-      <th>Frank Sinatra</th>
-      <td>804</td>
-      <td>0.434713</td>
-    </tr>
-    <tr>
-      <th>Lil Dicky</th>
-      <td>303</td>
-      <td>0.445153</td>
-    </tr>
-    <tr>
-      <th>G-Eazy</th>
-      <td>926</td>
-      <td>0.445842</td>
-    </tr>
-    <tr>
-      <th>Mac Miller</th>
-      <td>527</td>
-      <td>0.462410</td>
-    </tr>
-    <tr>
-      <th>Kendrick Lamar</th>
-      <td>2740</td>
-      <td>0.469246</td>
-    </tr>
-    <tr>
-      <th>Various Artists</th>
-      <td>1594</td>
-      <td>0.476991</td>
-    </tr>
-    <tr>
-      <th>Kid Cudi</th>
-      <td>853</td>
-      <td>0.486193</td>
-    </tr>
-    <tr>
-      <th>Eminem</th>
-      <td>1567</td>
-      <td>0.493737</td>
-    </tr>
-    <tr>
-      <th>Yung Internet</th>
-      <td>373</td>
-      <td>0.511973</td>
-    </tr>
-    <tr>
-      <th>Flume</th>
-      <td>593</td>
-      <td>0.575045</td>
-    </tr>
-  </tbody>
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">valence</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">master_metadata_album_artist_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Kanye West</td>
+<td>1070</td>
+<td>0.327687</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Tchami</td>
+<td>370</td>
+<td>0.360095</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Netsky</td>
+<td>466</td>
+<td>0.383689</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">KIDS SEE GHOSTS</td>
+<td>302</td>
+<td>0.414606</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Yellow Claw</td>
+<td>2533</td>
+<td>0.430344</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Frank Sinatra</td>
+<td>804</td>
+<td>0.434713</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Lil Dicky</td>
+<td>303</td>
+<td>0.445153</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">G-Eazy</td>
+<td>926</td>
+<td>0.445842</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Mac Miller</td>
+<td>527</td>
+<td>0.462410</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kendrick Lamar</td>
+<td>2740</td>
+<td>0.469246</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Various Artists</td>
+<td>1594</td>
+<td>0.476991</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kid Cudi</td>
+<td>853</td>
+<td>0.486193</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Eminem</td>
+<td>1567</td>
+<td>0.493737</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Yung Internet</td>
+<td>373</td>
+<td>0.511973</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Flume</td>
+<td>593</td>
+<td>0.575045</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -1246,12 +1228,12 @@ Note
 <p>Apart from the details per feature, we can also take a look at how these distributions are affected by genres. We’ll cherry-pick some interesting ones.</p>
 <section id="energy-in-rap-and-edm" class="level2">
 <h2 class="anchored" data-anchor-id="energy-in-rap-and-edm">Energy in Rap and EDM</h2>
-<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Important
 </div>
 </div>
@@ -1717,9 +1699,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1784,6 +1780,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

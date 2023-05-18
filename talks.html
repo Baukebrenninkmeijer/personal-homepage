@@ -2,15 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Bauke Brenninkmeijer">
-<meta name="dcterms.date" content="2023-02-16">
-<meta name="description" content="How we can leverage genetic algorithms to help with image reconstruction.">
 
-<title>Bauke Brenninkmeijer - Genetic Algorithms for image reconstruction 🧬</title>
+<title>Bauke Brenninkmeijer - Talks</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,31 +17,31 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../posts/images/favicon.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./posts/images/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,13 +77,9 @@ ga('send', {
 </script>
 
 
-<link rel="stylesheet" href="../styles/styles.scss">
-<meta property="og:title" content="Bauke Brenninkmeijer - Genetic Algorithms for image reconstruction 🧬">
-<meta property="og:description" content="How we can leverage genetic algorithms to help with image reconstruction.">
-<meta property="og:image" content="https://github.com/Baukebrenninkmeijer/blog/posts/images/genetic-algorithms/banner.png">
+<link rel="stylesheet" href="styles/styles.scss">
+<meta property="og:title" content="Bauke Brenninkmeijer - Talks">
 <meta property="og:site-name" content="Bauke Brenninkmeijer">
-<meta property="og:image:height" content="662">
-<meta property="og:image:width" content="1250">
 </head>
 
 <body class="nav-fixed">
@@ -96,153 +89,90 @@ ga('send', {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Bauke Brenninkmeijer</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">
+    <a class="nav-link active" href="./talks.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
  <span class="menu-text">Who am I?</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resume.html">
+    <a class="nav-link" href="./resume.html" rel="" target="">
  <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/"><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/" rel="" target=""><i class="bi bi-linkedin" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Genetic Algorithms for image reconstruction 🧬</h1>
-                  <div>
-        <div class="description">
-          How we can leverage genetic algorithms to help with image reconstruction.
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Genetic Algorithms</div>
-                <div class="quarto-category">Machine learning</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Bauke Brenninkmeijer </p>
-            </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">February 16, 2023</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#the-algorithm" id="toc-the-algorithm" class="nav-link" data-scroll-target="#the-algorithm">The algorithm</a></li>
-  </ul></li>
-  <li><a href="#mutations" id="toc-mutations" class="nav-link" data-scroll-target="#mutations">Mutations</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
-
-
-
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/genetic-algorithms/mario_final_state.gif" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Training iterations of a very simple gradeint</figcaption><p></p>
-</figure>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Talks</h1>
 </div>
-<p>Genetic algorithms are a beautiful subset in the machine learning domain, that use evolutionairy techniques to arrive to solutions that other algorithms have trouble at. These techniques include the combining of solutions, often called crossover, and the slightly altering of solutions, called mutations.</p>
-<p>In this post, I’ll show two versions genetic algorithms that can be used for image reconstruction given a target image. In the real world, it will have few applications but it’s a great theoretical exercise and practice for understanding of the algorithms and image manipulation. However, they are unmistakingly usefull and have been applied in many domains, one being Neural Architecture Search, a method to find the best architecture for a neural network given a specific problem.</p>
-<p>While other optimization methods, such a gradient descent are incredibly powerful for problems that provide a smooth non-stochastic optimization curve. However, for problems that might have many different good solutions that are not easily findable following a single trajectory in parameter space, genetic algorithms can provide unexpected solutions.</p>
-<p>As in nature, genetic algorithms are based on natural selection and survival of the fittest. That means that each iteration we look at the best candidates for the problem at hand and continue with them, leaving worse solutions for that they are. Each individual represents a solutions, and by slightly altering and combining solutions we hope to come to a better solution each iteration. As you can understand, this is a very generic approach that can be applied to all types of problems.</p>
-<section id="the-algorithm" class="level3">
-<h3 class="anchored" data-anchor-id="the-algorithm">The algorithm</h3>
-<p>Generally, the algorithms for genetic algorithms follows roughly the same outline and is as follows:</p>
-<pre><code>pop = create initial popluation with x individuals
 
-for i in n_iterations:
-    1. randomly combine/reproduce individuals
-    2. randomly mutate individuals
-    3. retain fittest individuals</code></pre>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction-to-sqlalchemy" class="level1">
+<h1>Introduction to SQLAlchemy</h1>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">18-05-2023</h3>
+<p><a href="https://github.com/Baukebrenninkmeijer/sqlalchemy-introduction">Repo</a> | <a href="(https://refined-github-html-preview.kidonng.workers.dev/Baukebrenninkmeijer/sqlalchemy-introduction/raw/main/presentation.html)">Slides</a></p>
+<p>During this talk, I discuss ORMs in python and consequently go into SQLAlchemy as a framework. I compare it against the main alternatives for SQL Server, which is PyODBC. I show the advantages of both as well as potential pitfalls and drawbacks. The conclusion of the talk is: in most more complex or larger projects, SQLAlchemy should have a clear preference over alternatives in Python.</p>
 </section>
 </section>
-<section id="mutations" class="level2">
-<h2 class="anchored" data-anchor-id="mutations">Mutations</h2>
-<p>Let’s start with the most simple version of changes made to candidates: mutations. In any organism with DNA (or some form of it), we see mutations; slight changes in the genetic code of individuals when they procreate. For human cells, this can be a mutation that makes the cell misbehave, which is generally cleaned up by our immune system, but can also lead to serious consequences such as cancer. We also know mutations from sci-fi and monster stories, but that’s unfortunately not something we are talking about in this case.</p>
-<div id="fig-elephants" class="quarto-layout-panel">
-<figure class="figure">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-surus" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="images/genetic-algorithms/banner.png" class="img-fluid figure-img" data-ref-parent="fig-elephants"></p>
-<p></p><figcaption class="figure-caption">(a) Surus</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-hanno" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="images/genetic-algorithms/polygon_mutation.gif" class="img-fluid figure-img" data-ref-parent="fig-elephants"></p>
-<p></p><figcaption class="figure-caption">(b) Hanno</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Famous Elephants</figcaption><p></p>
-</figure>
-</div>
+<section id="diving-into-nlp-tokenizers---dsfc-2022" class="level1">
+<h1>Diving into NLP Tokenizers - DSFC 2022</h1>
+<section id="april-2022" class="level3">
+<h3 class="anchored" data-anchor-id="april-2022">April 2022</h3>
+<p><a href="https://github.com/Baukebrenninkmeijer/diving-into-nlp-tokenizers-dsfc-2022">Repo</a> | <a href="https://refined-github-html-preview.kidonng.workers.dev/Baukebrenninkmeijer/diving-into-nlp-tokenizers-dsfc-2022/raw/main/presentation.html">Slides 1</a> | <a href="https://github.com/Baukebrenninkmeijer/diving-into-nlp-tokenizers-dsfc-2022/blob/main/interactive_slides.ipynb">Slides 2</a></p>
+<p>A deep-dive into NLP tokenizers - their differences, similarities and advantages.</p>
+<p>This presentation was prepared for my talk at DSFC 2022. DSFC is a data science conference hosted by the largest 5 banks in the Netherlands.</p>
+<p>The total presentation consists of two sets of slides. One non-interactive and one interactive. The non-interactive one you can see the easiest by clicking preview in github. The interactive slides are made in jupyter notebook with RISE, which converts a notebook into slides. You can view the notebook regardless, but if you want them as slides you will need the RISE plugin.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -388,9 +318,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -455,6 +399,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
