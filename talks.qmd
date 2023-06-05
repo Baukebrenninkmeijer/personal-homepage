@@ -1,0 +1,23 @@
+---
+title: "Talks"
+page-layout: full
+---
+
+# Introduction to SQLAlchemy
+### 18-05-2023
+[Repo](https://github.com/Baukebrenninkmeijer/sqlalchemy-introduction) | [Slides]((https://refined-github-html-preview.kidonng.workers.dev/Baukebrenninkmeijer/sqlalchemy-introduction/raw/main/presentation.html))
+
+During this talk, I discuss ORMs in python and consequently go into SQLAlchemy as a framework. I compare it against the main alternatives for SQL Server, which is PyODBC.
+I show the advantages of both as well as potential pitfalls and drawbacks.
+The conclusion of the talk is: in most more complex or larger projects, SQLAlchemy should have a clear preference over alternatives in Python.
+
+# Diving into NLP Tokenizers - DSFC 2022
+### April 2022
+
+[Repo](https://github.com/Baukebrenninkmeijer/diving-into-nlp-tokenizers-dsfc-2022) | [Slides 1](https://refined-github-html-preview.kidonng.workers.dev/Baukebrenninkmeijer/diving-into-nlp-tokenizers-dsfc-2022/raw/main/presentation.html) | [Slides 2](https://github.com/Baukebrenninkmeijer/diving-into-nlp-tokenizers-dsfc-2022/blob/main/interactive_slides.ipynb)
+
+A deep-dive into NLP tokenizers - their differences, similarities and advantages.
+
+This presentation was prepared for my talk at DSFC 2022. DSFC is a data science conference hosted by the largest 5 banks in the Netherlands.
+
+The total presentation consists of two sets of slides. One non-interactive and one interactive. The non-interactive one you can see the easiest by clicking preview in github. The interactive slides are made in jupyter notebook with RISE, which converts a notebook into slides. You can view the notebook regardless, but if you want them as slides you will need the RISE plugin.

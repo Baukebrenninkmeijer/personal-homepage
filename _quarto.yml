@@ -5,6 +5,7 @@ website:
   title: "Bauke Brenninkmeijer"
   navbar:
     right:
+      - talks.qmd
       - about.qmd
       - resume.qmd
       - icon: linkedin
