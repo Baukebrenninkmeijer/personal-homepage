@@ -13,7 +13,7 @@ website:
         href: https://www.baukebrenninkmeijer.nl
   favicon: posts/images/favicon.png
   open-graph: true
-  google-analytics: UA-55798897-4
+  google-analytics: G-YG1RDE9BKY
 format:
   html:
     theme:
