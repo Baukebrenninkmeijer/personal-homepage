@@ -21,3 +21,51 @@ A deep-dive into NLP tokenizers - their differences, similarities and advantages
 This presentation was prepared for my talk at DSFC 2022. DSFC is a data science conference hosted by the largest 5 banks in the Netherlands.
 
 The total presentation consists of two sets of slides. One non-interactive and one interactive. The non-interactive one you can see the easiest by clicking preview in github. The interactive slides are made in jupyter notebook with RISE, which converts a notebook into slides. You can view the notebook regardless, but if you want them as slides you will need the RISE plugin.
+
+# Practical Data Science - tips, tricks and pitfalls
+### April 2022
+
+[Repo](https://github.com/Baukebrenninkmeijer/practical-data-science) | [Slides](https://refined-github-html-preview.kidonng.workers.dev/Baukebrenninkmeijer/practical-data-science/raw/main/practical_data_science.html)
+
+This talk, given at an ABN AMRO hackathon to prepare for a kaggle competition, was aimed at giving some practical tips to data scientists. The tips are aimed at people fairly new to the field but also those medior and hopefully even some seniors can learn something from it. The goal of these tips is to clarify some unexpected behaviour when working with data and models, as well as put a spotlight on some common pitfalls.
+
+It covers six main topics:
+
+1. Business tips
+2. Short tip on models
+3. Ordinal/Nominal data encodings
+4. Feature Importance with Trees
+5. Class Imbalance
+6. Order of pre-processing
+
+### Some highlights:
+
+#### Effects of imbalanced data sampling techniques with lower amounts of data
+![effects of using class weights visualized](https://github.com/Baukebrenninkmeijer/practical-data-science/blob/210d9ff091199daa8b6f7495de7e7dc98d2b2c2c/images/class_weights_results.png?raw=true)
+
+#### Behaviour of KNN with different encodings
+![Visualization of the performance of the KNN algorithm given different encodings plotted over number of neighbours.](https://raw.githubusercontent.com/Baukebrenninkmeijer/practical-data-science/210d9ff091199daa8b6f7495de7e7dc98d2b2c2c/images/knn_dummies_performance_over_n_neigbors.png?raw=true)
+
+
+# FakeFynder: Deepfake detection for the masses
+### August 2019
+
+In our submission for the Hackathon for Good, we created a working POC which is a website where people can easily paste youtube links or upload videos to have them be checked for manipulated sections. The deepfake detection is done using the model from FaceForensics++, which has around 80% accuracy on a combination of compressed videos, but achieves around 99% accuracy on a single type of compression.
+
+The POC also allows for easy checking whether a video has been seen before with a database of video hashes which can be searched.
+
+![Usage of the FakeFynder App](https://github.com/Baukebrenninkmeijer/FakeFynder-Hackathon-for-Good-2019/blob/master/images/website_usage.gif?raw=true)
+
+# On the Generation and Evaluation of Synthetic Tabular Data using GANs - Master Thesis
+### September 2019
+
+[Repo](https://github.com/Baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs) | [Slides](https://docs.google.com/viewer?url=https://github.com/Baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs/blob/94abf372ab5f53a70a4da8e0f311f0583fea4d51/Presentation%20-%20On%20the%20Generation%20and%20Evaluation%20of%20Synthetic%20Data.pptx.pdf?raw=true)
+
+In my thesis, I researched improvements that we can make to Generative Adversarial Networks (GANs), to apply them better to tabular data. Contrary to GANs for vision tasks, GANs for tabular data were/are still very early work with only some researchers advancing the field. Apart from two improvements to the GAN architecture, I also wrote an open source library that focuses on how to evaluate synthetic data. The presentation also goes into uses-cases and value created for companies, specifically ABN AMRO. You can find the github repos which includes the thesis PDF at the link above.
+
+### Some highlight
+#### Almost art, but not quite.These matrices show correlation between columns and the delta with the actual correlations.
+![](https://github.com/Baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs/blob/master/report_images/results/census_correlation.png?raw=true)
+
+#### An easy way to see if two distributions are actually the same - a plot of the cumsums of numeric columns.
+![](https://github.com/Baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs/blob/master/report_images/results/column_distributions_berka_tgan.png?raw=true)
