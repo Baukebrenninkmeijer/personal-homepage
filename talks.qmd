@@ -47,6 +47,24 @@ It covers six main topics:
 ![Visualization of the performance of the KNN algorithm given different encodings plotted over number of neighbours.](https://raw.githubusercontent.com/Baukebrenninkmeijer/practical-data-science/210d9ff091199daa8b6f7495de7e7dc98d2b2c2c/images/knn_dummies_performance_over_n_neigbors.png?raw=true)
 
 
+# Code first introduction to Machine Learning
+### July 2020
+
+[Repo](https://github.com/Baukebrenninkmeijer/Code-First-Introduction-to-Machine-Learning) | [Slides](https://github.com/Baukebrenninkmeijer/Code-First-Introduction-to-Machine-Learning/blob/master/intro_to_ml_in_python.ipynb)
+
+Haven been an avid participant in Fast.ai, for most things I'm learning or teaching I try to take a code-first approach. In this talk, I presented some of the basics of machine learning to python developers.
+
+The talk covers machine-learning basics such as:
+
+- Training a simple model
+- Influence of hyper parameters on perfromance.
+- Under- and overfitting
+- Plotting decision trees
+- Types of machine learning
+- Feature Engineering
+
+
+
 # FakeFynder: Deepfake detection for the masses
 ### August 2019
 
