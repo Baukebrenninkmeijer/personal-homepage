@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -85,7 +85,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -94,6 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -109,17 +116,44 @@ gtag('js', new Date());
 gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="../styles/styles.scss">
 <meta property="og:title" content="Bauke Brenninkmeijer - Analyzing my Spotify listening history 🎵 - Part 2">
 <meta property="og:description" content="In part 2 of this series, we investigate how my genres have developed over time. We find interesting pattern with regards to some holidays and a general trend towards hip hop. Additionally, we see what some good ways of visualization are for these insights.">
-<meta property="og:image" content="https://github.com/Baukebrenninkmeijer/personal-homepage/posts/images/spotify_analysis/p2/distribution.png">
-<meta property="og:site-name" content="Bauke Brenninkmeijer">
+<meta property="og:image" content="https://Baukebrenninkmeijer.github.io/personal-homepage/posts/images/spotify_analysis/p2/distribution.png">
+<meta property="og:site_name" content="Bauke Brenninkmeijer">
 <meta property="og:image:height" content="410">
 <meta property="og:image:width" content="830">
 </head>
@@ -127,10 +161,10 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Bauke Brenninkmeijer</span>
     </a>
@@ -142,32 +176,32 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../talks.html" rel="" target="">
- <span class="menu-text">Talks</span></a>
+    <a class="nav-link" href="../talks.html"> 
+<span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
- <span class="menu-text">Who am I?</span></a>
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Who am I?</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resume.html" rel="" target="">
- <span class="menu-text">Resume</span></a>
+    <a class="nav-link" href="../resume.html"> 
+<span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -235,15 +269,17 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 
 
 
+
 <section id="short-recap-part-1" class="level1">
 <h1>Short recap: Part 1</h1>
 <p>In <a href="https://www.baukebrenninkmeijer.nl/analysis/music/bi/2020/07/31/spotify-listening-history-analysis-part-1.html">part 1</a> of this series we looked at the first part of this project. This included: 1. The data we are working with and what it looks like. 2. The amount of listening done per year and per month. 3. The amount of listening done per hour of day, also throughout the years. 4. The amount of genres we have per song/artist.</p>
 <p>We will continue from where we left of, diving deeper into the genres.</p>
 <p>We’ll load up the original JSON from Spotify, as well as the genres we created in part 1. We then combine them into <code>comb</code>, the combined dataframe. In <code>genres.csv</code>, we again see the 20 columns with the genres for each song, where the genres are collected from the artist, since songs are not labeled as having a genre. For more details, please have a look at part 1.</p>
-<div class="cell" data-execution_count="7">
+<div id="cell-6" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data received from Spotify</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
+<div>
 <div>
 
 
@@ -306,15 +342,17 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
+</div>
 <p>Genres retrieved from Spotify and the combined dataframe. We rename the genres columns from just a number 0-20 to ‘genre_x’ with x between 0 and 20, so they’re easier to recognize.</p>
 <p><code>comb</code> consists of <code>df</code> + <code>genres_df</code>, with the genre columns at the end.</p>
-<div class="cell" data-execution_count="8">
+<div id="cell-8" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># genres retrieved through Spotify API</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>genres_df <span class="op">=</span> pd.read_csv(<span class="st">'genres.csv'</span>, low_memory<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>genres_df <span class="op">=</span> genres_df.rename(columns<span class="op">=</span>{<span class="bu">str</span>(x): <span class="ss">f'genre_</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">21</span>)})</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>comb <span class="op">=</span> pd.concat([df, genres_df], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>comb.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
+<div>
 <div>
 
 
@@ -401,13 +439,14 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="top-genres" class="level1">
 <h1>Top genres</h1>
 <p>In part 1, we have seen how many genres each song has and how their numbers are distributed. The next question then, naturally, is: What genres are they? So let’s see!</p>
 <p>For the following analyses, remember that if I play 10 songs by Kanye, Kanye’s genres will be present 10 times.</p>
 <p>To analyze the genres, I first create a dataframe that contains all of the genres and their counts. This will be handy in the near future.</p>
-<div class="cell" data-execution_count="9">
+<div id="cell-11" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>top_genres <span class="op">=</span> (</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    genres_df.<span class="bu">apply</span>(pd.Series.value_counts)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">apply</span>(np.<span class="bu">sum</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -417,7 +456,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then we can plot. Lets start with the total listens per genre.</p>
-<div class="cell" data-execution_count="10">
+<div id="cell-13" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 
 <div id="altair-viz-e02d47eea2014fcbbeba9b47660991ef"></div>
@@ -474,7 +513,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <p>No big surprises here. My main music tastes are hip hop and electronic music, with main genres techno and drum and bass. However, for the latter two I mainly use youtube, which hosts sets that Spotify does not have. So my Spotify is mainly dominated by hip hop and its related genres, like <em>rap</em>, <em>hip hop</em> and <em>pop rap</em> (whatever that is? Drake maybe?). I expect many hip hop songs are also tagged as <em>pop</em>, which would explain the high <em>pop</em> presence, while I normally am not such a pop fan. Lets dive a bit deeper into this!</p>
 <p>As a next step, let’s verify which genres coincide with which other genres. This will test our hypothesis that <em>pop</em> is used as a tag for <em>hip hop</em>, but will also in general provide us with a better feeling of what genres are related to which other genres.</p>
 <p>For this,we loop over the rows and for each present genre, we put a 1 in that column, while also casting to <code>np.int8</code>. This means that, instead of the normally 32 bits, we use 8 bits and thus safe some memory. Since we only wanna represent a binary state (present or not present), we could also use boolean. However, since we’re doing arithmetic with it later, int8 will do. We fill the empty cells with 0. We only do this for the top 20 genres. This results in a dataframe with a column for each of the top 20 genres.</p>
-<div class="cell" data-execution_count="12">
+<div id="cell-17" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> comb.loc[:, [<span class="ss">f'genre_</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">21</span>)]].iterrows():</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    new_row <span class="op">=</span> {}</span>
@@ -486,6 +525,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>genre_presence <span class="op">=</span> genre_presence.fillna(<span class="dv">0</span>).astype(np.int8)</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>genre_presence.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
+<div>
 <div>
 
 
@@ -568,6 +608,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
+</div>
 <p>Now that we have this data, we can do a correlation analysis of when each genre coincides with what other genre. Now, because genre is a nominal data type, we cannot use the <em>standard correlation</em>, which is the <strong><a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a></strong>. Instead, we should use a metric that works with nominal values. I choose <strong><a href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient">Kendall’s tau</a></strong> for this, due to its simplicity. Normally, Kendall’s tau is meant for <em>ordinal</em> values (variables that have an ordering). However, because we are working with a binary situation (genre is either present or not) represented by 0 and 1, I think this should still work. One other thing to note is that Kendall’s tau is <em>symmetric</em>, and this means <code>tau(a, b)</code> is the same as <code>tau(b, a)</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -583,7 +624,7 @@ Note
 </div>
 </div>
 <p>Lets loop over all the combinations of the top 20 genres and compute their tau coefficient.</p>
-<div class="cell" data-execution_count="13">
+<div id="cell-20" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> kendalltau</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
@@ -593,6 +634,7 @@ Note
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>tau_values <span class="op">=</span> pd.DataFrame(rows)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>tau_values[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
+<div>
 <div>
 
 
@@ -624,11 +666,13 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p>For each combination of the top 20 genres, we now know how they are correlated and how much. We can make a nice correlation dataframe from this using the command below. However, because Altair wants data in long format, I won’t use that for the visualization. Furthermore, it is very large and won’t fit neatly inside the blog :wink:.</p>
-<div class="cell" data-execution_count="45">
+<div id="cell-22" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> tau_values.pivot(index<span class="op">=</span><span class="st">'genre_a'</span>, columns<span class="op">=</span><span class="st">'genre_b'</span>, values<span class="op">=</span><span class="st">'tau'</span>).fillna(<span class="dv">0</span>).style.background_gradient(cmap<span class="op">=</span><span class="st">'coolwarm'</span>, axis<span class="op">=</span><span class="va">None</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>corr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="45">
+<div>
 <style type="text/css">
     #T_6b832bd2_d732_11ea_b587_e4b97a371adbrow0_col0 {
             background-color:  #b40426;
@@ -2345,8 +2389,9 @@ Note
 </table>
 </div>
 </div>
+</div>
 <p>A much better approach is using Altair, so let’s see how these genres correlate then.</p>
-<div class="cell" data-execution_count="46">
+<div id="cell-24" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display" data-execution_count="46">
 
 <div id="altair-viz-fcedd6e57dcf4d5c8569fe1e83e213b9"></div>
@@ -2416,7 +2461,7 @@ Note
 <li>Sort given these percentages and extract the monthly top 5.</li>
 </ol>
 <p><strong>Step 1</strong>: count the frequency per interval. We don’t do this just for the top <span class="math inline">\(n\)</span> genres, but for <strong>all</strong> genres. This, naturally, results in a lot of columns and a very wide dataframe.</p>
-<div class="cell">
+<div id="cell-28" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1. Count all genre occurences per month.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>counters_per_month <span class="op">=</span> []</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>unique_years <span class="op">=</span> comb.year.sort_values().unique()</span>
@@ -2430,12 +2475,12 @@ Note
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        counters_per_month.append(counter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Put the <code>counts_per_month</code> in a dataframe and calculate the total songs played per month.</p>
-<div class="cell" data-execution_count="92">
+<div id="cell-30" class="cell" data-execution_count="92">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>counts_per_genre_per_month <span class="op">=</span> pd.DataFrame(counters_per_month)    </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>monthly_sum <span class="op">=</span> df.groupby([<span class="st">'year'</span>, <span class="st">'month'</span>]).size().reset_index().rename(columns<span class="op">=</span>{<span class="dv">0</span>: <span class="st">'count'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Step 2</strong>: We then normalize all genre counts by the number of songs played in that time period.</p>
-<div class="cell" data-execution_count="94">
+<div id="cell-33" class="cell" data-execution_count="94">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.Normalize all genre counts by the number of songs played in that time period. </span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns except the time columns</span></span>
@@ -2447,12 +2492,13 @@ Note
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    counts_per_genre_per_month.loc[(counts_per_genre_per_month.year <span class="op">==</span> row.year) <span class="op">&amp;</span> (counts_per_genre_per_month.month <span class="op">==</span> row.month), columns] <span class="op">=</span> counts_per_genre_per_month.loc[(counts_per_genre_per_month.year <span class="op">==</span> row.year) <span class="op">&amp;</span> (counts_per_genre_per_month.month <span class="op">==</span> row.month), columns] <span class="op">/</span> row[<span class="st">'count'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To get a cleaner visual, we remove any data before August 2016.</p>
-<div class="cell" data-execution_count="128">
+<div id="cell-35" class="cell" data-execution_count="128">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>counts_per_genre_per_month_filtered <span class="op">=</span> counts_per_genre_per_month.loc[(counts_per_genre_per_month.year <span class="op">&gt;</span> <span class="dv">2016</span>) <span class="op">|</span> ((counts_per_genre_per_month.year <span class="op">==</span> <span class="dv">2016</span>) <span class="op">&amp;</span> (counts_per_genre_per_month.month <span class="op">&gt;</span> <span class="dv">8</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We now have a dataframe with 863 columns, which corresponds to 861 different genres. This dataframe has all the genres and what percentage of total plays they were present as a genre. Keep in mind that an artist/song generally has more than one genre, so the sum of these fractions is not 1. This dataframe looks like this:</p>
-<div class="cell" data-execution_count="130">
+<div id="cell-37" class="cell" data-execution_count="130">
 <div class="cell-output cell-output-display" data-execution_count="130">
+<div>
 <div>
 
 
@@ -2539,18 +2585,20 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p><strong>Step 3</strong>: Sort given these values and extract the top 5. Unfortunately, the data is not in a shape that we can do that (to my knowledge at least), so we need to transform it a bit further by moving from a wide to a long data format and filtering out some values.</p>
 <p>The melting of the dataframe results in a single row per percentage per genre per timeunit. This makes it easier to plot with Altair. Furthermore, we create a datetime column from our year + month columns, which is also better for Altair to use.</p>
-<div class="cell" data-execution_count="135">
+<div id="cell-39" class="cell" data-execution_count="135">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>counts_per_genre_per_month_melted <span class="op">=</span> pd.melt(counts_per_genre_per_month_filtered, id_vars<span class="op">=</span>[<span class="st">'year'</span>, <span class="st">'month'</span>], value_vars<span class="op">=</span>columns, var_name<span class="op">=</span><span class="st">'genre'</span>, value_name<span class="op">=</span><span class="st">'percentage'</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>counts_per_genre_per_month_melted[<span class="st">'datetime'</span>] <span class="op">=</span> pd.to_datetime(counts_per_genre_per_month_melted.month.astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">'-'</span> <span class="op">+</span> counts_per_genre_per_month_melted.year.astype(<span class="bu">str</span>), <span class="bu">format</span><span class="op">=</span><span class="st">'%m-%Y'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Drop columns where either the genre or percentage is Nan. This reduces the number of rows even more, so that taking the n-largest later will be faster.</p>
-<div class="cell" data-execution_count="136">
+<div id="cell-41" class="cell" data-execution_count="136">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>counts_per_genre_per_month_melted <span class="op">=</span> counts_per_genre_per_month_melted.dropna(subset<span class="op">=</span>[<span class="st">'percentage'</span>, <span class="st">'genre'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="137">
+<div id="cell-42" class="cell" data-execution_count="137">
 <div class="cell-output cell-output-display" data-execution_count="137">
+<div>
 <div>
 
 
@@ -2588,18 +2636,20 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p>This looks great! But, there is one problem, and that is that we likely have way too many rows for Altair.</p>
-<div class="cell" data-execution_count="138">
+<div id="cell-44" class="cell" data-execution_count="138">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>counts_per_genre_per_month_melted.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="138">
 <pre><code>(6735, 5)</code></pre>
 </div>
 </div>
 <p>Welp, so we have almost 7k rows, while Altair’s maximum is 5k. Not too bad, but we still need to remove a bunch of rows. But that is fine, since we’re only interested in the top 5 of each month anyway. Using <code>.groupby</code> and <code>.nlargest</code>, we can extract this fairly easy. We extract those the indices of the remaining rows and index into the melted dataframe to only have the rows in the top 5 for each month left.</p>
-<div class="cell" data-execution_count="140">
+<div id="cell-46" class="cell" data-execution_count="140">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>top_genres_per_month_with_perc <span class="op">=</span> counts_per_genre_per_month_melted.loc[counts_per_genre_per_month_melted.groupby([<span class="st">'year'</span>, <span class="st">'month'</span>]).percentage.nlargest(<span class="dv">5</span>).reset_index().level_2.values, :]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month_with_perc.set_index([<span class="st">'year'</span>, <span class="st">'month'</span>]).head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="140">
+<div>
 <div>
 
 
@@ -2658,7 +2708,8 @@ Note
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="141">
+</div>
+<div id="cell-47" class="cell" data-execution_count="141">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>top_genres_per_month_with_perc.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="141">
 <pre><code>(145, 5)</code></pre>
@@ -2668,8 +2719,8 @@ Note
 <p>In the chart below, there is a lot going on. On the x-axis we have time while on the y-axis we have the normalized percentages of the top 5 genres. This means that for each month, the top 5 genres’ percentages sum to represent 1. This might be hard to grasp, so I’ve put the non-normalized one next to this plot to make the difference clear. Some colors are used twice, but there is no color scheme available in Altair that supports more than 20 colors, so this will have to do for now 😉. You can hover over the bars to get details of those bars and click on legenda items to highlight a genre.</p>
 <section id="top-genres-with-percentages" class="level2">
 <h2 class="anchored" data-anchor-id="top-genres-with-percentages">Top genres with percentages 📊</h2>
-<div class="cell" data-execution_count="143">
-<details>
+<div id="cell-53" class="cell" data-execution_count="143">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>selection <span class="op">=</span> alt.selection_multi(fields<span class="op">=</span>[<span class="st">'genre'</span>], bind<span class="op">=</span><span class="st">'legend'</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2720,7 +2771,6 @@ Note
 <span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>non_normalized <span class="op">&amp;</span> normalized</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="143">
-
 
 <div id="altair-viz-df498a17d33e43a0a4a6c92cfd4a4902"></div>
 <script type="text/javascript">
@@ -2787,14 +2837,15 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/spotify_analysis/genre-timeline-lastfm.png" title="Your top genres, plotted per week. Source: Last.fm" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Your top genres, plotted per week.</figcaption>
+<figcaption>Your top genres, plotted per week.</figcaption>
 </figure>
 </div>
 <p>We can get a list of the top genres per month by grouping and then applying list on the Series.</p>
-<div class="cell" data-execution_count="161">
+<div id="cell-57" class="cell" data-execution_count="161">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>top_genres_per_month <span class="op">=</span> top_genres_per_month_with_perc.groupby([<span class="st">'year'</span>,  <span class="st">'month'</span>]).genre.<span class="bu">apply</span>(<span class="bu">list</span>).reset_index()</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="161">
+<div>
 <div>
 
 
@@ -2826,18 +2877,20 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p>We then create a numpy array from these values and apply them column by column to new dataframe columns.</p>
-<div class="cell" data-execution_count="162">
+<div id="cell-59" class="cell" data-execution_count="162">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>genre_array <span class="op">=</span> np.stack(top_genres_per_month.genre.values)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, new_col <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="ss">f'genre_</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>)]):</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    top_genres_per_month[new_col] <span class="op">=</span> genre_array[:, i]</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>top_genres_per_month <span class="op">=</span> top_genres_per_month.drop(<span class="st">'genre'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Until we finally arrive at the following dataframe. On the x-axis we have the top 5 genres, named <code>genre_1</code> till <code>genre_5</code>, while on the y-axis we have months per year. This is pretty much what I set out to do, so I’m happy with the result.</p>
-<div class="cell" data-execution_count="163">
+<div id="cell-61" class="cell" data-execution_count="163">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>top_genres_per_month <span class="op">=</span> top_genres_per_month.set_index([<span class="st">'year'</span>, <span class="st">'month'</span>]).T</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="163">
+<div>
 <div>
 
 
@@ -3004,11 +3057,12 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p>However, the lack of color makes interpreting this table still fairly challenging. Let’s see if we can improve that a bit.</p>
 <p>To style, we can use the <code>style</code> (<a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html">docs</a>) attribute of <code>pd.DataFrame</code>. This is an easy and super handy way of styling dataframes. It has two main methods: <code>.applymap</code> and <code>.apply</code>. The first one is applied to each cell individually, while the latter is applied to a whole row. That makes <code>.applymap</code> well suited for cell specific layouts, like min-max gradients for example, while <code>.apply</code> works very well for row-based operations, like highlighting the max.</p>
 <p>To use them, we need to define a coloring function to apply to the dataframe. As a parameter, we give all the unique values. This allows us to create a mapping, as well as define the number of colors required. The colors we use are RGB colors that aren’t from the standard coloring libraries, like seaborn <a href="https://seaborn.pydata.org/tutorial/color_palettes.html">color palette</a>. This is because none of their palettes support the number of unique values we have, which is 26. So I used the tool called <a href="https://medialab.github.io/iwanthue/">i want hue</a>, that allows the generation of suitable color palettes. Getting 26 unique colors was still not easy (or a great succes in my opinion), but it works at least semi well.</p>
-<div class="cell" data-execution_count="164">
-<details>
+<div id="cell-63" class="cell" data-execution_count="164">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -3053,13 +3107,14 @@ Note
 <span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f'background-color: </span><span class="sc">{</span>color<span class="sc">}</span><span class="ss">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="165">
-<details>
+<div id="cell-65" class="cell" data-execution_count="165">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>unique_top_genres <span class="op">=</span> np.unique(top_genres_per_month)  <span class="co"># Get a list of unique values for coloring</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month.style.applymap(color_cells, unique_values<span class="op">=</span>unique_top_genres)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="165">
+<div>
 <style type="text/css">
     #T_63450766_d76d_11ea_9b10_e4b97a371adbrow0_col0 {
             background-color:  rgb(160, 235, 229);
@@ -3559,6 +3614,7 @@ Note
 </table>
 </div>
 </div>
+</div>
 <p>Better get the 🚒 cause this table is 🔥.</p>
 <p>This is really close to the Last.fm plot, apart from the lines between points that require 10 years of D3.js experience. We see some similar pattern to those in the earlier plot, but also can see some new insights. Here, we can focus some more on the anomalies that are present, like <em>indie pop rap</em>, <em>dutch hip hop</em>, <em>filter house</em> and <em>conscious hip hop</em>. These stand out more using this representation than before, which focused more on trends.</p>
 <p><strong>Insights</strong> - <strong>More electronic peaks</strong>: We can see that February 2017 was actually also a peak in electronic music, but due to similar colors in the previous plot this was a bit hidden. - <strong>Pure hip hop periods</strong>: Furthermore, we can also see there are some pure hip hop periods, like April and May of 2017, where EDM and electro house are not present at all, and we see more specific hip hop genres make way like <em>west coast rap</em> and <em>conscious hip hop</em>.</p>
@@ -3629,6 +3685,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -3695,13 +3778,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -3780,10 +3865,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/Baukebrenninkmeijer\.github\.io\/personal-homepage\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -3793,8 +3895,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -3806,7 +3917,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -3850,6 +4084,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -3875,6 +4110,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -3935,6 +4196,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

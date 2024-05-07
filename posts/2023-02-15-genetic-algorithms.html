@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -85,7 +85,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -94,6 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -131,11 +138,38 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="../styles/styles.scss">
 <meta property="og:title" content="Bauke Brenninkmeijer - Genetic Algorithms for image reconstruction 🧬">
 <meta property="og:description" content="How we can leverage genetic algorithms to help with image reconstruction.">
-<meta property="og:image" content="https://github.com/Baukebrenninkmeijer/personal-homepage/posts/images/genetic-algorithms/banner.png">
-<meta property="og:site-name" content="Bauke Brenninkmeijer">
+<meta property="og:image" content="https://Baukebrenninkmeijer.github.io/personal-homepage/posts/images/genetic-algorithms/banner.png">
+<meta property="og:site_name" content="Bauke Brenninkmeijer">
 <meta property="og:image:height" content="662">
 <meta property="og:image:width" content="1250">
 </head>
@@ -143,10 +177,10 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Bauke Brenninkmeijer</span>
     </a>
@@ -158,32 +192,32 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../talks.html" rel="" target="">
- <span class="menu-text">Talks</span></a>
+    <a class="nav-link" href="../talks.html"> 
+<span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
- <span class="menu-text">Who am I?</span></a>
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Who am I?</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resume.html" rel="" target="">
- <span class="menu-text">Resume</span></a>
+    <a class="nav-link" href="../resume.html"> 
+<span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -266,6 +300,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 
 
 
+
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -281,10 +316,14 @@ Tip
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<div id="fig-4dots-endstate" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="images/genetic-algorithms/4dots_final_state.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Best individual, target and two loss metrics</figcaption>
+<div id="fig-4dots-endstate" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-4dots-endstate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genetic-algorithms/4dots_final_state.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4dots-endstate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Best individual, target and two loss metrics
+</figcaption>
 </figure>
 </div>
 <p>Genetic algorithms are a beautiful subset in the machine learning domain, that use evolutionairy techniques to arrive to solutions that other algorithms have trouble at. These techniques include the combining of solutions, often called crossover, and the slightly altering of solutions, called mutations.</p>
@@ -363,7 +402,11 @@ for i in n_iterations:
 <p>Then, onto the mutation part. We create some noise of a certain magnitude, shift it so the mean is zero and half of it is negative and add it to the existing pixel values of said candidate. In the plot below you can see the distribution of a mutation for an individual with 100x100 grid as genes. I have chosen a uniform distribution for this, but again, you can choose others such as normal. However, the domain of the uniform distribution is simple and intuitive. For example, scaling an uniform distribution with 0.2 will have a magnitude of 0.2 as well, ranging from 0 to 0.2 distributed evenly. So you can see why working with this distribution is nice.</p>
 <div class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
-<p><img src="2023-02-15-genetic-algorithms_files/figure-html/cell-6-output-1.png" width="593" height="449"></p>
+<div>
+<figure class="figure">
+<p><img src="2023-02-15-genetic-algorithms_files/figure-html/cell-6-output-1.png" width="593" height="449" class="figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>As a last step, we apply the mutation and clip the values to the range [0, 1]. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is [0, 1] or [0, 255] for integer values, and plotting libraries like matplotlib will clip values for you if you don’t. To prevent hidden problems, we already make sure the domains and datatypes are correct.</p>
@@ -390,10 +433,14 @@ for i in n_iterations:
 <section id="toy-example-10x10-matrix" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="toy-example-10x10-matrix">Toy example: 10x10 matrix</h4>
 <p>This run is for just 200 iterations and takes around a minute. The right most graph shows the fitness distribution of the current population. The fitness function here was sum of squared errors, rather than mean.</p>
-<div id="fig-4dots-training" class="quarto-figure quarto-figure-center column-screen anchored page-columns page-full">
-<figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="images/genetic-algorithms/4dots_training.gif" class="column-screen img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Best individual, target and two loss metrics of a 10x10 pixel grid with 4 dots</figcaption>
+<div id="fig-4dots-training" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-4dots-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/genetic-algorithms/4dots_training.gif" class="column-screen img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4dots-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Best individual, target and two loss metrics of a 10x10 pixel grid with 4 dots
+</figcaption>
 </figure>
 </div>
 </section>
@@ -401,19 +448,27 @@ for i in n_iterations:
 <h4 class="anchored" data-anchor-id="slightly-less-toy-example-100x100-matrix-with-gradient">Slightly less toy example: 100x100 matrix with gradient</h4>
 <p>This run is for 10k iterations and takes around a 1-2 hours. The right most graph shows the fitness distribution of the current population. You can see the graph struggle to show a clear distribution. This seems to mean that the whole distribution is very close, although the values on the x-axis are pretty big, so I’m not entirely sure why it cannot show a good distribution.</p>
 <p>You can see an immediate steep decline in loss, which is attributed to the initial high variety in individuals. The further the iterations go, the more we have selected the optimal individuals and the more of the population can be considered brothers and sisters of the original best individual. When the problem is complex and high-dimensional, this happens more and more, since it’s quite unlikely that other candidates can present a better solution from mutation within the timeframe of the best candidate taking over the population.</p>
-<div id="fig-gradient-training" class="quarto-figure quarto-figure-center column-screen anchored page-columns page-full">
-<figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="images/genetic-algorithms/gradient_training_optimized_compressed.gif" class="column-screen img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Best individual, target and two loss metrics of a 100x100 pixel grid with gradient</figcaption>
+<div id="fig-gradient-training" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-gradient-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/genetic-algorithms/gradient_training_optimized_compressed.gif" class="column-screen img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gradient-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Best individual, target and two loss metrics of a 100x100 pixel grid with gradient
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="the-real-deal" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="the-real-deal">The real deal</h4>
-<div id="fig-gradient-training" class="quarto-figure quarto-figure-center column-screen anchored page-columns page-full">
-<figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="images/genetic-algorithms/mario_training_optimized.gif" class="column-screen img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: Best individual, target and two loss metrics of Mario</figcaption>
+<div id="fig-gradient-training" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-gradient-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/genetic-algorithms/mario_training_optimized.gif" class="column-screen img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gradient-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Best individual, target and two loss metrics of Mario
+</figcaption>
 </figure>
 </div>
 </section>
@@ -508,10 +563,14 @@ for i in n_iterations:
 <li>Mutate the colour of each polygon slightly. The approach is similar to the location, with <code>mutate_d</code> indicating a fraction delta. In this case the max is 1, so taking the random output is enough here. Because our colour is RGB, we input the <code>self.color_c</code> into random to get the desired number of channels (3).</li>
 </ol>
 <p>To see what this looks like if we just have some polygons and keep mutating them.</p>
-<div id="fig-polygon-mutation" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="images/genetic-algorithms/polygon_mutation.gif" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: Mutations of several polygons over time</figcaption>
+<div id="fig-polygon-mutation" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-polygon-mutation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genetic-algorithms/polygon_mutation.gif" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polygon-mutation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Mutations of several polygons over time
+</figcaption>
 </figure>
 </div>
 </section>
@@ -550,20 +609,28 @@ for i in n_iterations:
 <section id="polygon-fox" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="polygon-fox">Polygon Fox</h4>
 <p>Since we are playing with polygons, I decided a target that was made of polygons might be suitable. This fox has some clear advantages for polygons, with big blue areas and a pointy bright fox head in the middle.</p>
-<div id="fig-polygon-fox" class="quarto-figure quarto-figure-center column-screen anchored page-columns page-full">
-<figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="images/genetic-algorithms/fox_training_optimized.gif" class="column-screen img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: Best individual using polygon approach, target and two loss metrics of a fox image</figcaption>
+<div id="fig-polygon-fox" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-polygon-fox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/genetic-algorithms/fox_training_optimized.gif" class="column-screen img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polygon-fox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Best individual using polygon approach, target and two loss metrics of a fox image
+</figcaption>
 </figure>
 </div>
 <p>We observe a sharp incline in the number of polygons, even though it does not really seem to result in a clear improvement in fit. It seems the penalty was not tuned appropriate for this case. In this middle, we do see the fox head shape become apparant, but the algorithm fails to fill in the finer details of the head.</p>
 </section>
 <section id="rick-morty" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="rick-morty">Rick &amp; Morty</h4>
-<div id="fig-polygon-rick" class="quarto-figure quarto-figure-center column-screen anchored page-columns page-full">
-<figure class="figure page-columns page-full">
-<p class="page-columns page-full"><img src="images/genetic-algorithms/rick_polygon_optimized.gif" class="column-screen img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Best individual using polygon approach, target and two loss metrics of a rick and morty image</figcaption>
+<div id="fig-polygon-rick" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-polygon-rick-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="images/genetic-algorithms/rick_polygon_optimized.gif" class="column-screen img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polygon-rick-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Best individual using polygon approach, target and two loss metrics of a rick and morty image
+</figcaption>
 </figure>
 </div>
 <p>It’s clear that this image has too much detail for this algorithms. Many of the planes are too small to easily get picked up by the mean-square-error reduction. The best fit is often achieved by having big polygons match up with the background. Additionally, the meandering of the number of polygons is a clear indication that the penalty was nicely balanced, since there was no clear preference.</p>
@@ -572,7 +639,6 @@ for i in n_iterations:
 <h4 class="anchored" data-anchor-id="hyper-parameter-grid-search">Hyper parameter grid search</h4>
 <div class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
-
 <div>                            <div id="c5c2c674-3592-4caf-80cf-9d720f73af68" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("c5c2c674-3592-4caf-80cf-9d720f73af68")) {                    Plotly.newPlot(                        "c5c2c674-3592-4caf-80cf-9d720f73af68",                        [{"dimensions":[{"label":"mutate_d","values":[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]},{"label":"mutate_p","values":[0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3]},{"label":"copy_top_perc","values":[0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15]},{"label":"sample_top_n","values":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.30000000000000004,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4]},{"label":"n_polygons","values":[10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25,10,10,10,10,15,15,15,15,20,20,20,20,25,25,25,25]},{"label":"add_or_del_p","values":[0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001,0.1,0.30000000000000004,0.5000000000000001,0.7000000000000001]},{"label":"fitness","values":[0.0870674408818445,0.10346521216259054,0.10741763549700617,0.12624478807592132,0.09674633260075123,0.10441234594217261,0.10676590047377824,0.12119928984734683,0.08603758196654504,0.09935612523522536,0.11165461246600115,0.12461275523666956,0.09487399851499755,0.1054828983376067,0.11737611154509162,0.12498029511708793,0.08499045968864505,0.09157038837284627,0.1027840918552855,0.10392337671455934,0.09172699205992066,0.0943286197464729,0.09374910501156028,0.11599839397301308,0.08056093648645406,0.10065565307332795,0.10572287752576122,0.10604171830544125,0.08584024994912463,0.09779332017852034,0.10009766148222345,0.11243191415282645,0.08089215939330656,0.09009290100091348,0.08826403825499539,0.09728843355631342,0.08644100600837455,0.09105222715505172,0.09792297242706602,0.10255106525424675,0.07833021494423283,0.08657686524183889,0.09434139755447735,0.09481152115692264,0.07570464736017005,0.08748033226935224,0.09490340132129009,0.09982527397584619,0.08212085242457456,0.08751100329664264,0.08650230612452921,0.09519777469548507,0.08147932880910236,0.0884611725549033,0.09275958803417744,0.09410548847835565,0.08174884997426385,0.08616050687524839,0.08991240245447202,0.10309980314822603,0.07796395294267805,0.08653000567351557,0.08745114558033851,0.09156756586842262,0.07660437973988998,0.08418840468058282,0.08915044081289374,0.09027247131658381,0.08052096001337623,0.08393889170527971,0.0887695319838812,0.09011462951993207,0.07891984467628807,0.08477562630802243,0.0893028652869671,0.09083350653529979,0.07546493921656437,0.08488933807806583,0.08872599662529605,0.09281681194452564,0.09370845399729244,0.10730435347293193,0.11108832650501135,0.11481831527426016,0.09234871319742916,0.10797730635181152,0.11418820961391456,0.12912562601061472,0.09127984525652716,0.09614444321794513,0.11968065978631477,0.12261993035254529,0.08756781105994635,0.10878400150258563,0.10747782928850065,0.11170160531158561,0.08961511370167992,0.09373672799574795,0.10622288021470253,0.10797467780590002,0.08151670271829928,0.0926195542219157,0.09782113587072803,0.1075941414850973,0.08689129041516892,0.08733026123019554,0.09299347171958885,0.12027565761024743,0.0872328320995802,0.09733596243766648,0.09489218501432536,0.09421603692482212,0.08143228142852246,0.0936626802180976,0.0965983527694953,0.1047850336729669,0.0829330375756016,0.09031513216824945,0.09537998295097477,0.09027116028405362,0.08230147850541661,0.08785200528991799,0.09061668674904995,0.101834385630373,0.08156040403475803,0.08740874875791156,0.09836862704895478,0.09370178040158551,0.08249819640362084,0.0878082406790756,0.09040579297180774,0.09587413591763173,0.08112377934462192,0.08669240313586679,0.0901814971234887,0.09317064503654639,0.08083437050372706,0.08177812390624846,0.08826651904475648,0.0913455588828179,0.08218388179128185,0.08447336255068975,0.08789413491600062,0.09003431307672621,0.07906982754228647,0.08449004353162926,0.08842438132907883,0.09305505779311452,0.07569916661474604,0.07966701553371743,0.08626275066234185,0.08898895184133529,0.08099829183250208,0.08479856379781338,0.08646948214599971,0.09062334162701162,0.0829750951805293,0.08163960403513186,0.08707466920594466,0.09319845833711342,0.0925943458634419,0.09831270471467521,0.09538557130628195,0.11461699817360672,0.09539111293772234,0.0938185349999751,0.10998146322231142,0.1327134440900736,0.09237868693242143,0.0981052725844624,0.1082894128586765,0.11948847207838978,0.08556249708807824,0.09700610460464996,0.1029252714792824,0.1074722999875712,0.08680269167286297,0.10293831473053544,0.10861017340887064,0.09738484626414533,0.08763822959834952,0.08867616688370965,0.09912930823107034,0.10878642449023367,0.08750511924130012,0.09548025030123038,0.09911525765560013,0.0937596378220653,0.08148195710447702,0.09008710773775838,0.10626566852978604,0.11319268257868893,0.08241077449971934,0.09172879051569759,0.09458114855622743,0.10292704322458197,0.08390856290154416,0.08780110950222983,0.0922689056332672,0.09258904564252729,0.07916371359780354,0.09468373512334397,0.09338678258504093,0.10708687738823018,0.07797991260927892,0.08767877865501685,0.08978271501661941,0.09360892553437726,0.07968530893725936,0.085358644816129,0.09442850136911836,0.09249443482919045,0.0815868328493269,0.08232158538565335,0.09026893795955405,0.0918588140572604,0.07880072597007715,0.08412268735761318,0.08881728453451518,0.08968541109844633,0.0795269751289743,0.08354271004130184,0.08552825739924562,0.09232773482888958,0.08061603374088738,0.0846920676065404,0.08629367246381951,0.0894279131641245,0.07573474237919293,0.08351076555573744,0.08636010621185759,0.09007326550992015,0.08129407522036461,0.0839378268757179,0.09116873772142366,0.09228734053773724,0.07605176362394674,0.08692778976983097,0.08806445684039468,0.08855063991918166,0.08299306190116248,0.09491201885325079,0.09229578386874125,0.12020381754618753,0.08476500068906946,0.09587472317809596,0.1073720297825787,0.1058009634393549,0.08495089567385626,0.09123615134350492,0.10494858370160962,0.10615718802682779,0.09024876908765697,0.09394986240879119,0.1028258415628993,0.11768028679723856,0.09141463034001918,0.09523558560984352,0.09585879440447521,0.10453351776151475,0.07990705296359833,0.09406870372307018,0.09903216676622342,0.10606489973988328,0.0823379540734495,0.09180719613435813,0.09295127539538983,0.10098469561670396,0.0875850384858827,0.08946320869891275,0.09605605223598684,0.10143273303553199,0.07885991323386056,0.09210388993228334,0.08844591557130578,0.09568580643876168,0.08174666768753042,0.08531108599315478,0.09594813887434753,0.09566430445862524,0.08046803319530384,0.08895462787420613,0.09368970945597746,0.0983758779912811,0.0769116640900686,0.08663681390513941,0.09381394037358508,0.09298609236362657,0.07717183417328037,0.08141229615780372,0.09078501148794166,0.08789329005567945,0.0755729706502447,0.08604261246011759,0.09228383958187734,0.09804684021782226,0.07920543266079501,0.08649594087536451,0.09154827545839679,0.09463167573732374,0.07660321976654469,0.08380505801345153,0.09230936955515305,0.09565432297602529,0.07883698713827766,0.08515759990360873,0.0885980436445081,0.08800783551402011,0.07802369310055342,0.08124553168352386,0.08651144731652896,0.09703952624737683,0.08049797354856067,0.07940885081515174,0.08884251259390852,0.09558181523542743,0.07944225635522399,0.08317293166000662,0.0852328840763137,0.0858754079812289]}],"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"line":{"color":[0.0870674408818445,0.10346521216259054,0.10741763549700617,0.12624478807592132,0.09674633260075123,0.10441234594217261,0.10676590047377824,0.12119928984734683,0.08603758196654504,0.09935612523522536,0.11165461246600115,0.12461275523666956,0.09487399851499755,0.1054828983376067,0.11737611154509162,0.12498029511708793,0.08499045968864505,0.09157038837284627,0.1027840918552855,0.10392337671455934,0.09172699205992066,0.0943286197464729,0.09374910501156028,0.11599839397301308,0.08056093648645406,0.10065565307332795,0.10572287752576122,0.10604171830544125,0.08584024994912463,0.09779332017852034,0.10009766148222345,0.11243191415282645,0.08089215939330656,0.09009290100091348,0.08826403825499539,0.09728843355631342,0.08644100600837455,0.09105222715505172,0.09792297242706602,0.10255106525424675,0.07833021494423283,0.08657686524183889,0.09434139755447735,0.09481152115692264,0.07570464736017005,0.08748033226935224,0.09490340132129009,0.09982527397584619,0.08212085242457456,0.08751100329664264,0.08650230612452921,0.09519777469548507,0.08147932880910236,0.0884611725549033,0.09275958803417744,0.09410548847835565,0.08174884997426385,0.08616050687524839,0.08991240245447202,0.10309980314822603,0.07796395294267805,0.08653000567351557,0.08745114558033851,0.09156756586842262,0.07660437973988998,0.08418840468058282,0.08915044081289374,0.09027247131658381,0.08052096001337623,0.08393889170527971,0.0887695319838812,0.09011462951993207,0.07891984467628807,0.08477562630802243,0.0893028652869671,0.09083350653529979,0.07546493921656437,0.08488933807806583,0.08872599662529605,0.09281681194452564,0.09370845399729244,0.10730435347293193,0.11108832650501135,0.11481831527426016,0.09234871319742916,0.10797730635181152,0.11418820961391456,0.12912562601061472,0.09127984525652716,0.09614444321794513,0.11968065978631477,0.12261993035254529,0.08756781105994635,0.10878400150258563,0.10747782928850065,0.11170160531158561,0.08961511370167992,0.09373672799574795,0.10622288021470253,0.10797467780590002,0.08151670271829928,0.0926195542219157,0.09782113587072803,0.1075941414850973,0.08689129041516892,0.08733026123019554,0.09299347171958885,0.12027565761024743,0.0872328320995802,0.09733596243766648,0.09489218501432536,0.09421603692482212,0.08143228142852246,0.0936626802180976,0.0965983527694953,0.1047850336729669,0.0829330375756016,0.09031513216824945,0.09537998295097477,0.09027116028405362,0.08230147850541661,0.08785200528991799,0.09061668674904995,0.101834385630373,0.08156040403475803,0.08740874875791156,0.09836862704895478,0.09370178040158551,0.08249819640362084,0.0878082406790756,0.09040579297180774,0.09587413591763173,0.08112377934462192,0.08669240313586679,0.0901814971234887,0.09317064503654639,0.08083437050372706,0.08177812390624846,0.08826651904475648,0.0913455588828179,0.08218388179128185,0.08447336255068975,0.08789413491600062,0.09003431307672621,0.07906982754228647,0.08449004353162926,0.08842438132907883,0.09305505779311452,0.07569916661474604,0.07966701553371743,0.08626275066234185,0.08898895184133529,0.08099829183250208,0.08479856379781338,0.08646948214599971,0.09062334162701162,0.0829750951805293,0.08163960403513186,0.08707466920594466,0.09319845833711342,0.0925943458634419,0.09831270471467521,0.09538557130628195,0.11461699817360672,0.09539111293772234,0.0938185349999751,0.10998146322231142,0.1327134440900736,0.09237868693242143,0.0981052725844624,0.1082894128586765,0.11948847207838978,0.08556249708807824,0.09700610460464996,0.1029252714792824,0.1074722999875712,0.08680269167286297,0.10293831473053544,0.10861017340887064,0.09738484626414533,0.08763822959834952,0.08867616688370965,0.09912930823107034,0.10878642449023367,0.08750511924130012,0.09548025030123038,0.09911525765560013,0.0937596378220653,0.08148195710447702,0.09008710773775838,0.10626566852978604,0.11319268257868893,0.08241077449971934,0.09172879051569759,0.09458114855622743,0.10292704322458197,0.08390856290154416,0.08780110950222983,0.0922689056332672,0.09258904564252729,0.07916371359780354,0.09468373512334397,0.09338678258504093,0.10708687738823018,0.07797991260927892,0.08767877865501685,0.08978271501661941,0.09360892553437726,0.07968530893725936,0.085358644816129,0.09442850136911836,0.09249443482919045,0.0815868328493269,0.08232158538565335,0.09026893795955405,0.0918588140572604,0.07880072597007715,0.08412268735761318,0.08881728453451518,0.08968541109844633,0.0795269751289743,0.08354271004130184,0.08552825739924562,0.09232773482888958,0.08061603374088738,0.0846920676065404,0.08629367246381951,0.0894279131641245,0.07573474237919293,0.08351076555573744,0.08636010621185759,0.09007326550992015,0.08129407522036461,0.0839378268757179,0.09116873772142366,0.09228734053773724,0.07605176362394674,0.08692778976983097,0.08806445684039468,0.08855063991918166,0.08299306190116248,0.09491201885325079,0.09229578386874125,0.12020381754618753,0.08476500068906946,0.09587472317809596,0.1073720297825787,0.1058009634393549,0.08495089567385626,0.09123615134350492,0.10494858370160962,0.10615718802682779,0.09024876908765697,0.09394986240879119,0.1028258415628993,0.11768028679723856,0.09141463034001918,0.09523558560984352,0.09585879440447521,0.10453351776151475,0.07990705296359833,0.09406870372307018,0.09903216676622342,0.10606489973988328,0.0823379540734495,0.09180719613435813,0.09295127539538983,0.10098469561670396,0.0875850384858827,0.08946320869891275,0.09605605223598684,0.10143273303553199,0.07885991323386056,0.09210388993228334,0.08844591557130578,0.09568580643876168,0.08174666768753042,0.08531108599315478,0.09594813887434753,0.09566430445862524,0.08046803319530384,0.08895462787420613,0.09368970945597746,0.0983758779912811,0.0769116640900686,0.08663681390513941,0.09381394037358508,0.09298609236362657,0.07717183417328037,0.08141229615780372,0.09078501148794166,0.08789329005567945,0.0755729706502447,0.08604261246011759,0.09228383958187734,0.09804684021782226,0.07920543266079501,0.08649594087536451,0.09154827545839679,0.09463167573732374,0.07660321976654469,0.08380505801345153,0.09230936955515305,0.09565432297602529,0.07883698713827766,0.08515759990360873,0.0885980436445081,0.08800783551402011,0.07802369310055342,0.08124553168352386,0.08651144731652896,0.09703952624737683,0.08049797354856067,0.07940885081515174,0.08884251259390852,0.09558181523542743,0.07944225635522399,0.08317293166000662,0.0852328840763137,0.0858754079812289],"coloraxis":"coloraxis"},"name":"","type":"parcoords"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"coloraxis":{"colorbar":{"title":{"text":"fitness"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"legend":{"tracegroupgap":0},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
                             
 var gd = document.getElementById('c5c2c674-3592-4caf-80cf-9d720f73af68');
@@ -667,6 +733,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -733,13 +826,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -869,10 +964,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/Baukebrenninkmeijer\.github\.io\/personal-homepage\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -882,8 +994,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -895,7 +1016,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -939,6 +1183,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -964,6 +1209,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1471,6 +1742,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+
 
 
 

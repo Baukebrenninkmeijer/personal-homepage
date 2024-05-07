@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -85,7 +85,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -94,6 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -109,15 +116,15 @@ gtag('js', new Date());
 gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles/styles.scss">
 <meta property="og:title" content="Bauke Brenninkmeijer - Analyzing my Spotify listening history 🎵 - Part 3">
 <meta property="og:description" content="In part 3 of this adventure we discover the audio features that Spotify attributes to songs. We see how they are influenced by specific genres and how some songs relate to different audio features like instrumentalness and energy.">
-<meta property="og:image" content="https://github.com/Baukebrenninkmeijer/personal-homepage/posts/images/spotify_analysis/p3/banner-spotify-part-3.png">
-<meta property="og:site-name" content="Bauke Brenninkmeijer">
+<meta property="og:image" content="https://Baukebrenninkmeijer.github.io/personal-homepage/posts/images/spotify_analysis/p3/banner-spotify-part-3.png">
+<meta property="og:site_name" content="Bauke Brenninkmeijer">
 <meta property="og:image:height" content="403">
 <meta property="og:image:width" content="797">
 </head>
@@ -125,10 +132,10 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Bauke Brenninkmeijer</span>
     </a>
@@ -140,32 +147,32 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../talks.html" rel="" target="">
- <span class="menu-text">Talks</span></a>
+    <a class="nav-link" href="../talks.html"> 
+<span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
- <span class="menu-text">Who am I?</span></a>
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Who am I?</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resume.html" rel="" target="">
- <span class="menu-text">Resume</span></a>
+    <a class="nav-link" href="../resume.html"> 
+<span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://www.baukebrenninkmeijer.nl"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -243,6 +250,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 
 
 
+
 <p>In part 3 we are going to take a look at the audio features that Spotify labels songs with. They have 9 self-determined variables, that all indicate different aspects of a song. You’ll learn all about them below. In part 2, we looked at how my genres are and changed over time. Now we’ll take a look at how the audio features correspond to the changes in genres and how the genres are defined in the sense of these features.</p>
 <p><strong>The main research questions of part 3 are:</strong></p>
 <ol type="1">
@@ -254,8 +262,8 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <section id="loading-previous-data" class="level1">
 <h1>Loading previous data ⌛</h1>
 <p>Let’s load up everything and put the track IDs in a list, for easier access. Those are used for scraping.</p>
-<div class="cell" data-execution_count="4">
-<details>
+<div id="cell-7" class="cell" data-execution_count="4">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_track_info():</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> []</span>
@@ -280,8 +288,8 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <section id="using-the-spotify-api-to-get-audio-features" class="level3">
 <h3 class="anchored" data-anchor-id="using-the-spotify-api-to-get-audio-features">Using the Spotify API to get audio features</h3>
 <p>We need to retrieve the audio features for our songs. For this, we use the song IDs we retrieved in part 1. Lets first define our spotify API credentials again, an initialize the library we use to interact, <a href="https://spotipy.readthedocs.io/en/2.13.0/">Spotipy</a>.</p>
-<div class="cell" data-execution_count="5">
-<details>
+<div id="cell-10" class="cell" data-execution_count="5">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SPOTIFY_API_KEY <span class="op">=</span> os.getenv(<span class="st">'SPOTIFY_API_KEY'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>SPOTIFY_CLIENT_ID <span class="op">=</span> os.getenv(<span class="st">'SPOTIFY_CLIENT_ID'</span>)</span>
@@ -316,8 +324,8 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <p>We can see some metadata like the urls of the song and of this analysis, the track id and then the interesting part: the audio features.</p>
 <p>It’s important to know what these features actually represent. You can find the full list on the <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/">Spotify website</a>. I’ve included the relevant description in the sections below for each audio features that we will discuss.</p>
 <p>If you want to see how you can retrieve this information from Spotify, please check the collapsed cell below.</p>
-<div class="cell" data-execution_count="8">
-<details>
+<div id="cell-16" class="cell" data-execution_count="8">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>retrieve_audio_features <span class="op">=</span> <span class="va">False</span>  <span class="co"># programmical toggle for easier working. Please ignore. </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> retrieve_audio_features:</span>
@@ -341,7 +349,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </details>
 </div>
 <p>We combine the data, resulting in a single dataframe that holds all our data: song metadata, audio features and genres.</p>
-<div class="cell" data-execution_count="11">
+<div id="cell-20" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add our audio features with our track information</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>comb <span class="op">=</span> pd.concat([track_info, track_features], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -350,7 +358,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>comb[<span class="st">'top_1_genres_filtered'</span>] <span class="op">=</span> top_1_genres_filtered.top_1_genres_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Drop the songs without audio features. We drop on acousticness, but it could be any other audio features, since a song either has all of them, or none of them.</p>
-<div class="cell" data-execution_count="12">
+<div id="cell-22" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>comb <span class="op">=</span> comb.dropna(subset<span class="op">=</span>[<span class="st">'acousticness'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Spotify website also includes distribution plots for most features, so we will take at how you might differ from the general plots and how you can see what causes this. I have selected a subset of audio features, but you can evaluate the rest yourself. Looking at the values they report, their analysis seems to have been done on about 10k data points. To get a better comparison, we will sample 10k data points and compare with that. <strong>However</strong>, when diving deeper into something interesting, we use the full dataset. In all of the distribution comparisons below, the first plot is from Spotify and the second one from me. Additionally, under each feature I put the description Spotify gives for those features.</p>
@@ -362,9 +370,13 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </blockquote>
 <p>Here, we take a look at danceability. Given my main genres, we should see higher danceability than normally, with EDM being a big part of my listening. And indeed we do see this. In my distribution, we see quite some peaks around 0.8, while the general distribution has only a very small amount of songs with danceability higher than 0.8. Since we only have an image from spotify (and no actual data points), we cannot compare means, but I expect the general distribution mean to be somewhere between 0.5-0.6, while mine is 0.67</p>
 <p><img src="images/spotify_analysis/danceability.jpg" style="width:600px"></p>
-<div class="cell" data-execution_count="15">
+<div id="cell-28" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
-<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -375,9 +387,13 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 </blockquote>
 <p>Now, energy is a bit strange. In my year in review, Spotify always telling me I listen to so much energetic music. However, looking at this plot, I seem to be way lower than the general distribution.</p>
 <p><img src="images/spotify_analysis/energy.jpg" style="width:600px"></p>
-<div class="cell" data-execution_count="16">
+<div id="cell-31" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
-<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Let’s see if we get some more clarity if we look at the energy per artist.</p>
@@ -394,8 +410,9 @@ Important
 <p>For this table and all that follow, the count is just the frequency count of that value, whatever that value might be. If it is an artist, it is the total number of times that artist was played. If it is a song, it is the number of times that song was played.</p>
 </div>
 </div>
-<div class="cell" data-execution_count="17">
+<div id="cell-33" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="17">
+<div>
 <div>
 
 
@@ -523,11 +540,13 @@ Important
 </div>
 </div>
 </div>
+</div>
 <p>These results I find quite surprising. Yellow Claw, a Dutch trap duo whom I would consider to be generally pretty high energy is equal or below quite some hip hop artists, like Mac Miller and Kid Cudi. We can see the maximum energy in here is 6ix9ine, with a solid 0.69 😂. There is no denying that 6ix9ine is at that level of energy. However, KIDS SEE GHOSTS, the front for Kid Cudi and Kanye West, somehow also has 0.69, while I’d say that is much lower in energy. If we look at Reborn, the most popular song on the album, it’s clearly a pretty slow song.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/z2JpyynS3x8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>Alternatively, we can look at the energy of my top songs. Here we get a clearer picture of the effect of different songs.</p>
-<div class="cell" data-execution_count="18">
+<div id="cell-36" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display" data-execution_count="18">
+<div>
 <div>
 
 
@@ -636,6 +655,7 @@ Important
 </div>
 </div>
 </div>
+</div>
 <p>There are some pretty interesting facts here. First of, we can see see that my idea of Yellow Claw being very high energy is debunked, at least with Spotify’s definition of energy. Because some of these values are very strange, even more so when compared to some other artists and songs. Take for example the song <em>without you</em> from Yellow Claw. This is a dubstep/brostep song, with a pretty high tempo but has a value of 0.4880 for its energy level. This is lower than Frank Sinatra had on average in the previous table. In my opinion, something is wrong there. Furthermore, we can also see that their song <em>Stacks</em> has an energy value of 0.0812, which, by all accounts, should be an anomaly. My expectation is that they trained a neural network with some hand labeled songs, and then applied that to all songs to estimate these values, and something went wrong in the case of this song.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ek96g0oRTwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
@@ -645,14 +665,19 @@ Important
 <p>Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.</p>
 </blockquote>
 <p><img src="images/spotify_analysis/instrumentalness.jpg" style="width:600px"></p>
-<div class="cell" data-execution_count="19">
+<div id="cell-40" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
-<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>This is potentially interesting, since, naturally, hip-hop has a lot of vocals (so low instrumentalness), but genres like electro house and EDM generally don’t have many vocals, so how is this plot explained with almost nothing around 1. We can quickly see why by looking at the most influential artists for the largest genres. I’m showing the top 10 most played artists with their largest genre (e.g.&nbsp;if an artist is tagged as ‘rap’ and ‘west coast hip hop’, we use the more general rap)</p>
-<div class="cell" data-execution_count="20">
+<div id="cell-42" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display" data-execution_count="20">
+<div>
 <div>
 
 
@@ -718,10 +743,12 @@ Important
 </div>
 </div>
 </div>
+</div>
 <p>As most influential EDM artists, we see Yellow Claw and Flume, both of which have a lot of vocals in their music. <strong>This explains our instrumentalness plot!</strong>.</p>
 <p>However, if we redo this analysis, but we drop the most general genres, we get much more interesting results. To be specific, I’ve ignored the values <em>pop</em>, <em>edm</em>, <em>rap</em>, <em>pop rap</em> and <em>hip hop</em>, unless there were no other genre labels. In that case, we still take that genre. The result is below, and quite interesting. The table shows the top 20 most played artists and the genre they belong to.</p>
-<div class="cell" data-execution_count="21">
+<div id="cell-44" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display" data-execution_count="21">
+<div>
 <div>
 
 
@@ -837,6 +864,7 @@ Important
 </div>
 </div>
 </div>
+</div>
 <p>Without the super general genres, we can finally start to see some trends. Given the fact that <em>rap</em> is still the main genre of 5 artists, this often seems to be one of few labels applied, possibly with the other labels I was removing. The results is that these artists do not belong to any specific subgenres within hip hop, which is cool to see. Does this also mean they are per definition mainstream?</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -858,14 +886,19 @@ Note
 <p>The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.</p>
 </blockquote>
 <p><img src="images/spotify_analysis/loudness.jpg" style="width:600px"></p>
-<div class="cell" data-execution_count="22">
+<div id="cell-48" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
-<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>We can see my music is quite a bit louder than average, with almost all of the mass of the distribution being between -10 and 0, with a small tail between -15 and -10. In the general distribution, the tail extends quite a bit beyond -20, whereas there is virtually nothing beyond -18 in my distribution. Let’s see who is responsible for all of this noise 😠. Let’s plot the loudness of my top 20 most listened artists.</p>
-<div class="cell" data-execution_count="23">
+<div id="cell-50" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display" data-execution_count="23">
+<div>
 <div>
 
 
@@ -993,6 +1026,7 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p>This table is pretty clear. We see that none of my top 20 most played artists have an average loudness lower than -10, indicating quite high loudness on average. If we look at the top 5, we see that apparently hip hop artists are very loud, but also specifically Kid Cudi, Kanye West, and then those two combined in KIDS SEE GHOSTS. The reason for this I expect to be that they have sounds playing at almost at all times, rather than that they are extremely loud in their peaks.</p>
 <p>It also comes as no surprise that 6ix9ine is the loudest, since he’s essentially screaming in most of his songs 😅.</p>
 </section>
@@ -1003,15 +1037,20 @@ Note
 </blockquote>
 <p>This is a very interesting feature. Let’s see what information it gives us!</p>
 <p><img src="images/spotify_analysis/valence.jpg" style="width:600px"></p>
-<div class="cell" data-execution_count="24">
+<div id="cell-54" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
-<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="2020-08-20-spotify-listening-history-analysis-part-3_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>That’s quite the difference! First off, we can see a clear decline towards 1.0 for my distribution, whereas in the general distribution, this is much rounder. Furthermore, we can see that my distribution a lot spikier, possibly indicating the effects of certain albums/songs that have been played a lot and have a very narrow spread with regards to valence. In general we can see my music taste leans more towards the low side of valence, indicating a preference for sad, depressed and angry music. In general, I think it will be angry, which is the sentiment in a lot of hip hop, but also techno, drum and bass and some parts of house.</p>
 <p>If we look at the most positive and most negative songs with more than 5 plays, we see some interesting results.</p>
-<div class="cell" data-execution_count="25">
+<div id="cell-56" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display" data-execution_count="25">
+<div>
 <div>
 
 
@@ -1109,11 +1148,13 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p>We can see that there are likely some errors in here, with <em>White Crime</em> and <em>White America</em> both having a score of 0.0. On the positive side, we see Yung Internet with <em>Helemaal Top</em>, which is a song about feeling great. Furthermore, we have Kendrick Lamar’s <em>Momma</em>. This is interesting cause it does not typically resonate as a very happy or cheerful song. We’ll attribute this to the Spotify interpretation of this value. See for yourself:</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/q1AOP6NtGuc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>If we take a higher level view, we can look at the artists and identify more broader trends.</p>
-<div class="cell" data-execution_count="26">
+<div id="cell-58" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display" data-execution_count="26">
+<div>
 <div>
 
 
@@ -1216,6 +1257,7 @@ Note
 </div>
 </div>
 </div>
+</div>
 <p>Some interesting insights: 1. <strong>Kanye is depressing</strong>: Kanye West is very low in valence, meaning most of his songs are angry, depressed or sad. This makes sense, given his oeuvre, with songs like <em><a href="https://www.youtube.com/watch?v=ML8Yq1Rd6I0">Waves</a></em> (sad), <em><a href="https://www.youtube.com/watch?v=DSY7u8Jg9c0">Violent Crimes</a></em> (sad), <em><a href="https://www.youtube.com/watch?v=KCsex2tGXrs">Piss On Your Grave</a></em> (angry) and <em><a href="https://www.youtube.com/watch?v=KuQoQgL63Xo">I Am A God</a></em> (angry). 2. <strong>Bias of electronic music</strong>: We have some electronic artists like Tchami and Netsky which also rank very low, but which are not specifically angry or sad music producers in my experience. Maybe electronic music has a bias here and is faster to be considered angry or sad? 3. <strong>Non-polarity</strong>: We see quite some artists hovering around 0.5, indicating either a healthy balance in valence between their songs or just a general non-polarity in their songs. I took a detailed look at Kanye West for the first point, and he has a wide spread, with the weight more on the sad and angry side, hence his low average valence. I assume most artists will be similar, and have a wide spread between their songs.</p>
 </section>
 </section>
@@ -1238,7 +1280,7 @@ Important
 </div>
 </div>
 <p>Given our results in previous sections, one of the things I’d like to look deeper into is the effects of EDM and rap with regards to energy.</p>
-<div class="cell" data-execution_count="48">
+<div id="cell-62" class="cell" data-execution_count="48">
 <div class="cell-output cell-output-display" data-execution_count="48">
 
 <div id="altair-viz-37dc2212825147a6985b6961c359473a"></div>
@@ -1294,7 +1336,7 @@ Important
 </div>
 <p>Above, we see the <a href="https://en.wikipedia.org/wiki/Kernel_density_estimation">Kernel Density Estimation</a> (KDE) of energy for rap and EDM. Rap is strange, since it seems to have two distinct peaks; one around 0.6 and one around 0.75. EDM has a more well defined single peak at 0.6. Furthermore, we see that EDM is more prevalent in the high energy values, which is not too unsurprising to see. Let’s dive a bit deeper into the two peaks of rap.</p>
 <p>If we plot different hip hop subgenres, we can see how these peaks come to be. We plot the largest three hip hop subgenres. <em>Detroit hip hop</em> seems to have more of a peak around 0.75, while <em>conscious hip hop</em> and <em>chicago rap</em> have peaks around at 0.6. It seems that they have a lot more energy in Detroit!</p>
-<div class="cell" data-execution_count="47">
+<div id="cell-65" class="cell" data-execution_count="47">
 <div class="cell-output cell-output-display" data-execution_count="47">
 
 <div id="altair-viz-9e2da74a6f0c46e188243d1556588396"></div>
@@ -1351,7 +1393,7 @@ Important
 </section>
 <section id="valence-in-rap-and-edm" class="level2">
 <h2 class="anchored" data-anchor-id="valence-in-rap-and-edm">Valence in Rap and EDM</h2>
-<div class="cell" data-execution_count="46">
+<div id="cell-67" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display" data-execution_count="46">
 
 <div id="altair-viz-55939109926d4c2993ef5bc2bf0b90ef"></div>
@@ -1412,7 +1454,7 @@ Important
 <h1>Audio features against each other ⚔️</h1>
 <p>To find interesting relationships between these audio features, we can create a pairplot, that create a scatterplot for each two variables. Because the calculation time for the number of data points times the number of plots is very high, we sample the dataset. This should allow us to visualize the distributions in general sense. We don’t require each individual data point here.</p>
 <p>We sample 2000 data points at random. We also filter on the two largest genres, EDM and rap, so we can see some differences between these genres.</p>
-<div class="cell" data-execution_count="35">
+<div id="cell-76" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display" data-execution_count="35">
 
 <div id="altair-viz-3d5106e92fb144bd897cb5381f699238"></div>
@@ -1482,7 +1524,7 @@ Important
 <section id="audio-features-over-time" class="level1">
 <h1>Audio features over time</h1>
 <p>As a last area of research, lets have a look at how some of these features might have changed over time in my listening behaviour.</p>
-<div class="cell" data-execution_count="41">
+<div id="cell-84" class="cell" data-execution_count="41">
 <div class="cell-output cell-output-display" data-execution_count="41">
 
 <div id="altair-viz-b8fecea941f54edaa694478094d9d59f"></div>
@@ -1596,6 +1638,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -1662,13 +1731,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1747,10 +1818,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/Baukebrenninkmeijer\.github\.io\/personal-homepage\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1760,8 +1848,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1773,7 +1870,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1817,6 +2037,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1842,6 +2063,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1902,6 +2149,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
