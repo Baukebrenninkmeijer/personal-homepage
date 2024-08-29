@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2020-08-07">
 <meta name="description" content="In part 2 of this series, we investigate how my genres have developed over time. We find interesting pattern with regards to some holidays and a general trend towards hip hop. Additionally, we see what some good ways of visualization are for these insights.">
 
-<title>Bauke Brenninkmeijer - Analyzing my Spotify listening history 🎵 - Part 2</title>
+<title>Analyzing my Spotify listening history 🎵 - Part 2 – Bauke Brenninkmeijer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -36,7 +36,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -119,7 +119,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -150,7 +150,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles/styles.scss">
-<meta property="og:title" content="Bauke Brenninkmeijer - Analyzing my Spotify listening history 🎵 - Part 2">
+<meta property="og:title" content="Analyzing my Spotify listening history 🎵 - Part 2 – Bauke Brenninkmeijer">
 <meta property="og:description" content="In part 2 of this series, we investigate how my genres have developed over time. We find interesting pattern with regards to some holidays and a general trend towards hip hop. Additionally, we see what some good ways of visualization are for these insights.">
 <meta property="og:image" content="https://Baukebrenninkmeijer.github.io/personal-homepage/posts/images/spotify_analysis/p2/distribution.png">
 <meta property="og:site_name" content="Bauke Brenninkmeijer">
@@ -170,7 +170,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -199,7 +199,7 @@ window.Quarto = {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
@@ -280,10 +280,9 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -342,7 +341,6 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</div>
 <p>Genres retrieved from Spotify and the combined dataframe. We rename the genres columns from just a number 0-20 to ‘genre_x’ with x between 0 and 20, so they’re easier to recognize.</p>
 <p><code>comb</code> consists of <code>df</code> + <code>genres_df</code>, with the genre columns at the end.</p>
 <div id="cell-8" class="cell" data-execution_count="8">
@@ -353,10 +351,9 @@ window.Quarto = {
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>comb.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -436,7 +433,6 @@ window.Quarto = {
 </table>
 
 <p>2 rows × 46 columns</p>
-</div>
 </div>
 </div>
 </div>
@@ -526,10 +522,9 @@ window.Quarto = {
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>genre_presence.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -608,7 +603,6 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</div>
 <p>Now that we have this data, we can do a correlation analysis of when each genre coincides with what other genre. Now, because genre is a nominal data type, we cannot use the <em>standard correlation</em>, which is the <strong><a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation coefficient</a></strong>. Instead, we should use a metric that works with nominal values. I choose <strong><a href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient">Kendall’s tau</a></strong> for this, due to its simplicity. Normally, Kendall’s tau is meant for <em>ordinal</em> values (variables that have an ordering). However, because we are working with a binary situation (genre is either present or not) represented by 0 and 1, I think this should still work. One other thing to note is that Kendall’s tau is <em>symmetric</em>, and this means <code>tau(a, b)</code> is the same as <code>tau(b, a)</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -635,10 +629,9 @@ Note
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>tau_values[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -666,13 +659,11 @@ Note
 </div>
 </div>
 </div>
-</div>
 <p>For each combination of the top 20 genres, we now know how they are correlated and how much. We can make a nice correlation dataframe from this using the command below. However, because Altair wants data in long format, I won’t use that for the visualization. Furthermore, it is very large and won’t fit neatly inside the blog :wink:.</p>
 <div id="cell-22" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> tau_values.pivot(index<span class="op">=</span><span class="st">'genre_a'</span>, columns<span class="op">=</span><span class="st">'genre_b'</span>, values<span class="op">=</span><span class="st">'tau'</span>).fillna(<span class="dv">0</span>).style.background_gradient(cmap<span class="op">=</span><span class="st">'coolwarm'</span>, axis<span class="op">=</span><span class="va">None</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>corr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="45">
-<div>
 <style type="text/css">
     #T_6b832bd2_d732_11ea_b587_e4b97a371adbrow0_col0 {
             background-color:  #b40426;
@@ -1875,7 +1866,7 @@ Note
             background-color:  #b40426;
             color:  #f1f1f1;
         }</style>
-<table id="T_6b832bd2_d732_11ea_b587_e4b97a371adb" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table id="T_6b832bd2_d732_11ea_b587_e4b97a371adb" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="index_name level0" data-quarto-table-cell-role="th">genre_b</th>
@@ -2389,7 +2380,6 @@ Note
 </table>
 </div>
 </div>
-</div>
 <p>A much better approach is using Altair, so let’s see how these genres correlate then.</p>
 <div id="cell-24" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display" data-execution_count="46">
@@ -2499,10 +2489,9 @@ Note
 <div id="cell-37" class="cell" data-execution_count="130">
 <div class="cell-output cell-output-display" data-execution_count="130">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2585,7 +2574,6 @@ Note
 </div>
 </div>
 </div>
-</div>
 <p><strong>Step 3</strong>: Sort given these values and extract the top 5. Unfortunately, the data is not in a shape that we can do that (to my knowledge at least), so we need to transform it a bit further by moving from a wide to a long data format and filtering out some values.</p>
 <p>The melting of the dataframe results in a single row per percentage per genre per timeunit. This makes it easier to plot with Altair. Furthermore, we create a datetime column from our year + month columns, which is also better for Altair to use.</p>
 <div id="cell-39" class="cell" data-execution_count="135">
@@ -2599,10 +2587,9 @@ Note
 <div id="cell-42" class="cell" data-execution_count="137">
 <div class="cell-output cell-output-display" data-execution_count="137">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2636,7 +2623,6 @@ Note
 </div>
 </div>
 </div>
-</div>
 <p>This looks great! But, there is one problem, and that is that we likely have way too many rows for Altair.</p>
 <div id="cell-44" class="cell" data-execution_count="138">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>counts_per_genre_per_month_melted.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2650,10 +2636,9 @@ Note
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month_with_perc.set_index([<span class="st">'year'</span>, <span class="st">'month'</span>]).head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="140">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2705,7 +2690,6 @@ Note
 </tbody>
 </table>
 
-</div>
 </div>
 </div>
 </div>
@@ -2846,10 +2830,9 @@ Note
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="161">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2877,7 +2860,6 @@ Note
 </div>
 </div>
 </div>
-</div>
 <p>We then create a numpy array from these values and apply them column by column to new dataframe columns.</p>
 <div id="cell-59" class="cell" data-execution_count="162">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>genre_array <span class="op">=</span> np.stack(top_genres_per_month.genre.values)</span>
@@ -2891,10 +2873,9 @@ Note
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="163">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">year</th>
@@ -3057,7 +3038,6 @@ Note
 </div>
 </div>
 </div>
-</div>
 <p>However, the lack of color makes interpreting this table still fairly challenging. Let’s see if we can improve that a bit.</p>
 <p>To style, we can use the <code>style</code> (<a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html">docs</a>) attribute of <code>pd.DataFrame</code>. This is an easy and super handy way of styling dataframes. It has two main methods: <code>.applymap</code> and <code>.apply</code>. The first one is applied to each cell individually, while the latter is applied to a whole row. That makes <code>.applymap</code> well suited for cell specific layouts, like min-max gradients for example, while <code>.apply</code> works very well for row-based operations, like highlighting the max.</p>
 <p>To use them, we need to define a coloring function to apply to the dataframe. As a parameter, we give all the unique values. This allows us to create a mapping, as well as define the number of colors required. The colors we use are RGB colors that aren’t from the standard coloring libraries, like seaborn <a href="https://seaborn.pydata.org/tutorial/color_palettes.html">color palette</a>. This is because none of their palettes support the number of unique values we have, which is 26. So I used the tool called <a href="https://medialab.github.io/iwanthue/">i want hue</a>, that allows the generation of suitable color palettes. Getting 26 unique colors was still not easy (or a great succes in my opinion), but it works at least semi well.</p>
@@ -3114,7 +3094,6 @@ Note
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>top_genres_per_month.style.applymap(color_cells, unique_values<span class="op">=</span>unique_top_genres)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="165">
-<div>
 <style type="text/css">
     #T_63450766_d76d_11ea_9b10_e4b97a371adbrow0_col0 {
             background-color:  rgb(160, 235, 229);
@@ -3407,7 +3386,7 @@ Note
         }    #T_63450766_d76d_11ea_9b10_e4b97a371adbrow4_col28 {
             background-color:  rgb(82, 235, 217);
         }</style>
-<table id="T_63450766_d76d_11ea_9b10_e4b97a371adb" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table id="T_63450766_d76d_11ea_9b10_e4b97a371adb" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="index_name level0" data-quarto-table-cell-role="th">year</th>
@@ -3612,7 +3591,6 @@ Note
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 <p>Better get the 🚒 cause this table is 🔥.</p>
@@ -3821,18 +3799,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -3864,7 +3831,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/Baukebrenninkmeijer\.github\.io\/personal-homepage\/");
@@ -3872,7 +3861,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

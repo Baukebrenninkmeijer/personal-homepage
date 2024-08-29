@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2020-08-20">
 <meta name="description" content="In part 3 of this adventure we discover the audio features that Spotify attributes to songs. We see how they are influenced by specific genres and how some songs relate to different audio features like instrumentalness and energy.">
 
-<title>Bauke Brenninkmeijer - Analyzing my Spotify listening history 🎵 - Part 3</title>
+<title>Analyzing my Spotify listening history 🎵 - Part 3 – Bauke Brenninkmeijer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -36,7 +36,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -121,7 +121,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
 
 
 <link rel="stylesheet" href="../styles/styles.scss">
-<meta property="og:title" content="Bauke Brenninkmeijer - Analyzing my Spotify listening history 🎵 - Part 3">
+<meta property="og:title" content="Analyzing my Spotify listening history 🎵 - Part 3 – Bauke Brenninkmeijer">
 <meta property="og:description" content="In part 3 of this adventure we discover the audio features that Spotify attributes to songs. We see how they are influenced by specific genres and how some songs relate to different audio features like instrumentalness and energy.">
 <meta property="og:image" content="https://Baukebrenninkmeijer.github.io/personal-homepage/posts/images/spotify_analysis/p3/banner-spotify-part-3.png">
 <meta property="og:site_name" content="Bauke Brenninkmeijer">
@@ -141,7 +141,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -170,7 +170,7 @@ gtag('config', 'G-YG1RDE9BKY', { 'anonymize_ip': true});
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
@@ -413,10 +413,9 @@ Important
 <div id="cell-33" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -540,17 +539,15 @@ Important
 </div>
 </div>
 </div>
-</div>
 <p>These results I find quite surprising. Yellow Claw, a Dutch trap duo whom I would consider to be generally pretty high energy is equal or below quite some hip hop artists, like Mac Miller and Kid Cudi. We can see the maximum energy in here is 6ix9ine, with a solid 0.69 😂. There is no denying that 6ix9ine is at that level of energy. However, KIDS SEE GHOSTS, the front for Kid Cudi and Kanye West, somehow also has 0.69, while I’d say that is much lower in energy. If we look at Reborn, the most popular song on the album, it’s clearly a pretty slow song.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/z2JpyynS3x8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>Alternatively, we can look at the energy of my top songs. Here we get a clearer picture of the effect of different songs.</p>
 <div id="cell-36" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -655,7 +652,6 @@ Important
 </div>
 </div>
 </div>
-</div>
 <p>There are some pretty interesting facts here. First of, we can see see that my idea of Yellow Claw being very high energy is debunked, at least with Spotify’s definition of energy. Because some of these values are very strange, even more so when compared to some other artists and songs. Take for example the song <em>without you</em> from Yellow Claw. This is a dubstep/brostep song, with a pretty high tempo but has a value of 0.4880 for its energy level. This is lower than Frank Sinatra had on average in the previous table. In my opinion, something is wrong there. Furthermore, we can also see that their song <em>Stacks</em> has an energy value of 0.0812, which, by all accounts, should be an anomaly. My expectation is that they trained a neural network with some hand labeled songs, and then applied that to all songs to estimate these values, and something went wrong in the case of this song.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ek96g0oRTwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
@@ -678,10 +674,9 @@ Important
 <div id="cell-42" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display" data-execution_count="20">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -743,16 +738,14 @@ Important
 </div>
 </div>
 </div>
-</div>
 <p>As most influential EDM artists, we see Yellow Claw and Flume, both of which have a lot of vocals in their music. <strong>This explains our instrumentalness plot!</strong>.</p>
 <p>However, if we redo this analysis, but we drop the most general genres, we get much more interesting results. To be specific, I’ve ignored the values <em>pop</em>, <em>edm</em>, <em>rap</em>, <em>pop rap</em> and <em>hip hop</em>, unless there were no other genre labels. In that case, we still take that genre. The result is below, and quite interesting. The table shows the top 20 most played artists and the genre they belong to.</p>
 <div id="cell-44" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -864,7 +857,6 @@ Important
 </div>
 </div>
 </div>
-</div>
 <p>Without the super general genres, we can finally start to see some trends. Given the fact that <em>rap</em> is still the main genre of 5 artists, this often seems to be one of few labels applied, possibly with the other labels I was removing. The results is that these artists do not belong to any specific subgenres within hip hop, which is cool to see. Does this also mean they are per definition mainstream?</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -899,10 +891,9 @@ Note
 <div id="cell-50" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1026,7 +1017,6 @@ Note
 </div>
 </div>
 </div>
-</div>
 <p>This table is pretty clear. We see that none of my top 20 most played artists have an average loudness lower than -10, indicating quite high loudness on average. If we look at the top 5, we see that apparently hip hop artists are very loud, but also specifically Kid Cudi, Kanye West, and then those two combined in KIDS SEE GHOSTS. The reason for this I expect to be that they have sounds playing at almost at all times, rather than that they are extremely loud in their peaks.</p>
 <p>It also comes as no surprise that 6ix9ine is the loudest, since he’s essentially screaming in most of his songs 😅.</p>
 </section>
@@ -1051,10 +1041,9 @@ Note
 <div id="cell-56" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display" data-execution_count="25">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1148,17 +1137,15 @@ Note
 </div>
 </div>
 </div>
-</div>
 <p>We can see that there are likely some errors in here, with <em>White Crime</em> and <em>White America</em> both having a score of 0.0. On the positive side, we see Yung Internet with <em>Helemaal Top</em>, which is a song about feeling great. Furthermore, we have Kendrick Lamar’s <em>Momma</em>. This is interesting cause it does not typically resonate as a very happy or cheerful song. We’ll attribute this to the Spotify interpretation of this value. See for yourself:</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/q1AOP6NtGuc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>If we take a higher level view, we can look at the artists and identify more broader trends.</p>
 <div id="cell-58" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display" data-execution_count="26">
 <div>
-<div>
 
 
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1254,7 +1241,6 @@ Note
 </tbody>
 </table>
 
-</div>
 </div>
 </div>
 </div>
@@ -1774,18 +1760,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1817,7 +1792,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/Baukebrenninkmeijer\.github\.io\/personal-homepage\/");
@@ -1825,7 +1822,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
