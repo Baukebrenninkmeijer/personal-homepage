@@ -11,7 +11,7 @@ website:
       - icon: linkedin
         href: https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/
       - icon: github
-        href: https://www.baukebrenninkmeijer.nl
+        href: https://github.com/Baukebrenninkmeijer
   favicon: posts/images/favicon.png
   open-graph: true
   google-analytics: G-YG1RDE9BKY
