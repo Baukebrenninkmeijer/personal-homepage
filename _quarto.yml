@@ -27,4 +27,4 @@ execute:
 
 
 resources:
-  - "CNAME.txt"
+  - "CNAME"
