@@ -1,1 +1,1 @@
-Sitemap: https://Baukebrenninkmeijer.github.io/personal-homepage/sitemap.xml
+Sitemap: https://blog.baukebrenninkmeijer.nl/sitemap.xml
