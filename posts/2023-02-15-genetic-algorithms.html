@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,18 +71,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../posts/images/favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-37aaf1c78eac92bf624134996c58b1fb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1a38403e558b37b6734750c80e4baf43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-37aaf1c78eac92bf624134996c58b1fb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b8c1de5c1f4a188dee52d0f91931b16f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a720ba76d8f109768d40c4b3326b7271.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-b8c1de5c1f4a188dee52d0f91931b16f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -153,7 +154,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -347,6 +348,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Bauke Brenninkmeijer</span>
     </a>
@@ -517,13 +520,13 @@ for i in n_iterations:
 <p>Procreation is very important for this algorithm, because it allows the combining of two (or more) individuals into a new individual. Hopefully, this leads to to an individual that has all good qualities of their parents and none of the bad. In the rest of this post, the terms procreation, crossover and combine are used interchangeably for this concept.</p>
 <p>An example with two individuals and their crossover. In this example, and individual is defined by its genes: 4 binary digits. The crossover in this case is just taking the first two digits of the first individual and the latter two of the second individual.</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>ind1 <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>ind1 <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
 <span id="cb2-2"><a href="#cb2-2"></a>ind2 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="kw">def</span> crossover(a, b):</span>
 <span id="cb2-5"><a href="#cb2-5"></a>  <span class="cf">return</span> a[:<span class="dv">2</span>] <span class="op">+</span> b[<span class="dv">2</span>:]</span>
 <span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="bu">print</span>(<span class="ss">f'Result of crossover: </span><span class="sc">{</span>crossover(ind1, ind2)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="bu">print</span>(<span class="ss">f'Result of crossover: </span><span class="sc">{</span>crossover(ind1, ind2)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Result of crossover: [0, 0, 1, 1]</code></pre>
 </div>
@@ -539,7 +542,7 @@ for i in n_iterations:
 <p>In this method, we try to recreate the target image by manipulating individual pixels and comibing whole pixel arrays. The genes of an individual is a pixel array the size of the target image. For some RGB image, this will be a three dimensional, for example (200, 200, 3).</p>
 <p>Let’s first deine a pixel individual and set its genes to the shape that we want. We also give an option to pass genes, which is handy for the crossover step later. Lastly, we define that probability to mutate <code>mutate_p</code> and the delta of a mutation <code>mutate_d</code>. The main methods of the individual are already defined here as well.</p>
 <div class="cell column-page" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> PixelIndividual:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">class</span> PixelIndividual:</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    <span class="co">"""Individual with pixel grid for genes."""</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
 <span id="cb4-4"><a href="#cb4-4"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
@@ -552,16 +555,16 @@ for i in n_iterations:
 <span id="cb4-11"><a href="#cb4-11"></a>        <span class="va">self</span>.shape <span class="op">=</span> shape</span>
 <span id="cb4-12"><a href="#cb4-12"></a>        <span class="va">self</span>.mutate_d <span class="op">=</span> mutate_d</span>
 <span id="cb4-13"><a href="#cb4-13"></a>        <span class="va">self</span>.mutate_p <span class="op">=</span> mutate_p</span>
-<span id="cb4-14"><a href="#cb4-14"></a>        <span class="va">self</span>.genes <span class="op">=</span> np.random.rand(<span class="op">*</span>shape).astype(np.float32) <span class="cf">if</span> <span class="kw">not</span> genes <span class="cf">else</span> genes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-14"><a href="#cb4-14"></a>        <span class="va">self</span>.genes <span class="op">=</span> np.random.rand(<span class="op">*</span>shape).astype(np.float32) <span class="cf">if</span> <span class="kw">not</span> genes <span class="cf">else</span> genes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="crossover" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="crossover">Crossover</h3>
 <p>The second method is our choice of what happens during crossover. How to implement a crossover function is really up to the person working on the problem. Initially I just took the pixelwise mean of both parents, but that seemed to always kind of move towards hovering around 0.5, which is maybe logical, but definitely undesirable. In this version, I chose to randomly take each pixel from either parent. This seems to work fairly well but you can use many other versions so make sure to play around with this a bit yourself. The <code>filter_arr</code> creates an array of random zeros and ones. We use it as a filter to decide which value to pick.</p>
 <div class="cell column-page" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a> <span class="kw">def</span> crossover(<span class="va">self</span>, other: PixelIndividual) <span class="op">-&gt;</span> PixelIndividual:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a> <span class="kw">def</span> crossover(<span class="va">self</span>, other: PixelIndividual) <span class="op">-&gt;</span> PixelIndividual:</span>
 <span id="cb5-2"><a href="#cb5-2"></a>        filter_arr <span class="op">=</span> np.random.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="va">self</span>.genes.shape)</span>
 <span id="cb5-3"><a href="#cb5-3"></a>        output <span class="op">=</span> np.where(filter_arr, <span class="va">self</span>.genes, other.genes)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4"></a>        <span class="cf">return</span> PixelIndividual(shape<span class="op">=</span><span class="va">self</span>.shape, genes<span class="op">=</span>output)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="mutation" class="level3 page-columns page-full">
@@ -578,20 +581,20 @@ for i in n_iterations:
 </div>
 <p>As a last step, we apply the mutation and clip the values to the range [0, 1]. This is because otherwise we can mutate outside of the colour boundaries of an image, which will be clipped when shown as an image anyway. The domain for pixel values with a float is [0, 1] or [0, 255] for integer values, and plotting libraries like matplotlib will clip values for you if you don’t. To prevent hidden problems, we already make sure the domains and datatypes are correct.</p>
 <div class="cell column-page" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
 <span id="cb6-2"><a href="#cb6-2"></a>        <span class="cf">if</span> <span class="va">self</span>.mutate_p <span class="op">&gt;</span> np.random.rand():</span>
 <span id="cb6-3"><a href="#cb6-3"></a>            <span class="va">self</span>.mutation <span class="op">=</span> (np.random.rand(<span class="op">*</span><span class="va">self</span>.shape) <span class="op">*</span> <span class="va">self</span>.mutate_d) <span class="op">-</span> (<span class="va">self</span>.mutate_d <span class="op">*</span> <span class="fl">0.5</span>)</span>
 <span id="cb6-4"><a href="#cb6-4"></a>            <span class="va">self</span>.mutation <span class="op">=</span> <span class="va">self</span>.mutation.astype(np.float32)</span>
-<span id="cb6-5"><a href="#cb6-5"></a>            <span class="va">self</span>.genes <span class="op">=</span> np.clip(<span class="va">self</span>.genes <span class="op">+</span> <span class="va">self</span>.mutation, a_min<span class="op">=</span><span class="fl">0.0</span>, a_max<span class="op">=</span><span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href="#cb6-5"></a>            <span class="va">self</span>.genes <span class="op">=</span> np.clip(<span class="va">self</span>.genes <span class="op">+</span> <span class="va">self</span>.mutation, a_min<span class="op">=</span><span class="fl">0.0</span>, a_max<span class="op">=</span><span class="fl">1.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Because I encountered a lot of datatype issues, such as float64 and integer reprentations, I cast most computation to float32 and also do a dtype check in the <code>compute_fitness</code> method. This is because this is the last step of each iteration, and generally should represent if things went correctly.</p>
 <p>The fitness method is in this case the mean-squared error.</p>
 <div class="cell column-page" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>    <span class="kw">def</span> compute_fitness(<span class="va">self</span>, target: np.ndarray):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>    <span class="kw">def</span> compute_fitness(<span class="va">self</span>, target: np.ndarray):</span>
 <span id="cb7-2"><a href="#cb7-2"></a>        <span class="cf">assert</span> <span class="va">self</span>.genes.dtype.name <span class="op">==</span> <span class="st">'float32'</span>, (</span>
 <span id="cb7-3"><a href="#cb7-3"></a>            <span class="ss">f'genes dtype should be float32 but found </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>genes<span class="sc">.</span>dtype<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.'</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>        )</span>
-<span id="cb7-5"><a href="#cb7-5"></a>        <span class="va">self</span>.fitness <span class="op">=</span> ((<span class="va">self</span>.genes <span class="op">-</span> target) <span class="op">**</span> <span class="dv">2</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5"></a>        <span class="va">self</span>.fitness <span class="op">=</span> ((<span class="va">self</span>.genes <span class="op">-</span> target) <span class="op">**</span> <span class="dv">2</span>).mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="results" class="level3 page-columns page-full">
@@ -652,7 +655,7 @@ Figure&nbsp;4: Best individual, target and two loss metrics of Mario
 <h3 class="anchored" data-anchor-id="crossover-1">Crossover</h3>
 <p>Crossovers are done simply by randomly taking a polygon of either parents. If one of the parents has more polygons, we randomly add polygons in those indices as well.</p>
 <div class="cell column-page" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> crossover(<span class="va">self</span>, other):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> crossover(<span class="va">self</span>, other):</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    child <span class="op">=</span> copy.deepcopy(<span class="va">self</span>)</span>
 <span id="cb8-3"><a href="#cb8-3"></a>    <span class="cf">for</span> idx, poly <span class="kw">in</span> <span class="bu">enumerate</span>(other.polygons):</span>
 <span id="cb8-4"><a href="#cb8-4"></a>        <span class="cf">if</span> <span class="fl">0.5</span> <span class="op">&lt;</span> np.random.random():</span>
@@ -661,7 +664,7 @@ Figure&nbsp;4: Best individual, target and two loss metrics of Mario
 <span id="cb8-7"><a href="#cb8-7"></a>            <span class="cf">except</span>:</span>
 <span id="cb8-8"><a href="#cb8-8"></a>                <span class="co"># When idx is out of range of child.polygons, we append.</span></span>
 <span id="cb8-9"><a href="#cb8-9"></a>                child.polygons.append(poly)</span>
-<span id="cb8-10"><a href="#cb8-10"></a>    <span class="cf">return</span> child</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="cf">return</span> child</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="mutation-1" class="level3 page-columns page-full">
@@ -670,7 +673,7 @@ Figure&nbsp;4: Best individual, target and two loss metrics of Mario
 <h4 class="anchored" data-anchor-id="individual">Individual</h4>
 <p>Mutation in this case has to be done at the “genes” level rather than the individual level. So the <code>mutate</code> method of the individuals here is surpisingly simple.</p>
 <div class="cell column-page" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">def</span> mutate(<span class="va">self</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">def</span> mutate(<span class="va">self</span>):</span>
 <span id="cb9-2"><a href="#cb9-2"></a>    <span class="co">"""mutate method for an individual"""</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a>    <span class="cf">for</span> polygon <span class="kw">in</span> <span class="va">self</span>.polygons:</span>
 <span id="cb9-4"><a href="#cb9-4"></a>        polygon.mutate()</span>
@@ -688,7 +691,7 @@ Figure&nbsp;4: Best individual, target and two loss metrics of Mario
 <span id="cb9-16"><a href="#cb9-16"></a>                mutate_delta<span class="op">=</span><span class="va">self</span>.mutate_delta,</span>
 <span id="cb9-17"><a href="#cb9-17"></a>                mutate_p<span class="op">=</span><span class="va">self</span>.mutate_p,</span>
 <span id="cb9-18"><a href="#cb9-18"></a>            )</span>
-<span id="cb9-19"><a href="#cb9-19"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-19"><a href="#cb9-19"></a>        )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There are three steps:</p>
 <ol type="1">
@@ -700,7 +703,7 @@ Figure&nbsp;4: Best individual, target and two loss metrics of Mario
 <section id="genes" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="genes">Genes</h4>
 <div class="cell column-page" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>    <span class="kw">def</span> mutate(<span class="va">self</span>):</span>
 <span id="cb10-2"><a href="#cb10-2"></a>        <span class="co">"""mutate method for a gene"""</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a>        changed <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a>        <span class="cf">for</span> coord <span class="kw">in</span> <span class="va">self</span>.coords:</span>
@@ -722,7 +725,7 @@ Figure&nbsp;4: Best individual, target and two loss metrics of Mario
 <span id="cb10-20"><a href="#cb10-20"></a>            <span class="cf">for</span> x, y <span class="kw">in</span> <span class="va">self</span>.coords:</span>
 <span id="cb10-21"><a href="#cb10-21"></a>                <span class="cf">assert</span> <span class="dv">0</span> <span class="op">&lt;=</span> x <span class="op">&lt;=</span> <span class="va">self</span>.x_size</span>
 <span id="cb10-22"><a href="#cb10-22"></a>                <span class="cf">assert</span> <span class="dv">0</span> <span class="op">&lt;=</span> y <span class="op">&lt;=</span> <span class="va">self</span>.y_size</span>
-<span id="cb10-23"><a href="#cb10-23"></a>            <span class="va">self</span>.calc_size()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-23"><a href="#cb10-23"></a>            <span class="va">self</span>.calc_size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This mutation is conceptually straight forward:</p>
 <ol type="1">
@@ -751,7 +754,7 @@ Figure&nbsp;5: Mutations of several polygons over time
 <h3 class="anchored" data-anchor-id="population-crossover">Population crossover</h3>
 <p>The last interesting section is how to achieve the population crossover here.</p>
 <div class="cell column-page" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>    <span class="kw">def</span> combine(<span class="va">self</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>    <span class="kw">def</span> combine(<span class="va">self</span>):</span>
 <span id="cb11-2"><a href="#cb11-2"></a>        pairs <span class="op">=</span> <span class="bu">list</span>(permutations(<span class="va">self</span>.pop, r<span class="op">=</span><span class="dv">2</span>))</span>
 <span id="cb11-3"><a href="#cb11-3"></a>        sample_pairs <span class="op">=</span> random.choices(pairs, k<span class="op">=</span><span class="va">self</span>.popsize)  <span class="co"># Sample popsize pairs out of all combinations. N out of N*(N-1)</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a></span>
@@ -767,7 +770,7 @@ Figure&nbsp;5: Mutations of several polygons over time
 <span id="cb11-14"><a href="#cb11-14"></a></span>
 <span id="cb11-15"><a href="#cb11-15"></a>        <span class="co"># Add crossover of the picked pairs and add to the children.</span></span>
 <span id="cb11-16"><a href="#cb11-16"></a>        children <span class="op">+=</span> [x.crossover(y) <span class="cf">for</span> (x, y) <span class="kw">in</span> sample_pairs]</span>
-<span id="cb11-17"><a href="#cb11-17"></a>        <span class="va">self</span>.pop <span class="op">+=</span> children</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-17"><a href="#cb11-17"></a>        <span class="va">self</span>.pop <span class="op">+=</span> children</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As stated before, we want to have a good balance between selecting fit individuals but also retaining the variance of the whole population. I try to find a balance in this by both selecting from the total population while also sampling the top <code>x</code> percent more than the rest and even copying the top <code>y</code> percent.</p>
 </section>
@@ -921,13 +924,14 @@ if (outputEl) {{
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1320,7 +1324,7 @@ if (outputEl) {{
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">---</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">---</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="an">author:</span><span class="co"> Bauke Brenninkmeijer</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="an">badges:</span><span class="co"> true</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a><span class="an">branch:</span><span class="co"> master</span></span>
@@ -1765,7 +1769,7 @@ if (outputEl) {{
 <span id="cb12-467"><a href="#cb12-467"></a>In this post I showed two approaches that can replicate an image given some target using genetic algorithms. Both approaches have some advantages and some drawbacks, but both have their use. While this example is mainly for academic purposes, the core genetic algorithm has many applications and this practice both improves understanding and awareness of it. </span>
 <span id="cb12-468"><a href="#cb12-468"></a></span>
 <span id="cb12-469"><a href="#cb12-469"></a>Personally, I've really enjoyed working on this project with both the academic understanding as well as the engineering of it being sometimes challenging. I hope you, the reader, has learned something from this post and can use it in your own work. </span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
