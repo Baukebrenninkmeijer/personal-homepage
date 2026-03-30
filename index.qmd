@@ -1,14 +1,45 @@
 ---
-title: "Posts"
+title: "Bauke Brenninkmeijer"
+subtitle: "Research Engineer · AI Systems · Open Source"
+about:
+  id: hero-heading
+  template: trestles
+  image: profile.jpg
+  image-shape: round
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/
+    - icon: github
+      text: GitHub
+      href: https://github.com/Baukebrenninkmeijer
 listing:
-  contents: posts
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
+  - id: recent-posts
+    contents: posts
+    sort: "date desc"
+    type: grid
+    grid-columns: 3
+    categories: cloud
+    filter-ui: true
+    sort-ui: [date, title]
+    page-size: 9
+    max-description-length: 175
+    feed:
+      items: 10
+      type: full
+      title: "Bauke Brenninkmeijer's Blog"
 page-layout: full
-title-block-banner: true
 ---
 
+::: {#hero-heading}
 
+I'm a Research Engineer at [orq.ai](https://orq.ai), working on AI agent infrastructure, LLM evaluation, and production AI systems. Previously built ML systems at ABN AMRO and ING.
+
+I write about applied AI, MLOps, and the things I learn along the way.
+
+:::
+
+## Recent Posts
+
+::: {#recent-posts}
+:::

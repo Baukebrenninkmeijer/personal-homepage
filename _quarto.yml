@@ -3,7 +3,13 @@ project:
 
 website:
   title: "Bauke Brenninkmeijer"
+  site-url: https://baukebrenninkmeijer.github.io/personal-homepage
+  repo-url: https://github.com/Baukebrenninkmeijer/personal-homepage
+  repo-actions: [source, issue]
+
   navbar:
+    pinned: true
+    search: true
     right:
       - talks.qmd
       - about.qmd
@@ -12,17 +18,32 @@ website:
         href: https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/
       - icon: github
         href: https://github.com/Baukebrenninkmeijer
+
+  back-to-top-navigation: true
+
+  page-footer:
+    left: "© 2026 Bauke Brenninkmeijer"
+    right:
+      - icon: github
+        href: https://github.com/Baukebrenninkmeijer
+      - icon: linkedin
+        href: https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/
+
   favicon: posts/images/favicon.png
   open-graph: true
+  twitter-card:
+    card-style: summary_large_image
+
   google-analytics: G-YG1RDE9BKY
+
 format:
   html:
     theme:
-      light: [lux, 'styles/theme-light.scss']
+      light: [lux, styles/theme-light.scss]
       dark: [lux, styles/theme-dark.scss]
     css: styles/styles.scss
+    lightbox: true
+    code-annotations: hover
 
 execute:
   freeze: auto
-
-
