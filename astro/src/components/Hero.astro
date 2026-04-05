@@ -54,40 +54,34 @@ const topics = [
 
   </div>
 
-  <!-- 2. What I do -->
-  <div class="flex flex-col items-center md:items-start gap-4 text-center md:text-left">
-    <div>
-      <p class="text-xs uppercase tracking-widest text-muted-dark light:text-muted-light mb-3">
-        Focus areas
-      </p>
-      <div class="flex flex-wrap justify-center md:justify-start gap-2">
-        {topics.map((topic) => (
-          <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">
-            {topic}
-          </span>
-        ))}
-      </div>
+  <!-- 2. Contact CTA card -->
+  <div class="max-w-lg mx-auto md:mx-0 border border-border-dark light:border-border-light rounded-xl p-7">
+    <p class="text-xs uppercase tracking-widest text-muted-dark light:text-muted-light mb-3">Get in touch</p>
+    <h2 class="text-lg font-semibold text-text-dark light:text-text-light mb-2">Available for speaking and collaboration</h2>
+    <p class="text-sm text-muted-dark light:text-muted-light mb-4">Interested in AI agents, LLM evaluation, or production ML? Let's talk.</p>
+
+    <div class="flex flex-wrap gap-2 mb-5">
+      {topics.map((topic) => (
+        <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">
+          {topic}
+        </span>
+      ))}
     </div>
 
-    <p class="text-sm text-muted-dark light:text-muted-light">
-      Available for speaking and collaboration
-    </p>
-
-    <div class="flex flex-wrap justify-center md:justify-start items-center gap-4 text-sm">
-      <a
-        href="mailto:bauke.brenninkmeijer@orq.ai"
-        class="font-medium text-muted-dark light:text-muted-light hover:text-text-dark light:hover:text-text-light transition-colors underline underline-offset-2"
-      >
-        bauke.brenninkmeijer@orq.ai
-      </a>
-      <span class="text-border-dark light:text-border-light" aria-hidden="true">·</span>
+    <div class="flex gap-3">
       <a
         href="https://calendar.app.google/7ET48JSCNjYVgiLH7"
         target="_blank"
         rel="noopener noreferrer"
-        class="font-medium text-muted-dark light:text-muted-light hover:text-text-dark light:hover:text-text-light transition-colors underline underline-offset-2"
+        class="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-text-dark text-bg-dark light:bg-text-light light:text-bg-light hover:opacity-80 transition-opacity"
       >
         Schedule a call
+      </a>
+      <a
+        href="mailto:bauke.brenninkmeijer@orq.ai"
+        class="flex-1 text-center px-4 py-2.5 border border-border-dark light:border-border-light rounded-lg text-sm font-medium text-muted-dark light:text-muted-light hover:text-text-dark hover:border-text-dark light:hover:text-text-light light:hover:border-text-light transition-colors"
+      >
+        Email me
       </a>
     </div>
   </div>
