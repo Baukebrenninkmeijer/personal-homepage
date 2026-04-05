@@ -58,10 +58,7 @@ const siteTitle = title === 'Home' ? 'Bauke Brenninkmeijer' : `${title} | Bauke 
     <script is:inline>
       (function () {
         var stored = localStorage.getItem('theme');
-        var prefersDark =
-          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if (stored === 'light' || (!stored && !prefersDark)) {
+        if (stored === 'light') {
           document.documentElement.classList.add('light');
         }
       })();
