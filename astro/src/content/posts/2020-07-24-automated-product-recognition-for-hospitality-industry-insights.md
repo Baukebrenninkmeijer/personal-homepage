@@ -2,7 +2,7 @@
 title: "Automated product recognition for hospitality industry insights \U0001F37A"
 date: '2020-07-24'
 description: Bridging the gap to a data driven hospitality industry business intelligence on raw data.
-image: /personal-homepage/posts/product_recognition/products_image.png
+image: /posts/product_recognition/products_image.png
 categories:
   - NLP
   - internship

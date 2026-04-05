@@ -2,7 +2,7 @@
 title: "Genetic Algorithms for image reconstruction"
 date: 2023-02-16
 description: "How we can leverage genetic algorithms to help with image reconstruction."
-image: "/personal-homepage/posts/genetic-algorithms/banner.png"
+image: "/posts/genetic-algorithms/banner.png"
 categories: ["Genetic Algorithms", "Machine learning"]
 ---
 
@@ -11,7 +11,7 @@ categories: ["Genetic Algorithms", "Machine learning"]
 
 ## Introduction
 
-![Best individual, target and two loss metrics](https://baukebrenninkmeijer.github.io/personal-homepage/posts/genetic-algorithms/4dots_final_state.png)
+![Best individual, target and two loss metrics](https://baukebrenninkmeijer.github.io/posts/genetic-algorithms/4dots_final_state.png)
 
 Genetic algorithms are a beautiful subset in the machine learning domain, that use evolutionairy techniques to arrive to solutions that other algorithms have trouble at. These techniques include the combining of solutions, often called crossover, and the slightly altering of solutions, called mutations.
 
@@ -175,7 +175,7 @@ Some of the results are pretty cool. With smaller images, it works quite fast bu
 
 This run is for just 200 iterations and takes around a minute. The right most graph shows the fitness distribution of the current population. The fitness function here was sum of squared errors, rather than mean.
 
-![Best individual, target and two loss metrics of a 10x10 pixel grid with 4 dots](/personal-homepage/posts/genetic-algorithms/4dots_training.gif)
+![Best individual, target and two loss metrics of a 10x10 pixel grid with 4 dots](/posts/genetic-algorithms/4dots_training.gif)
 
 
 #### Slightly less toy example: 100x100 matrix with gradient
@@ -184,11 +184,11 @@ This run is for 10k iterations and takes around a 1-2 hours. The right most grap
 
 You can see an immediate steep decline in loss, which is attributed to the initial high variety in individuals. The further the iterations go, the more we have selected the optimal individuals and the more of the population can be considered brothers and sisters of the original best individual. When the problem is complex and high-dimensional, this happens more and more, since it's quite unlikely that other candidates can present a better solution from mutation within the timeframe of the best candidate taking over the population.
 
-![Best individual, target and two loss metrics of a 100x100 pixel grid with gradient](/personal-homepage/posts/genetic-algorithms/gradient_training_optimized_compressed.gif)
+![Best individual, target and two loss metrics of a 100x100 pixel grid with gradient](/posts/genetic-algorithms/gradient_training_optimized_compressed.gif)
 
 #### The real deal
 
-![Best individual, target and two loss metrics of Mario](/personal-homepage/posts/genetic-algorithms/mario_training_optimized.gif)
+![Best individual, target and two loss metrics of Mario](/posts/genetic-algorithms/mario_training_optimized.gif)
 
 ## Polygons
 
@@ -284,7 +284,7 @@ This mutation is conceptually straight forward:
 
 To see what this looks like if we just have some polygons and keep mutating them. 
 
-![Mutations of several polygons over time](/personal-homepage/posts/genetic-algorithms/polygon_mutation.gif)
+![Mutations of several polygons over time](/posts/genetic-algorithms/polygon_mutation.gif)
 
 ### Penalty
 
@@ -325,13 +325,13 @@ As stated before, we want to have a good balance between selecting fit individua
 
 Since we are playing with polygons, I decided a target that was made of polygons might be suitable. This fox has some clear advantages for polygons, with big blue areas and a pointy bright fox head in the middle. 
 
-![Best individual using polygon approach, target and two loss metrics of a fox image](/personal-homepage/posts/genetic-algorithms/fox_training_optimized.gif)
+![Best individual using polygon approach, target and two loss metrics of a fox image](/posts/genetic-algorithms/fox_training_optimized.gif)
 
 We observe a sharp incline in the number of polygons, even though it does not really seem to result in a clear improvement in fit. It seems the penalty was not tuned appropriate for this case. In this middle, we do see the fox head shape become apparant, but the algorithm fails to fill in the finer details of the head. 
 
 #### Rick & Morty
 
-![Best individual using polygon approach, target and two loss metrics of a rick and morty image](/personal-homepage/posts/genetic-algorithms/rick_polygon_optimized.gif)
+![Best individual using polygon approach, target and two loss metrics of a rick and morty image](/posts/genetic-algorithms/rick_polygon_optimized.gif)
 
 It's clear that this image has too much detail for this algorithms. Many of the planes are too small to easily get picked up by the mean-square-error reduction. The best fit is often achieved by having big polygons match up with the background. Additionally, the meandering of the number of polygons is a clear indication that the penalty was nicely balanced, since there was no clear preference. 
 

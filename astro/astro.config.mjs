@@ -3,7 +3,6 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://baukebrenninkmeijer.github.io',
-  base: '/personal-homepage',
+  site: 'https://blog.baukebrenninkmeijer.nl',
   integrations: [tailwind(), sitemap()],
 });

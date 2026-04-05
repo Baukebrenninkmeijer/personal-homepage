@@ -2,7 +2,7 @@
 title: "Your RAG Pipeline is Probably Overkill"
 date: "2025-07-15"
 description: "With context windows growing past 1M tokens, do we still need RAG? I ran the experiments so you don't have to. Here's when to skip RAG, where the performance cliff is, and why reranking might be dead."
-image: "/personal-homepage/posts/long-context-vs-rag/context_window_comparison_2025.png"
+image: "/posts/long-context-vs-rag/context_window_comparison_2025.png"
 categories: ["Machine Learning", "NLP", "LLM", "RAG"]
 ---
 
@@ -28,11 +28,11 @@ At a bank, we needed to extract emissions data from annual reports for ESG analy
 
 Meanwhile, context windows were growing rapidly. In just two years, we went from 4k to over 1M tokens. An ABN AMRO annual report is around 500k tokens -- it *fits*.
 
-![Bar chart comparing context window sizes across major LLM providers in 2025, showing Claude, Gemini, Llama, and Qwen all reaching 1M tokens.](/personal-homepage/posts/long-context-vs-rag/context_window_comparison_2025.png)
+![Bar chart comparing context window sizes across major LLM providers in 2025, showing Claude, Gemini, Llama, and Qwen all reaching 1M tokens.](/posts/long-context-vs-rag/context_window_comparison_2025.png)
 
 The Lord of the Rings trilogy? That fits too. But as we'll see, fitting in the context window and actually *understanding* all of it are very different things.
 
-![Context window comparison showing that even the Lord of the Rings trilogy fits within modern LLM context windows.](/personal-homepage/posts/long-context-vs-rag/context_window_comparison_2025_lotr.png)
+![Context window comparison showing that even the Lord of the Rings trilogy fits within modern LLM context windows.](/posts/long-context-vs-rag/context_window_comparison_2025_lotr.png)
 
 So the natural question became: **can we skip RAG entirely and just put the whole document in the context window?**
 
@@ -52,13 +52,13 @@ Let's go through each one.
 
 The common assumption is that attention scales quadratically with context length. Luckily, modern implementations do much better than that.
 
-![Log-log and linear plots comparing actual provider latency scaling against theoretical quadratic references, showing real-world scaling is much better than quadratic.](/personal-homepage/posts/long-context-vs-rag/companies_vs_example_scaling.png)
+![Log-log and linear plots comparing actual provider latency scaling against theoretical quadratic references, showing real-world scaling is much better than quadratic.](/posts/long-context-vs-rag/companies_vs_example_scaling.png)
 
 ### Latency starts climbing after 10k tokens
 
 Across providers, there's a clear inflection point around 10k tokens where latency starts increasing meaningfully. This is the *speed* threshold -- distinct from the *quality* cliff at 100k tokens we'll see later.
 
-![Line chart showing response duration increasing across OpenAI, Google, and Anthropic APIs as context size grows from 1k to 1M tokens, with a clear inflection after 10k tokens.](/personal-homepage/posts/long-context-vs-rag/duration_per_provider.png)
+![Line chart showing response duration increasing across OpenAI, Google, and Anthropic APIs as context size grows from 1k to 1M tokens, with a clear inflection after 10k tokens.](/posts/long-context-vs-rag/duration_per_provider.png)
 
 From 100k to 1M tokens, latency increases between **4x and 10x**. At 100k tokens you're looking at roughly 5 seconds; at 1M, that's 20+ seconds.
 
@@ -66,13 +66,13 @@ From 100k to 1M tokens, latency increases between **4x and 10x**. At 100k tokens
 
 While latency increases, token throughput (tokens per second) holds relatively steady rather than collapsing. This suggests the latency increase is roughly proportional to context size, not quadratic.
 
-![Token throughput (tokens/sec) per provider across context sizes, showing throughput holds steady rather than collapsing at larger context sizes.](/personal-homepage/posts/long-context-vs-rag/throughput_per_provider.png)
+![Token throughput (tokens/sec) per provider across context sizes, showing throughput holds steady rather than collapsing at larger context sizes.](/posts/long-context-vs-rag/throughput_per_provider.png)
 
 ### Google's three-tier speed system
 
 Google deserves special mention here. Their model lineup -- Gemini Flash Lite, Flash, and Pro -- creates a well-differentiated tiered system where lighter models are genuinely faster and all reliably scale to 1M tokens.
 
-![Gemini Flash Lite, Flash, and Pro throughput across context sizes, showing a clean three-tier speed differentiation.](/personal-homepage/posts/long-context-vs-rag/gemini_throughput_vs_context_size.png)
+![Gemini Flash Lite, Flash, and Pro throughput across context sizes, showing a clean three-tier speed differentiation.](/posts/long-context-vs-rag/gemini_throughput_vs_context_size.png)
 
 GPT and Claude don't show this same clean tiering -- their models cluster closer together in speed, with less predictable differentiation across context sizes.
 
@@ -97,7 +97,7 @@ The Chroma team split needles into two groups based on embedding similarity:
 - **Similar** to the query (easy mode)
 - **Dissimilar** to the query (real-world mode)
 
-![Needle-in-a-haystack accuracy for similar vs dissimilar question-answer pairs across context sizes, showing dissimilar pairs degrade sharply after 100k tokens. Source: Chroma Context Rot.](/personal-homepage/posts/long-context-vs-rag/needle_haystack_similarity_chroma.png)
+![Needle-in-a-haystack accuracy for similar vs dissimilar question-answer pairs across context sizes, showing dissimilar pairs degrade sharply after 100k tokens. Source: Chroma Context Rot.](/posts/long-context-vs-rag/needle_haystack_similarity_chroma.png)
 
 **Key finding**: Dissimilar question-answer pairs are challenging for all models, especially after 100k tokens. Smaller models degrade faster.
 
@@ -117,7 +117,7 @@ The Chroma team tested this with explicit distractors -- passages similar to the
 > - *The duck I had as an adult was purple*
 > - *The childhood pig was pink*
 
-![Chart showing model accuracy declining as the number of distractors increases, with smaller models degrading fastest. Source: Chroma Context Rot.](/personal-homepage/posts/long-context-vs-rag/distractor_performance_high_performance_chroma.png)
+![Chart showing model accuracy declining as the number of distractors increases, with smaller models degrading fastest. Source: Chroma Context Rot.](/posts/long-context-vs-rag/distractor_performance_high_performance_chroma.png)
 
 The results are unambiguous: more distractors mean worse performance across all models. Smaller models degrade fastest, and even a single distractor reduces performance relative to the baseline.
 
@@ -125,7 +125,7 @@ The results are unambiguous: more distractors mean worse performance across all 
 
 Interestingly, model families fail in different ways. Claude hallucinates the least -- but this comes with a trade-off.
 
-![Stacked bar chart comparing failure modes (hallucination, refusal, wrong answer) across Claude, GPT, and Gemini model families. Source: Chroma Context Rot.](/personal-homepage/posts/long-context-vs-rag/niah_failure_modes_chroma.png)
+![Stacked bar chart comparing failure modes (hallucination, refusal, wrong answer) across Claude, GPT, and Gemini model families. Source: Chroma Context Rot.](/posts/long-context-vs-rag/niah_failure_modes_chroma.png)
 
 ### Experiment 3: Long conversational QA
 
@@ -133,11 +133,11 @@ For a more realistic test, the Chroma team used the LongMemEval dataset -- 306 c
 
 **Claude** refuses to answer when in doubt. Is this good or bad? It reduces hallucination but also reduces recall.
 
-![Claude LongMemEval results showing high refusal rate with full context, trading recall for reduced hallucination. Source: Chroma Context Rot.](/personal-homepage/posts/long-context-vs-rag/chroma_claude_results_longmemeval.png)
+![Claude LongMemEval results showing high refusal rate with full context, trading recall for reduced hallucination. Source: Chroma Context Rot.](/posts/long-context-vs-rag/chroma_claude_results_longmemeval.png)
 
 **Gemini** performed the best overall, especially when using reasoning capabilities.
 
-![Gemini LongMemEval results showing strong performance across question types, especially with reasoning enabled. Source: Chroma Context Rot.](/personal-homepage/posts/long-context-vs-rag/chroma_gemini_results_longmemeval.png)
+![Gemini LongMemEval results showing strong performance across question types, especially with reasoning enabled. Source: Chroma Context Rot.](/posts/long-context-vs-rag/chroma_gemini_results_longmemeval.png)
 
 ### Quality takeaways
 
@@ -166,7 +166,7 @@ We ran a comprehensive experiment:
 
 The first surprise: hit rate (was the correct chunk even retrieved?) keeps climbing well past k=10 or k=20.
 
-![Hit rate (percentage of queries where the correct chunk was retrieved) climbing steadily from k=1 to k=50 for both basic and enhanced RAG.](/personal-homepage/posts/long-context-vs-rag/reranking_experiment_retrieval_performance_grid_hit_rate.svg)
+![Hit rate (percentage of queries where the correct chunk was retrieved) climbing steadily from k=1 to k=50 for both basic and enhanced RAG.](/posts/long-context-vs-rag/reranking_experiment_retrieval_performance_grid_hit_rate.svg)
 
 Performance saturates around **50 chunks** -- which is about 27% of the total chunks per document. For reference, these documents averaged ~27k tokens split into ~181 chunks of ~150 tokens each. That's a lot more retrieval than the k=5 or k=10 that many tutorials suggest.
 
@@ -174,13 +174,13 @@ Performance saturates around **50 chunks** -- which is about 27% of the total ch
 
 Here's the provocative finding. Reranking clearly improves information retrieval metrics like MRR and Recall:
 
-![Mean Reciprocal Rank (MRR) with and without reranking across chunk counts, showing clear improvement from reranking.](/personal-homepage/posts/long-context-vs-rag/effect_of_reranking_mrr.svg)
+![Mean Reciprocal Rank (MRR) with and without reranking across chunk counts, showing clear improvement from reranking.](/posts/long-context-vs-rag/effect_of_reranking_mrr.svg)
 
-![Recall@10 with and without reranking, showing reranking improves retrieval recall.](/personal-homepage/posts/long-context-vs-rag/effect_of_reranking_retrieval_benchmarks_recall@10.svg)
+![Recall@10 with and without reranking, showing reranking improves retrieval recall.](/posts/long-context-vs-rag/effect_of_reranking_retrieval_benchmarks_recall@10.svg)
 
 But when we look at what actually matters -- **did the model get the right answer?** -- reranking makes essentially no difference:
 
-![Answer correctness with and without reranking across chunk counts, showing virtually no difference despite improved retrieval metrics.](/personal-homepage/posts/long-context-vs-rag/effect_of_reranking_is_correct.svg)
+![Answer correctness with and without reranking across chunk counts, showing virtually no difference despite improved retrieval metrics.](/posts/long-context-vs-rag/effect_of_reranking_is_correct.svg)
 
 At least in our experiments, modern LLMs proved robust enough to find the relevant information in noisy retrieved context without needing it neatly sorted for them.
 
@@ -188,7 +188,7 @@ At least in our experiments, modern LLMs proved robust enough to find the releva
 
 For documents in this size range (~27k tokens per document), the speed between RAG and full context was surprisingly comparable.
 
-![Bar chart comparing query latency between RAG with different chunk counts and full context window, showing comparable speed for documents under 30k tokens.](/personal-homepage/posts/long-context-vs-rag/retrieval_speed_vs_RAG.png)
+![Bar chart comparing query latency between RAG with different chunk counts and full context window, showing comparable speed for documents under 30k tokens.](/posts/long-context-vs-rag/retrieval_speed_vs_RAG.png)
 
 That said, this comparison is for single documents. RAG's core advantage is scaling to large corpora -- and that advantage grows with corpus size. More complex RAG pipelines will also be slower (query rewriting, reranking steps add latency), but their cost scales linearly rather than with the full corpus size.
 

@@ -2,7 +2,7 @@
 title: "Analyzing my Spotify listening history - Part 3"
 date: 2020-08-20
 description: "In part 3 we take a look at the audio features that Spotify labels songs with and how they relate to listening patterns."
-image: "/personal-homepage/posts/spotify-analysis/banner-spotify-part-3.png"
+image: "/posts/spotify-analysis/banner-spotify-part-3.png"
 categories: ["Analysis", "Music", "BI"]
 ---
 
@@ -131,7 +131,7 @@ The Spotify website also includes distribution plots for most features, so we wi
 
 Here, we take a look at danceability. Given my main genres, we should see higher danceability than normally, with EDM being a big part of my listening. And indeed we do see this. In my distribution, we see quite some peaks around 0.8, while the general distribution has only a very small amount of songs with danceability higher than 0.8. Since we only have an image from spotify (and no actual data points), we cannot compare means, but I expect the general distribution mean to be somewhere between 0.5-0.6, while mine is 0.67
 
-<img src="/personal-homepage/posts/spotify-analysis/danceability.jpg" style="width:600px" >
+<img src="/posts/spotify-analysis/danceability.jpg" style="width:600px" >
 
 ```
 <Figure size 720x288 with 1 Axes>
@@ -142,7 +142,7 @@ Here, we take a look at danceability. Given my main genres, we should see higher
 
 Now, energy is a bit strange. In my year in review, Spotify always telling me I listen to so much energetic music. However, looking at this plot, I seem to be way lower than the general distribution. 
 
-<img src="/personal-homepage/posts/spotify-analysis/energy.jpg" style="width:600px" >
+<img src="/posts/spotify-analysis/energy.jpg" style="width:600px" >
 
 ```
 <Figure size 720x288 with 1 Axes>
@@ -192,7 +192,7 @@ There are some pretty interesting facts here. First of, we can see see that my i
 > Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
 
 
-<img src="/personal-homepage/posts/spotify-analysis/instrumentalness.jpg" style="width:600px" >
+<img src="/posts/spotify-analysis/instrumentalness.jpg" style="width:600px" >
 
 ```
 <Figure size 720x288 with 1 Axes>
@@ -253,7 +253,7 @@ Without the super general genres, we can finally start to see some trends. Given
 
 
 
-<img src="/personal-homepage/posts/spotify-analysis/loudness.jpg" style="width:600px" >
+<img src="/posts/spotify-analysis/loudness.jpg" style="width:600px" >
 
 ```
 <Figure size 720x288 with 1 Axes>
@@ -296,7 +296,7 @@ It also comes as no surprise that 6ix9ine is the loudest, since he's essentially
 
 This is a very interesting feature. Let's see what information it gives us!
 
-<img src="/personal-homepage/posts/spotify-analysis/valence.jpg" style="width:600px" >
+<img src="/posts/spotify-analysis/valence.jpg" style="width:600px" >
 
 ```
 <Figure size 720x288 with 1 Axes>
@@ -369,7 +369,7 @@ Given our results in previous sections, one of the things I'd like to look deepe
 <div id="chart-part3-chart1" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart1.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part3-chart1.json').then(r => r.json());
 vegaEmbed('#chart-part3-chart1', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -380,7 +380,7 @@ If we plot different hip hop subgenres, we can see how these peaks come to be. W
 <div id="chart-part3-chart2" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart2.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part3-chart2.json').then(r => r.json());
 vegaEmbed('#chart-part3-chart2', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -389,7 +389,7 @@ vegaEmbed('#chart-part3-chart2', spec, {actions: false, theme: 'dark'}).catch(co
 <div id="chart-part3-chart3" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart3.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part3-chart3.json').then(r => r.json());
 vegaEmbed('#chart-part3-chart3', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -422,7 +422,7 @@ As a last area of research, lets have a look at how some of these features might
 <div id="chart-part3-chart4" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart4.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part3-chart4.json').then(r => r.json());
 vegaEmbed('#chart-part3-chart4', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 

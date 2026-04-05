@@ -17,7 +17,7 @@ interface Props {
 const {
   title,
   description = 'Personal website of Bauke Brenninkmeijer — ML Engineer & Data Scientist.',
-  image = '/personal-homepage/profile.jpg',
+  image = '/profile.jpg',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -31,7 +31,7 @@ const siteTitle = title === 'Home' ? 'Bauke Brenninkmeijer' : `${title} | Bauke 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/personal-homepage/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Primary meta -->
     <title>{siteTitle}</title>

@@ -2,7 +2,7 @@
 title: "Analyzing my Spotify listening history - Part 2"
 date: 2020-08-07
 description: "Continuing the Spotify listening history analysis. Exploring genres, correlations, and how my taste has changed over time."
-image: "/personal-homepage/posts/spotify-analysis/distribution.png"
+image: "/posts/spotify-analysis/distribution.png"
 categories: ["Analysis", "Music", "BI"]
 ---
 
@@ -58,7 +58,7 @@ Then we can plot. Lets start with the total listens per genre.
 <div id="chart-part2-chart1" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part2-chart1.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part2-chart1.json').then(r => r.json());
 vegaEmbed('#chart-part2-chart1', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -110,7 +110,7 @@ A much better approach is using Altair, so let's see how these genres correlate 
 <div id="chart-part2-chart2" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part2-chart2.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part2-chart2.json').then(r => r.json());
 vegaEmbed('#chart-part2-chart2', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -240,7 +240,7 @@ In the chart below, there is a lot going on. On the x-axis we have time while on
 <div id="chart-part2-chart3" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part2-chart3.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part2-chart3.json').then(r => r.json());
 vegaEmbed('#chart-part2-chart3', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -256,7 +256,7 @@ So we've seen how the genres relate to each other in terms of percentages per mo
 
 As a reminder, that looked like this:
 
-![Your top genres, plotted per week.](/personal-homepage/posts/spotify-analysis/genre-timeline-lastfm.png "Your top genres, plotted per week. Source: Last.fm")
+![Your top genres, plotted per week.](/posts/spotify-analysis/genre-timeline-lastfm.png "Your top genres, plotted per week. Source: Last.fm")
 
 We can get a list of the top genres per month by grouping and then applying list on the Series. 
 

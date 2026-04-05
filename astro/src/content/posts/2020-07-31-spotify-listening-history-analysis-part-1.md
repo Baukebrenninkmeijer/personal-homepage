@@ -2,7 +2,7 @@
 title: "Analyzing my Spotify listening history - Part 1"
 date: 2020-07-31
 description: "Soul searching through my choices in music. Using my Spotify listening data, we perform a dive into my listening behaviour."
-image: "/personal-homepage/posts/spotify-analysis/banner.png"
+image: "/posts/spotify-analysis/banner.png"
 categories: ["Analysis", "Music", "BI"]
 ---
 
@@ -12,7 +12,7 @@ categories: ["Analysis", "Music", "BI"]
 
 I like to have everything in my life tracked in some way. Preferably, knowingly (Looking at you, Facebook), cause it allows you to analyze the data and find interesting things (Might be related with becoming a data scientist)! I've always been a fan of the features provided by [Last.fm](https://www.last.fm) to track you listening behaviour across apps and platforms. It allows you to see stuff like your favorite artists per month, or your affinity with certain genres over time like in the image below.
 
-![Your top genres, plotted per week.](/personal-homepage/posts/spotify-analysis/genre-timeline-lastfm.png "Your top genres, plotted per week. Source: Last.fm")
+![Your top genres, plotted per week.](/posts/spotify-analysis/genre-timeline-lastfm.png "Your top genres, plotted per week. Source: Last.fm")
 
 _Buuuuuut_, like Last.fm, most of these analyses are paid completely or partly. In the case of Last.fm, you get this plot for free but anything more will cost you some paper. I'm Dutch, so let's see if we can do it ourselves!
 
@@ -85,7 +85,7 @@ We're using the _LA Times_ vega lite theme. We can set altair to use this with t
 <div id="chart-part1-chart1" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart1.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part1-chart1.json').then(r => r.json());
 vegaEmbed('#chart-part1-chart1', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -103,7 +103,7 @@ _The yearly visuals only show 2016 till 2019, because the others years don't hav
 <div id="chart-part1-chart2" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart2.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part1-chart2.json').then(r => r.json());
 vegaEmbed('#chart-part1-chart2', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -124,7 +124,7 @@ Interestingly enough, we see some hours that have no plays at all like Monday mo
 <div id="chart-part1-chart3" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart3.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part1-chart3.json').then(r => r.json());
 vegaEmbed('#chart-part1-chart3', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -194,7 +194,7 @@ But, clearly I am not in that segment. Lets see how many genres an average artis
 <div id="chart-part1-chart4" class="altair-chart"></div>
 <script type="module">
 import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
-const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart4.json').then(r => r.json());
+const spec = await fetch('/posts/spotify-analysis/charts/part1-chart4.json').then(r => r.json());
 vegaEmbed('#chart-part1-chart4', spec, {actions: false, theme: 'dark'}).catch(console.warn);
 </script>
 
@@ -205,7 +205,7 @@ We have done a pretty thorough analysis of my listening history on Spotify. We e
 
 It has been really interesting to see how my preferences with regards to music over these years, and it is definitely contributing to my 'have everything tracked' KPIs. Since all of Spotify's data is accessible through the API, I might consider making a dashboard for these insights that updates automatically.
 
-<img style="margin:auto;width:300px;" width=300 src="/personal-homepage/posts/spotify-analysis/will-smith-hmm.gif">
+<img style="margin:auto;width:300px;" width=300 src="/posts/spotify-analysis/will-smith-hmm.gif">
 
 Unfortunately, we didn't get to see the really cool stuff in this post. Things like recreation of the last.fm image and the changes in genres over time are very interesting, and I would have loved to already be able to show those. Please check out part 2 for that. I'll add links to that here as soon as that's out. 
 
