@@ -16,8 +16,8 @@ interface Props {
 const { title, date, venue, description, links = [], upcoming = false } = Astro.props;
 ---
 
-<div class="flex gap-6 py-5 border-b border-border-dark light:border-border-light last:border-b-0">
-  <div class="w-24 flex-shrink-0 text-xs text-muted-dark light:text-muted-light pt-0.5 leading-relaxed">
+<div class="flex flex-col md:flex-row gap-1 md:gap-4 py-5 border-b border-border-dark light:border-border-light last:border-b-0">
+  <div class="md:w-24 md:flex-shrink-0 text-xs text-muted-dark light:text-muted-light pt-0.5 leading-relaxed">
     {date}
   </div>
 

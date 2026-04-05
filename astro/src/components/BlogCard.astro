@@ -23,7 +23,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   href={`${base}/blog/${slug}`}
   class="block border border-border-dark light:border-border-light rounded-lg overflow-hidden hover:-translate-y-0.5 hover:border-muted-dark light:hover:border-muted-light transition-all"
 >
-  {image ? (
+  {image && (
     <div class="h-40 overflow-hidden bg-[#111] light:bg-[#e0e0e0]">
       <img
         src={image}
@@ -31,29 +31,25 @@ const formattedDate = date.toLocaleDateString('en-US', {
         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
       />
     </div>
-  ) : (
-    <div class="h-40 overflow-hidden bg-[#111] light:bg-[#e0e0e0] flex items-center justify-center">
-      <span class="text-xs text-muted-dark light:text-muted-light">No image</span>
-    </div>
   )}
 
-  <div class="p-4 flex flex-col gap-2">
+  <div class={`flex flex-col gap-2 ${image ? 'p-4' : 'p-6'}`}>
     <time class="text-xs text-muted-dark light:text-muted-light" datetime={date.toISOString()}>
       {formattedDate}
     </time>
 
-    <h2 class="font-bold text-sm text-text-dark light:text-text-light leading-snug">
+    <h2 class="font-bold text-base text-text-dark light:text-text-light leading-snug">
       {title}
     </h2>
 
-    <p class="text-xs text-muted-dark light:text-muted-light line-clamp-3 leading-relaxed">
+    <p class="text-sm text-muted-dark light:text-muted-light line-clamp-3 leading-relaxed">
       {description}
     </p>
 
     {categories && categories.length > 0 && (
       <div class="flex flex-wrap gap-1 mt-1">
         {categories.map((cat) => (
-          <span class="text-[10px] border border-border-dark light:border-border-light rounded-full px-2 py-0.5 text-muted-dark light:text-muted-light">
+          <span class="text-xs border border-border-dark light:border-border-light rounded-full px-2 py-0.5 text-muted-dark light:text-muted-light">
             {cat}
           </span>
         ))}

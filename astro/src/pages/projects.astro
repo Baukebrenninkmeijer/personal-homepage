@@ -2,17 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-const projects = [
-  {
-    title: 'table-evaluator',
-    description:
-      'Open-source Python library for evaluating how well synthetic datasets match real data. 92+ stars on GitHub.',
-    tags: ['Python', 'PyPI', 'Open Source'],
-    links: [
-      { label: 'GitHub', href: 'https://github.com/baukebrenninkmeijer/table-evaluator' },
-      { label: 'PyPI', href: 'https://pypi.org/project/table-evaluator/' },
-    ],
-  },
+const otherProjects = [
   {
     title: 'Master Thesis — Synthetic Tabular Data with GANs',
     description:
@@ -58,8 +48,44 @@ const projects = [
   <div class="max-w-5xl mx-auto px-6 py-16">
     <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Projects</h1>
 
+    <!-- Featured project: table-evaluator -->
+    <div class="mb-10 border border-border-dark light:border-border-light rounded-xl p-8 hover:-translate-y-0.5 hover:border-muted-dark light:hover:border-muted-light transition-all">
+      <div class="flex flex-wrap items-center gap-3 mb-3">
+        <p class="text-xs uppercase tracking-widest text-muted-dark light:text-muted-light">Featured Project</p>
+        <span class="text-xs border border-border-dark light:border-border-light rounded-full px-2 py-0.5 text-muted-dark light:text-muted-light">92+ stars</span>
+      </div>
+      <h2 class="text-2xl font-bold text-text-dark light:text-text-light mb-3">table-evaluator</h2>
+      <p class="text-base text-muted-dark light:text-muted-light leading-relaxed max-w-2xl mb-5">
+        Open-source Python library for evaluating how well synthetic datasets match real data. Used by researchers and practitioners to measure statistical similarity, distributions, and correlations between real and generated tabular datasets.
+      </p>
+      <div class="flex flex-wrap gap-2 mb-5">
+        {['Python', 'PyPI', 'Open Source'].map((tag) => (
+          <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">{tag}</span>
+        ))}
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="https://github.com/baukebrenninkmeijer/table-evaluator"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-4 py-2 rounded-lg text-sm font-semibold bg-text-dark text-bg-dark light:bg-text-light light:text-bg-light hover:opacity-80 transition-opacity"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://pypi.org/project/table-evaluator/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-4 py-2 border border-border-dark light:border-border-light rounded-lg text-sm font-medium text-muted-dark light:text-muted-light hover:text-text-dark hover:border-text-dark light:hover:text-text-light light:hover:border-text-light transition-colors"
+        >
+          PyPI
+        </a>
+      </div>
+    </div>
+
+    <!-- Other projects -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {projects.map((project) => (
+      {otherProjects.map((project) => (
         <ProjectCard
           title={project.title}
           description={project.description}
