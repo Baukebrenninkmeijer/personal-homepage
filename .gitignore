@@ -2,3 +2,10 @@
 _site/
 .*
 !.github
+node_modules/
+
+# Astro build output
+dist/
+.env
+.env.*
+!.env.example
