@@ -6,30 +6,6 @@ image: "/personal-homepage/posts/spotify-analysis/distribution.png"
 categories: ["Analysis", "Music", "BI"]
 ---
 
----
-aliases:
-- /Analysis/Music/BI/2020/08/07/spotify-listening-history-analysis-part-2
-author: Bauke Brenninkmeijer
-badges: true
-branch: master
-categories:
-- Analysis
-- Music
-- BI
-date: '2020-08-07'
-description: In part 2 of this series, we investigate how my genres have developed
-  over time. We find interesting pattern with regards to some holidays and a general
-  trend towards hip hop. Additionally, we see what some good ways of visualization
-  are for these insights.
-hide: false
-image: images/spotify_analysis/p2/distribution.png
-output-file: 2020-08-07-spotify-listening-history-analysis-part-2.html
-title: "Analyzing my Spotify listening history \U0001F3B5 - Part 2"
-toc: true
-
----
-
-
 
 # Short recap: Part 1
 In [part 1](https://www.baukebrenninkmeijer.nl/analysis/music/bi/2020/07/31/spotify-listening-history-analysis-part-1.html) of this series we looked at the first part of this project. This included:
