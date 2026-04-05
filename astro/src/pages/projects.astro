@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'table-evaluator',
+    description:
+      'Open-source Python library for evaluating how well synthetic datasets match real data. 92+ stars on GitHub.',
+    tags: ['Python', 'PyPI', 'Open Source'],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/baukebrenninkmeijer/table-evaluator' },
+      { label: 'PyPI', href: 'https://pypi.org/project/table-evaluator/' },
+    ],
+  },
+  {
+    title: 'Master Thesis — Synthetic Tabular Data with GANs',
+    description:
+      'Research on improving Generative Adversarial Networks for tabular data generation and evaluation.',
+    tags: ['Python', 'GANs', 'Research'],
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs',
+      },
+      {
+        label: 'Thesis PDF',
+        href: 'https://www.cs.ru.nl/masters-theses/2019/B_Brenninkmeijer___On_the_generation_and_evaluation_of_tabular_data_using_GANs.pdf',
+      },
+    ],
+  },
+  {
+    title: 'OpenClaw',
+    description:
+      'Open-source project at orq.ai for AI agent development and orchestration.',
+    tags: ['Open Source'],
+    links: [{ label: 'GitHub', href: 'https://github.com/orq-ai/openclaw' }],
+  },
+  {
+    title: 'Context is King',
+    description:
+      'PyData Amsterdam 2025 project exploring long context windows vs RAG for document understanding.',
+    tags: ['Python', 'LLMs', 'RAG'],
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/pydata-2025-context-is-king',
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Projects"
+  description="Open-source projects, research, and software built by Bauke Brenninkmeijer."
+>
+  <div class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Projects</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {projects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          description={project.description}
+          tags={project.tags}
+          links={project.links}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>
