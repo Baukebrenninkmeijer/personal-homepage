@@ -43,6 +43,18 @@
     @apply bg-[#f0f0f0] border-border-light;
   }
 
+  .prose ul {
+    @apply list-disc pl-6 mb-4 space-y-1;
+  }
+
+  .prose ol {
+    @apply list-decimal pl-6 mb-4 space-y-1;
+  }
+
+  .prose li {
+    @apply leading-relaxed;
+  }
+
   .prose img {
     @apply rounded-lg my-6;
   }
