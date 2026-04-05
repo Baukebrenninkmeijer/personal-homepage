@@ -366,17 +366,32 @@ Apart from the details per feature, we can also take a look at how these distrib
 
 Given our results in previous sections, one of the things I'd like to look deeper into is the effects of EDM and rap with regards to energy. 
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-08-20-spotify-listening-history-analysis-part-3.ipynb)*
+<div id="chart-part3-chart1" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart1.json').then(r => r.json());
+vegaEmbed('#chart-part3-chart1', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 Above, we see the [Kernel Density Estimation](https://en.wikipedia.org/wiki/Kernel_density_estimation) (KDE) of energy for rap and EDM. Rap is strange, since it seems to have two distinct peaks; one around 0.6 and one around 0.75. EDM has a more well defined single peak at 0.6. Furthermore, we see that EDM is more prevalent in the high energy values, which is not too unsurprising to see. Let's dive a bit deeper into the two peaks of rap. 
 
 If we plot different hip hop subgenres, we can see how these peaks come to be. We plot the largest three hip hop subgenres. _Detroit hip hop_ seems to have more of a peak around 0.75, while _conscious hip hop_ and _chicago rap_ have peaks around at 0.6. It seems that they have a lot more energy in Detroit!
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-08-20-spotify-listening-history-analysis-part-3.ipynb)*
+<div id="chart-part3-chart2" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart2.json').then(r => r.json());
+vegaEmbed('#chart-part3-chart2', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 ## Valence in Rap and EDM
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-08-20-spotify-listening-history-analysis-part-3.ipynb)*
+<div id="chart-part3-chart3" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart3.json').then(r => r.json());
+vegaEmbed('#chart-part3-chart3', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 We can see some interesting differences in valence for these genres. We observe that EDM is more prevalent in the low valence values (0.0-0.2), dropping to zero much later than rap. Rap, on the other hand, is more prevalent in the 0.3-0.5 range than EDM. Now, we still don't know if 0.5 valence means it is neutral, but it can tell us at least that rap is on average less sad and angry than EDM, which I find an interesting discovery, since I would have guessed it the other way around. 
 
@@ -404,7 +419,12 @@ I've also created the large version of above plot, with more columns and more da
 # Audio features over time
 As a last area of research, lets have a look at how some of these features might have changed over time in my listening behaviour. 
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-08-20-spotify-listening-history-analysis-part-3.ipynb)*
+<div id="chart-part3-chart4" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part3-chart4.json').then(r => r.json());
+vegaEmbed('#chart-part3-chart4', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 The last thing we'll take a look at is, like with the genres, whether my preference for these audio features changed over time. I've plotted the ones with the same range, so loudness, tempo and duration are excluded. For completeness, I looked at loudness but there were no interesting insights there. In the chart above, we can see a couple interesting things. 
 1. **General increase in stability**: We can observe an increase in stability for most of the features, likely explained due to the increased stability in genres and the higher listening volume. 

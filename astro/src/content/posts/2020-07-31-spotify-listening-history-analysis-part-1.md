@@ -82,9 +82,12 @@ One of the first things that might be interesting to see is how my usage of spot
 
 We're using the _LA Times_ vega lite theme. We can set altair to use this with the following line. 
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-07-31-spotify-listening-history-analysis-part-1.ipynb)*
-
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-07-31-spotify-listening-history-analysis-part-1.ipynb)*
+<div id="chart-part1-chart1" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart1.json').then(r => r.json());
+vegaEmbed('#chart-part1-chart1', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 In the plots above you see my total songs listened. It immediately becomes clear that I got my data in early 2019, given the drop in 2019 and lack of data in 2020. But what is interesting is the steady increasing line the previous years. It shows that I slowly started using spotify more and more. The start coincides with when I started paying for Spotify as well, which is not very surprising (Yay for no ads and song selection 🤗). 
 
@@ -97,7 +100,12 @@ Well, I'm already learning a lot about Altair, cause creating this plot in its c
 
 _The yearly visuals only show 2016 till 2019, because the others years don't have enough data._
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-07-31-spotify-listening-history-analysis-part-1.ipynb)*
+<div id="chart-part1-chart2" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart2.json').then(r => r.json());
+vegaEmbed('#chart-part1-chart2', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 There are several noteworthy things:
 1. **In 2016**, there was a big spike between 13:00 and 14:00. 2016 is split between my third and fourth year at university, of which in the fourth year I also was on the board of the [e-sports association](https://dorans.nl/). I just barely didn't have enough credits to get my bachelor's degree in my third year, so my fourth year was pretty empty. The combination likely contributed to many days where I had lunch and then closed myself of with music, to work on association matters. 
@@ -113,7 +121,12 @@ To get a clear view of weekly listening behaviour, we can create a heatmap with 
 
 Interestingly enough, we see some hours that have no plays at all like Monday morning 2:00-3:00. I'm a bit skeptic that I *never* plays anything at all there, but I don't have an explanation for it. 
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-07-31-spotify-listening-history-analysis-part-1.ipynb)*
+<div id="chart-part1-chart3" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart3.json').then(r => r.json());
+vegaEmbed('#chart-part1-chart3', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 # Genres 🎧
 Now that we have some insight into my listening behaviour, we can analyze what I listen to a bit more closely. For example, what genres do I listen to most and how do these change? Here we get a bit closer to the visualization we got from Last.fm.
@@ -178,7 +191,12 @@ It's some artist called Pavement! I've no idea who that is, but still interestin
 
 But, clearly I am not in that segment. Lets see how many genres an average artist of mine has. We'll exclude artists with zero genres. 
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-07-31-spotify-listening-history-analysis-part-1.ipynb)*
+<div id="chart-part1-chart4" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part1-chart4.json').then(r => r.json());
+vegaEmbed('#chart-part1-chart4', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 If we take the percentage of the artists with three or less genres, we see this is 52%. This is quite high, and means many people are pretty specific with regards to what genres they fall into for Spotify. We see quite a long tail distribution, with only  **27% having more than 5 genres specified and only 2.8% more then 10 genres!**
 

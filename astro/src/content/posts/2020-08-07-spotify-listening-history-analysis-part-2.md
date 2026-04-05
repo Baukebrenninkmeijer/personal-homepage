@@ -79,7 +79,12 @@ top_genres = (
 
 Then we can plot. Lets start with the total listens per genre. 
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-08-07-spotify-listening-history-analysis-part-2.ipynb)*
+<div id="chart-part2-chart1" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part2-chart1.json').then(r => r.json());
+vegaEmbed('#chart-part2-chart1', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 No big surprises here. My main music tastes are hip hop and electronic music, with main genres techno and drum and bass. However, for the latter two I mainly use youtube, which hosts sets that Spotify does not have. So my Spotify is mainly dominated by hip hop and its related genres, like _rap_, _hip hop_ and _pop rap_ (whatever that is? Drake maybe?). I expect many hip hop songs are also tagged as _pop_, which would explain the high _pop_ presence, while I normally am not such a pop fan. Lets dive a bit deeper into this!
 
@@ -126,7 +131,12 @@ corr
 
 A much better approach is using Altair, so let's see how these genres correlate then.
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-08-07-spotify-listening-history-analysis-part-2.ipynb)*
+<div id="chart-part2-chart2" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part2-chart2.json').then(r => r.json());
+vegaEmbed('#chart-part2-chart2', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 We immediately can see some interesting clusters. We can see a strong tau between most of the electronic music genres, like _edm_, _electro house_, _bass trap_, _big room_, _brostep_ and _electronic trap_. Then, looking at _hip hop_, we can see very strong coefficients with _rap_ and _pop rap_, neither of which are big suprises. My initial hypothesis that _pop_ would be correlated with hip hop has been debunked, though. _Pop_ seems to be more strongly related with _edm_ ($+0.51$) and some other electronic genres, and have a negative tau with hip hop related genres, like _hip hop_ ($-0.29$), _pop rap_ ($-0.28$) and _rap_ ($-0.32$). 
 
@@ -251,7 +261,12 @@ In the chart below, there is a lot going on. On the x-axis we have time while on
 
 ## Top genres with percentages 📊
 
-*Interactive chart — [view in notebook](https://github.com/Baukebrenninkmeijer/personal-homepage/blob/master/posts/2020-08-07-spotify-listening-history-analysis-part-2.ipynb)*
+<div id="chart-part2-chart3" class="altair-chart"></div>
+<script type="module">
+import vegaEmbed from 'https://cdn.jsdelivr.net/npm/vega-embed@6/+esm';
+const spec = await fetch('/personal-homepage/posts/spotify-analysis/charts/part2-chart3.json').then(r => r.json());
+vegaEmbed('#chart-part2-chart3', spec, {actions: false, theme: 'dark'}).catch(console.warn);
+</script>
 
 
 There are definitely some interesting things in theses plots. We can see some consistent attendees that we also saw in the most listened genres in general, so that's not a big surprise. For example, these include _rap_, _edm_ and _hip hop_. 
