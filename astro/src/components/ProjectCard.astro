@@ -1,0 +1,46 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  links: Link[];
+}
+
+const { title, description, tags, links } = Astro.props;
+---
+
+<div class="border border-border-dark light:border-border-light rounded-lg p-6 hover:-translate-y-0.5 hover:border-muted-dark light:hover:border-muted-light transition-all flex flex-col gap-3">
+  <h2 class="font-bold text-lg text-text-dark light:text-text-light leading-snug">{title}</h2>
+
+  <p class="text-sm text-muted-dark light:text-muted-light leading-relaxed flex-1">{description}</p>
+
+  {tags.length > 0 && (
+    <div class="flex flex-wrap gap-1">
+      {tags.map((tag) => (
+        <span class="text-[10px] border border-border-dark light:border-border-light rounded-full px-2 py-0.5 text-muted-dark light:text-muted-light">
+          {tag}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {links.length > 0 && (
+    <div class="flex flex-wrap gap-3 pt-1">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-xs underline text-text-dark light:text-text-light hover:text-muted-dark light:hover:text-muted-light transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  )}
+</div>

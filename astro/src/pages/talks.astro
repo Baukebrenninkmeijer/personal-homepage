@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TalkFeatured from '../components/TalkFeatured.astro';
+import TalkEntry from '../components/TalkEntry.astro';
+
+const timelineEntries = [
+  {
+    title: 'iO Engineering Manager Meetup — How to start using AI with a software engineering team',
+    date: 'Apr 15, 2026',
+    venue: 'iO Engineering Manager Meetup',
+    upcoming: true,
+    links: [],
+  },
+  {
+    title: 'Teams of Agents',
+    date: 'Apr 3, 2026',
+    venue: 'Meetup',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/claude-agents-team-demo',
+      },
+    ],
+  },
+  {
+    title: 'Lessen uit de loopgraven',
+    date: 'Aug 22, 2025',
+    venue: 'Turner Thinking Thursday',
+    links: [],
+  },
+  {
+    title: "A Developer's Guide to GenAI",
+    date: 'May 2025',
+    venue: 'Sytac DevJam',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/developers-guide-to-genai',
+      },
+    ],
+  },
+  {
+    title: 'Introduction to SQLAlchemy',
+    date: 'May 2023',
+    venue: 'Internal',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/sqlalchemy-introduction',
+      },
+    ],
+  },
+  {
+    title: 'Diving into NLP Tokenizers',
+    date: 'Apr 2022',
+    venue: 'DSFC 2022',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/diving-into-nlp-tokenizers-dsfc-2022',
+      },
+    ],
+  },
+  {
+    title: 'Practical Data Science',
+    date: 'Apr 2022',
+    venue: 'ABN AMRO Hackathon',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/practical-data-science',
+      },
+    ],
+  },
+  {
+    title: 'Code First Introduction to ML',
+    date: 'Jul 2020',
+    venue: 'ABN AMRO',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/Code-First-Introduction-to-Machine-Learning',
+      },
+    ],
+  },
+  {
+    title: 'FakeFynder',
+    date: 'Aug 2019',
+    venue: 'Hackathon for Good',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/FakeFynder-Hackathon-for-Good-2019',
+      },
+    ],
+  },
+  {
+    title: 'Master Thesis Defense',
+    date: 'Sep 2019',
+    venue: 'Radboud University',
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/baukebrenninkmeijer/On-the-Generation-and-Evaluation-of-Synthetic-Tabular-Data-using-GANs',
+      },
+      {
+        label: 'Thesis PDF',
+        href: 'https://www.cs.ru.nl/masters-theses/2019/B_Brenninkmeijer___On_the_generation_and_evaluation_of_tabular_data_using_GANs.pdf',
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Talks"
+  description="Talks, presentations, and meetups by Bauke Brenninkmeijer on AI, machine learning, and software engineering."
+>
+  <div class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Talks</h1>
+
+    <TalkFeatured
+      title="Context is King — PyData Amsterdam 2025"
+      date="Jul 2025"
+      venue="PyData Amsterdam"
+      description="Exploring whether long context windows can replace RAG for document understanding. Benchmarking retrieval quality, latency, and cost across providers."
+      links={[
+        {
+          label: 'GitHub',
+          href: 'https://github.com/Baukebrenninkmeijer/pydata-2025-context-is-king',
+        },
+      ]}
+    />
+
+    <div>
+      {timelineEntries.map((entry) => (
+        <TalkEntry
+          title={entry.title}
+          date={entry.date}
+          venue={entry.venue}
+          links={entry.links}
+          upcoming={entry.upcoming}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>

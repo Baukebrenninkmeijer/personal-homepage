@@ -1,0 +1,55 @@
+color:
+  palette:
+    # Solarized-inspired palette
+    solar-base03: "#002b36"
+    solar-base02: "#073642"
+    solar-base01: "#586e75"
+    solar-base00: "#657b83"
+    solar-base0: "#839496"
+    solar-base1: "#93a1a1"
+    solar-base2: "#eee8d5"
+    solar-base3: "#fdf6e3"
+    solar-yellow: "#e3b160"
+    solar-blue: "#75AADB"
+    solar-cyan: "#2aa198"
+    solar-green: "#859900"
+    warm-code-bg: "#ffefC5"
+
+  foreground:
+    light: "#002b36"
+    dark: "rgba(255, 255, 255, 0.85)"
+  background:
+    light: "#fdf6e3"
+    dark: "#002b36"
+  primary:
+    light: "#75AADB"
+    dark: "#75AADB"
+  secondary:
+    light: "#586e75"
+    dark: "#93a1a1"
+  link:
+    light: "#75AADB"
+    dark: "#75AADB"
+
+typography:
+  fonts:
+    - family: Inter
+      source: google
+    - family: JetBrains Mono
+      source: google
+  base:
+    family: Inter
+    size: "16px"
+    weight: 400
+    line-height: 1.6
+  headings:
+    family: Inter
+    weight: 700
+  monospace: JetBrains Mono
+
+defaults:
+  bootstrap:
+    defaults:
+      navbar-bg:
+        light: "#e3b160"
+        dark: "#073642"

@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bg-dark text-text-dark font-sans;
+  }
+
+  .light body, body.light {
+    @apply bg-bg-light text-text-light;
+  }
+
+  code, pre {
+    @apply font-mono;
+  }
+
+  .prose {
+    @apply max-w-3xl mx-auto;
+  }
+
+  .prose h1, .prose h2, .prose h3 {
+    @apply font-bold mt-8 mb-4;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  .prose a {
+    @apply underline decoration-muted-dark hover:decoration-text-dark transition-colors;
+  }
+
+  .light .prose a {
+    @apply decoration-muted-light hover:decoration-text-light;
+  }
+
+  .prose pre {
+    @apply rounded-lg p-4 my-6 overflow-x-auto bg-[#111] border border-border-dark;
+  }
+
+  .light .prose pre {
+    @apply bg-[#f0f0f0] border-border-light;
+  }
+
+  .prose ul {
+    @apply list-disc pl-6 mb-4 space-y-1;
+  }
+
+  .prose ol {
+    @apply list-decimal pl-6 mb-4 space-y-1;
+  }
+
+  .prose li {
+    @apply leading-relaxed;
+  }
+
+  .prose img {
+    @apply rounded-lg my-6;
+  }
+
+  .prose blockquote {
+    @apply border-l-2 border-border-dark pl-4 italic text-muted-dark;
+  }
+
+  .light .prose blockquote {
+    @apply border-border-light text-muted-light;
+  }
+}

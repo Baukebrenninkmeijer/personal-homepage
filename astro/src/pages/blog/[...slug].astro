@@ -1,0 +1,70 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const formattedDate = post.data.date.toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.image}
+>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <!-- Post header -->
+    <header class="mb-10 flex flex-col gap-3">
+      <time
+        class="text-xs text-muted-dark light:text-muted-light"
+        datetime={post.data.date.toISOString()}
+      >
+        {formattedDate}
+      </time>
+
+      <h1 class="text-3xl md:text-4xl font-bold leading-tight text-text-dark light:text-text-light">
+        {post.data.title}
+      </h1>
+
+      {post.data.categories && post.data.categories.length > 0 && (
+        <div class="flex flex-wrap gap-1.5">
+          {post.data.categories.map((cat) => (
+            <span class="text-[10px] border border-border-dark light:border-border-light rounded-full px-2 py-0.5 text-muted-dark light:text-muted-light">
+              {cat}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Post content -->
+    <div class="prose text-text-dark light:text-text-light">
+      <Content />
+    </div>
+
+    <!-- Back link -->
+    <div class="mt-16 pt-8 border-t border-border-dark light:border-border-light">
+      <a
+        href={`${base}/blog`}
+        class="text-sm text-muted-dark light:text-muted-light hover:text-text-dark light:hover:text-text-light transition-colors underline underline-offset-2"
+      >
+        &larr; Back to blog
+      </a>
+    </div>
+  </article>
+</Layout>

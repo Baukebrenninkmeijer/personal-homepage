@@ -1,0 +1,29 @@
+---
+interface Props {
+  company: string;
+  role: string;
+  period: string;
+  bullets?: string[];
+}
+
+const { company, role, period, bullets = [] } = Astro.props;
+---
+
+<div class="flex gap-6 py-5 border-b border-border-dark light:border-border-light last:border-b-0">
+  <div class="w-36 flex-shrink-0 text-xs text-muted-dark light:text-muted-light pt-0.5 leading-relaxed">
+    {period}
+  </div>
+
+  <div class="flex flex-col gap-1 flex-1 min-w-0">
+    <span class="font-medium text-sm text-text-dark light:text-text-light leading-snug">{company}</span>
+    <span class="text-xs text-muted-dark light:text-muted-light">{role}</span>
+
+    {bullets.length > 0 && (
+      <ul class="mt-2 flex flex-col gap-1 list-disc list-inside">
+        {bullets.map((bullet) => (
+          <li class="text-xs text-muted-dark light:text-muted-light leading-relaxed">{bullet}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>

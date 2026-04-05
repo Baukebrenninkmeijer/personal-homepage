@@ -1,0 +1,90 @@
+---
+// No props needed
+---
+
+<button
+  id="theme-toggle"
+  aria-label="Toggle light/dark theme"
+  class="flex items-center justify-center w-8 h-8 rounded transition-colors hover:text-text-dark light:hover:text-text-light focus:outline-none focus-visible:ring-2 focus-visible:ring-current"
+>
+  <!-- Moon icon (shown in dark mode — click to go light) -->
+  <svg
+    id="icon-moon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+
+  <!-- Sun icon (shown in light mode — click to go dark) -->
+  <svg
+    id="icon-sun"
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="hidden"
+  >
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+</button>
+
+<script>
+  function applyTheme(isLight: boolean) {
+    const html = document.documentElement;
+    const moon = document.getElementById('icon-moon');
+    const sun = document.getElementById('icon-sun');
+
+    if (isLight) {
+      html.classList.add('light');
+    } else {
+      html.classList.remove('light');
+    }
+
+    if (moon && sun) {
+      moon.classList.toggle('hidden', isLight);
+      sun.classList.toggle('hidden', !isLight);
+    }
+  }
+
+  function initToggle() {
+    const button = document.getElementById('theme-toggle');
+    if (!button) return;
+
+    // Sync icon state with current HTML class (set by inline script in Layout)
+    const isCurrentlyLight = document.documentElement.classList.contains('light');
+    applyTheme(isCurrentlyLight);
+
+    button.addEventListener('click', () => {
+      const nowLight = !document.documentElement.classList.contains('light');
+      localStorage.setItem('theme', nowLight ? 'light' : 'dark');
+      applyTheme(nowLight);
+    });
+  }
+
+  // Run on initial load and after view transitions
+  initToggle();
+  document.addEventListener('astro:after-swap', initToggle);
+</script>

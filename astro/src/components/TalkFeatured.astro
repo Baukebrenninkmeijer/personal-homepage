@@ -1,0 +1,45 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  date: string;
+  venue: string;
+  description: string;
+  links?: Link[];
+}
+
+const { title, date, venue, description, links = [] } = Astro.props;
+---
+
+<div class="border border-border-dark light:border-border-light rounded-lg p-6 mb-8">
+  <span class="text-[10px] uppercase tracking-wider text-muted-dark light:text-muted-light font-medium">
+    Featured
+  </span>
+
+  <h2 class="font-bold text-xl text-text-dark light:text-text-light mt-2 leading-snug">{title}</h2>
+
+  <p class="text-xs text-muted-dark light:text-muted-light mt-1">
+    {date} &mdash; {venue}
+  </p>
+
+  <p class="text-sm text-muted-dark light:text-muted-light mt-3 leading-relaxed">{description}</p>
+
+  {links.length > 0 && (
+    <div class="flex flex-wrap gap-3 mt-4">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-xs underline text-text-dark light:text-text-light hover:text-muted-dark light:hover:text-muted-light transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  )}
+</div>

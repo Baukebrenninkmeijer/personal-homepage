@@ -1,0 +1,55 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  date: string;
+  venue: string;
+  description?: string;
+  links?: Link[];
+  upcoming?: boolean;
+}
+
+const { title, date, venue, description, links = [], upcoming = false } = Astro.props;
+---
+
+<div class="flex gap-6 py-5 border-b border-border-dark light:border-border-light last:border-b-0">
+  <div class="w-24 flex-shrink-0 text-xs text-muted-dark light:text-muted-light pt-0.5 leading-relaxed">
+    {date}
+  </div>
+
+  <div class="flex flex-col gap-1 flex-1 min-w-0">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="font-medium text-sm text-text-dark light:text-text-light leading-snug">{title}</span>
+      {upcoming && (
+        <span class="text-[10px] bg-[#222] light:bg-[#eee] rounded-full px-2 py-0.5 text-muted-dark light:text-muted-light flex-shrink-0">
+          upcoming
+        </span>
+      )}
+    </div>
+
+    <span class="text-xs text-muted-dark light:text-muted-light">{venue}</span>
+
+    {description && (
+      <p class="text-xs text-muted-dark light:text-muted-light leading-relaxed mt-0.5">{description}</p>
+    )}
+
+    {links.length > 0 && (
+      <div class="flex flex-wrap gap-3 mt-1">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs underline text-text-dark light:text-text-light hover:text-muted-dark light:hover:text-muted-light transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</div>

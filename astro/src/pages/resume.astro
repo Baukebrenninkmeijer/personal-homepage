@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TimelineEntry from '../components/TimelineEntry.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const experience = [
+  {
+    company: 'orq.ai',
+    role: 'AI Research Engineer',
+    period: 'Aug 2025–present',
+    bullets: [
+      'AI agent infrastructure, LLM evaluation, prompt optimization, observability tooling',
+    ],
+  },
+  {
+    company: 'MLOps Community Amsterdam',
+    role: 'Organiser',
+    period: 'Sep 2024–present',
+    bullets: [],
+  },
+  {
+    company: 'Sytac → ING',
+    role: 'Senior Consultant / Senior AI Engineer',
+    period: 'May 2024–Jul 2025',
+    bullets: [
+      'Detection and forecasting system for reliability events (1TB data, Polars)',
+      'RAG-based sustainability peer review application',
+      'Fraud detection MLOps pipeline',
+      'LLM-based info extraction for internal resume app (Sytac)',
+    ],
+  },
+  {
+    company: 'ABN AMRO',
+    role: 'Full Stack Data Scientist — Global Markets',
+    period: 'Jul 2021–May 2024',
+    bullets: [
+      'Data platform migration from IaaS to PaaS',
+      'Real-time data streaming framework with Spark',
+      'Bond origination interest prediction',
+    ],
+  },
+  {
+    company: 'ABN AMRO',
+    role: 'Data Scientist — Chief Architecture & Data Management',
+    period: 'Oct 2019–Jun 2021',
+    bullets: [
+      'Mortgage assessments using photos',
+      'Data management and metadata generation',
+      'Synthetic data for privacy-preserving analytics',
+    ],
+  },
+  {
+    company: 'ABN AMRO',
+    role: 'Thesis Intern',
+    period: 'Mar 2019–Oct 2019',
+    bullets: ['GANs for synthetic tabular data'],
+  },
+  {
+    company: 'OneTwoModel',
+    role: 'CTO & Co-founder',
+    period: 'Sep 2019–Nov 2021',
+    bullets: ['Startup building products for the modelling industry'],
+  },
+  {
+    company: 'TAPP',
+    role: 'Data Scientist',
+    period: 'Sep 2018–Mar 2019',
+    bullets: ['NLP-based product classification from receipt descriptions'],
+  },
+];
+
+const education = [
+  {
+    company: 'Radboud University',
+    role: 'MSc Data Science',
+    period: '2017–2019',
+    bullets: [],
+  },
+  {
+    company: 'Radboud Universiteit Nijmegen',
+    role: 'BSc Computing Science',
+    period: '2013–2017',
+    bullets: [],
+  },
+];
+---
+
+<Layout
+  title="Resume"
+  description="Work experience, education, and background of Bauke Brenninkmeijer — AI Research Engineer and Data Scientist."
+>
+  <div class="max-w-5xl mx-auto px-6 py-16">
+    <div class="flex items-center justify-between mb-10">
+      <h1 class="text-3xl font-bold text-text-dark light:text-text-light">Resume</h1>
+      <a
+        href={`${base}/CV_Bauke_Brenninkmeijer.pdf`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs border border-border-dark light:border-border-light rounded px-3 py-1.5 text-muted-dark light:text-muted-light hover:border-muted-dark light:hover:border-muted-light hover:text-text-dark light:hover:text-text-light transition-colors"
+      >
+        Download PDF
+      </a>
+    </div>
+
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+        Experience
+      </h2>
+      <div>
+        {experience.map((entry) => (
+          <TimelineEntry
+            company={entry.company}
+            role={entry.role}
+            period={entry.period}
+            bullets={entry.bullets}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+        Education
+      </h2>
+      <div>
+        {education.map((entry) => (
+          <TimelineEntry
+            company={entry.company}
+            role={entry.role}
+            period={entry.period}
+            bullets={entry.bullets}
+          />
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
