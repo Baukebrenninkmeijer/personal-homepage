@@ -1,0 +1,80 @@
+---
+import ClientRouter from 'astro/components/ClientRouter.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource-variable/jetbrains-mono';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = 'Personal website of Bauke Brenninkmeijer — ML Engineer & Data Scientist.',
+  image = '/personal-homepage/profile.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteTitle = title === 'Home' ? 'Bauke Brenninkmeijer' : `${title} | Bauke Brenninkmeijer`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/personal-homepage/favicon.png" />
+
+    <!-- Primary meta -->
+    <title>{siteTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Generator -->
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- FOUC prevention: apply theme before first paint -->
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var prefersDark =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (stored === 'light' || (!stored && !prefersDark)) {
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
+
+    <ClientRouter />
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-bg-dark text-text-dark light:bg-bg-light light:text-text-light">
+    <Nav />
+    <main class="flex-1 animate-fade-in">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
