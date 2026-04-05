@@ -6,6 +6,8 @@ node_modules/
 
 # Astro build output
 dist/
+.astro/
+.superpowers/
 .env
 .env.*
 !.env.example
