@@ -24,7 +24,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
   class="block border border-border-dark light:border-border-light rounded-lg overflow-hidden hover:-translate-y-0.5 hover:border-muted-dark light:hover:border-muted-light transition-all"
 >
   {image ? (
-    <div class="h-40 overflow-hidden bg-[#111]">
+    <div class="h-40 overflow-hidden bg-[#111] light:bg-[#e0e0e0]">
       <img
         src={image}
         alt={title}
@@ -32,8 +32,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
       />
     </div>
   ) : (
-    <div class="h-40 overflow-hidden bg-[#111] flex items-center justify-center">
-      <span class="text-xs text-muted-dark">No image</span>
+    <div class="h-40 overflow-hidden bg-[#111] light:bg-[#e0e0e0] flex items-center justify-center">
+      <span class="text-xs text-muted-dark light:text-muted-light">No image</span>
     </div>
   )}
 
