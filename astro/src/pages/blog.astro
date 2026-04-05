@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import BlogCard from '../components/BlogCard.astro';
+
+const allPosts = await getCollection('posts');
+
+const posts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout
+  title="Blog"
+  description="Writing about AI agents, LLMs, machine learning, and getting models into production."
+>
+  <div class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Blog</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map((post) => (
+        <BlogCard
+          title={post.data.title}
+          date={post.data.date}
+          description={post.data.description}
+          image={post.data.image}
+          categories={post.data.categories}
+          slug={post.id}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>
