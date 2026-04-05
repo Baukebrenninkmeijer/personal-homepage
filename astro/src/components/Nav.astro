@@ -13,19 +13,27 @@ const navLinks = [
 
 <nav class="border-b border-border-dark light:border-border-light">
   <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-    <!-- Left: nav links -->
-    <ul class="flex items-center gap-6 list-none m-0 p-0">
-      {navLinks.map(({ href, label }) => (
-        <li>
-          <a
-            href={href}
-            class="nav-link text-sm font-medium text-muted-dark light:text-muted-light hover:text-text-dark light:hover:text-text-light transition-colors relative"
-          >
-            {label}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <!-- Left: home link + nav links -->
+    <div class="flex items-center gap-8">
+      <a
+        href={`${base}/`}
+        class="text-sm font-bold text-text-dark light:text-text-light hover:opacity-70 transition-opacity"
+      >
+        BB
+      </a>
+      <ul class="flex items-center gap-6 list-none m-0 p-0">
+        {navLinks.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class="nav-link text-sm font-medium text-muted-dark light:text-muted-light hover:text-text-dark light:hover:text-text-light transition-colors relative"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
 
     <!-- Right: social icons + theme toggle -->
     <div class="flex items-center gap-3">
