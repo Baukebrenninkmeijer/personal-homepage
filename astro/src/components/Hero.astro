@@ -43,12 +43,17 @@ const topics = [
       </div>
     </div>
 
-    <!-- Single profile photo -->
-    <div class="flex-shrink-0">
+    <!-- Overlapping photos: real in front, cartoon behind -->
+    <div class="flex-shrink-0 photo-pair relative w-44 h-44">
+      <img
+        src="/personal-homepage/cartoon-avatar.jpg"
+        alt="Cartoon avatar of Bauke"
+        class="absolute left-0 top-0 w-36 h-36 rounded-full border-2 border-border-dark light:border-border-light object-cover z-10 transition-transform duration-300"
+      />
       <img
         src="/personal-homepage/profile.jpg"
         alt="Photo of Bauke Brenninkmeijer"
-        class="w-40 h-40 rounded-full border-2 border-border-dark light:border-border-light object-cover"
+        class="absolute left-10 top-2 w-36 h-36 rounded-full border-2 border-border-dark light:border-border-light object-cover z-20 transition-transform duration-300"
       />
     </div>
 
@@ -104,3 +109,12 @@ const topics = [
   </div>
 
 </section>
+
+<style>
+  .photo-pair:hover img:first-child {
+    transform: translateX(-8px) translateY(-4px);
+  }
+  .photo-pair:hover img:last-child {
+    transform: translateX(8px) translateY(4px);
+  }
+</style>
