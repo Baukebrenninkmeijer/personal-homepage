@@ -10,15 +10,15 @@ const topics = [
 ];
 ---
 
-<section class="animate-fade-in max-w-5xl mx-auto px-6 py-28 md:py-36 flex flex-col gap-20">
+<section class="relative animate-fade-in max-w-5xl mx-auto px-6 py-28 md:py-36 flex flex-col">
 
   <!-- 1. Hero -->
-  <div class="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16">
+  <div class="animate-fade-in flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16">
 
     <!-- Text block -->
     <div class="flex flex-col items-center md:items-start gap-5 flex-1 text-center md:text-left">
       <div>
-        <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-text-dark light:text-text-light">
+        <h1 class="text-6xl md:text-7xl font-extrabold tracking-tighter text-text-dark light:text-text-light">
           Bauke Brenninkmeijer
         </h1>
         <p class="mt-3 text-lg md:text-xl leading-relaxed text-text-dark light:text-text-light max-w-xl">
@@ -44,23 +44,23 @@ const topics = [
     </div>
 
     <!-- Overlapping photos: real in front, cartoon behind -->
-    <div class="flex-shrink-0 photo-pair relative w-52 h-44">
+    <div class="flex-shrink-0 photo-pair relative w-60 h-52">
       <img
         src="/cartoon-avatar.jpg"
         alt="Cartoon avatar of Bauke"
-        class="absolute left-0 top-2 w-36 h-36 rounded-full border-2 border-border-dark light:border-border-light object-cover z-10 transition-transform duration-300"
+        class="absolute left-0 top-4 w-40 h-40 rounded-full border-2 border-border-dark light:border-border-light object-cover z-10 transition-transform duration-300"
       />
       <img
         src="/profile.jpg"
         alt="Photo of Bauke Brenninkmeijer"
-        class="absolute left-16 top-0 w-36 h-36 rounded-full border-2 border-border-dark light:border-border-light object-cover z-20 transition-transform duration-300"
+        class="absolute left-20 top-0 w-40 h-40 rounded-full border-2 border-border-dark light:border-border-light object-cover z-20 transition-transform duration-300"
       />
     </div>
 
   </div>
 
   <!-- 2. About -->
-  <div class="border-t border-border-dark light:border-border-light pt-10">
+  <div class="reveal mt-24 border-t border-[#2a2a2a] light:border-border-light pt-10">
     <h2 class="text-2xl font-bold text-text-dark light:text-text-light mb-5">About</h2>
     <div class="space-y-4 text-base text-muted-dark light:text-muted-light leading-relaxed max-w-2xl">
       <p>
@@ -76,7 +76,7 @@ const topics = [
   </div>
 
   <!-- 3. Contact CTA card -->
-  <div class="max-w-lg mx-auto md:mx-0 border border-border-dark light:border-border-light rounded-xl p-7">
+  <div class="reveal mt-16 max-w-xl mx-auto md:mx-0 border border-border-dark light:border-border-light rounded-2xl p-8 md:p-10 bg-[#111111] light:bg-[#f5f5f5]">
     <p class="text-xs uppercase tracking-widest text-muted-dark light:text-muted-light mb-3">Get in touch</p>
     <h2 class="text-lg font-semibold text-text-dark light:text-text-light mb-2">Available for speaking and collaboration</h2>
     <p class="text-sm text-muted-dark light:text-muted-light mb-4">Interested in AI agents, LLM evaluation, or production ML? Let's talk.</p>
@@ -100,56 +100,105 @@ const topics = [
   </div>
 
   <!-- 4. Technical Arsenal -->
-  <div class="border-t border-border-dark light:border-border-light pt-10">
+  <div class="reveal mt-24 border-t border-[#2a2a2a] light:border-border-light pt-10">
     <h2 class="text-2xl font-bold text-text-dark light:text-text-light mb-6">Technical Arsenal</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       <div>
-        <h3 class="text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">AI & LLMs</h3>
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">
+          <span class="w-1.5 h-1.5 rounded-full bg-text-dark light:bg-text-light inline-block"></span>
+          AI & LLMs
+        </h3>
         <div class="flex flex-wrap gap-2">
           {['LLM Evaluation', 'Agent Orchestration', 'RAG', 'Fine-tuning', 'Prompt Engineering', 'vLLM', 'LangChain'].map(s => (
-            <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">{s}</span>
+            <span class="text-[13px] border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light hover:text-text-dark hover:border-[#333] light:hover:text-text-light light:hover:border-[#bbb] transition-colors cursor-default">{s}</span>
           ))}
         </div>
       </div>
       <div>
-        <h3 class="text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">Data & ML</h3>
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">
+          <span class="w-1.5 h-1.5 rounded-full bg-text-dark light:bg-text-light inline-block"></span>
+          Data & ML
+        </h3>
         <div class="flex flex-wrap gap-2">
           {['Python', 'PyTorch', 'Polars', 'Spark', 'Pandas', 'scikit-learn', 'GANs', 'Synthetic Data'].map(s => (
-            <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">{s}</span>
+            <span class="text-[13px] border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light hover:text-text-dark hover:border-[#333] light:hover:text-text-light light:hover:border-[#bbb] transition-colors cursor-default">{s}</span>
           ))}
         </div>
       </div>
       <div>
-        <h3 class="text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">Infrastructure</h3>
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">
+          <span class="w-1.5 h-1.5 rounded-full bg-text-dark light:bg-text-light inline-block"></span>
+          Infrastructure
+        </h3>
         <div class="flex flex-wrap gap-2">
           {['Azure', 'Databricks', 'Docker', 'MLflow', 'CI/CD', 'Kubernetes'].map(s => (
-            <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">{s}</span>
+            <span class="text-[13px] border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light hover:text-text-dark hover:border-[#333] light:hover:text-text-light light:hover:border-[#bbb] transition-colors cursor-default">{s}</span>
           ))}
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 4. Featured / upcoming -->
-  <div class="flex flex-col items-center md:items-start gap-2 border-t border-border-dark light:border-border-light pt-6 mt-12">
-    <span class="text-xs uppercase tracking-wider text-muted-dark light:text-muted-light">
-      Upcoming
-    </span>
-    <a
-      href={`${base}/talks`}
-      class="text-sm text-muted-dark light:text-muted-light hover:text-text-dark light:hover:text-text-light transition-colors underline underline-offset-2"
-    >
+  <!-- 5. Featured / upcoming -->
+  <a
+    href={`${base}/talks`}
+    class="reveal flex items-center gap-3 border border-border-dark light:border-border-light rounded-lg px-5 py-3 mt-16 hover:border-[#333] light:hover:border-[#bbb] transition-colors group"
+  >
+    <span class="text-[10px] uppercase tracking-widest text-muted-dark light:text-muted-light bg-[#1a1a1a] light:bg-[#eee] px-2 py-0.5 rounded font-medium shrink-0">Upcoming</span>
+    <span class="text-sm text-muted-dark light:text-muted-light group-hover:text-text-dark light:group-hover:text-text-light transition-colors">
       Speaking at iO Engineering Manager Meetup — April 15, 2026
-    </a>
-  </div>
+    </span>
+  </a>
 
 </section>
 
 <style>
   .photo-pair:hover img:first-child {
-    transform: translateX(-8px) translateY(-4px);
+    transform: translateX(-12px) translateY(-6px);
   }
   .photo-pair:hover img:last-child {
-    transform: translateX(8px) translateY(4px);
+    transform: translateX(12px) translateY(6px);
+  }
+
+  section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
+
+<script>
+  function setupReveal() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  }
+  setupReveal();
+  document.addEventListener('astro:after-swap', setupReveal);
+</script>
