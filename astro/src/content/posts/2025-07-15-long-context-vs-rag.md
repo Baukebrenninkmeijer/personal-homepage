@@ -2,33 +2,37 @@
 title: "Your RAG Pipeline is Probably Overkill"
 date: "2025-07-15"
 description: "With context windows growing past 1M tokens, do we still need RAG? I ran the experiments so you don't have to. Here's when to skip RAG, where the performance cliff is, and why reranking might be dead."
-image: "/posts/long-context-vs-rag/context_window_comparison_2025.png"
+image: "/posts/long-context-vs-rag/duration_per_provider.png"
 categories: ["Machine Learning", "NLP", "LLM", "RAG"]
 ---
 
-Six months of RAG optimization. Query rewriting, reranking, hybrid search -- the full playbook. We went from 60% to 70% accuracy extracting ESG metrics from annual reports (measured on a manually labeled evaluation set). Then someone asked: *what if we just put the whole document in the context window?*
+> **Note:** This research was conducted in August 2025. Model capabilities and pricing move fast; some numbers (latencies, throughput, accuracy cliffs) may no longer reflect the current generation of models.
 
-85%.
+Six months of RAG optimization. Query rewriting got us from 60% to 65%, reranking to 68%, hybrid search to 70% accuracy extracting ESG metrics from annual reports (measured on a manually labeled evaluation set). Each trick bought us two or three points. Then someone asked: *what if we just put the whole document in the context window?*
+
+We got 85%.
 
 That question kicked off a research project that became a [PyData 2025 talk](https://pydata.org/amsterdam2025/). This post covers the key findings: when long context windows beat RAG, where they fall apart, and what you should actually do about it.
 
 > **Tip:**
-> - **Under 100k tokens?** Skip RAG -- context-only is simpler and performs as well or better.
-> - **The 100k token quality cliff is real** -- performance degrades sharply with distractors and dissimilar phrasing (per [Chroma's research](https://www.trychroma.com/research/context-rot)).
+> - **Under 100k tokens?** Skip RAG. Context-only is simpler and performs as well or better.
+> - **The 100k token quality cliff is real.** Performance degrades sharply with distractors and dissimilar phrasing (per [Chroma's research](https://www.trychroma.com/research/context-rot)).
 > - **Reranking doesn't improve answer quality** in our experiments, even though retrieval metrics improve.
-> - **Use way more chunks than you think** -- k=50 outperformed k=5 or k=10 significantly.
+> - **Use way more chunks than you think.** 50 chunks outperformed 5 or 10 significantly.
 
 ## The problem that started it all
 
-At a bank, we needed to extract emissions data from annual reports for ESG analysis. Traditional RAG kept failing:
+We needed to extract emissions data from annual reports for ESG analysis. Traditional RAG kept failing:
 
 - Chunking destroyed cross-references between sections
 - There was no standard ESG jargon across companies
 - No good ground truth dataset existed for evaluation
 
-Meanwhile, context windows were growing rapidly. In just two years, we went from 4k to over 1M tokens. An ABN AMRO annual report is around 500k tokens -- it *fits*.
+Meanwhile, context windows were growing rapidly. In just two years, we went from 4k to over 1M tokens. An ABN AMRO annual report is around 500k tokens: it *fits*.
 
 ![Bar chart comparing context window sizes across major LLM providers in 2025, showing Claude, Gemini, Llama, and Qwen all reaching 1M tokens.](/posts/long-context-vs-rag/context_window_comparison_2025.png)
+
+That growth isn't monotonic, though. Gemini's 2M window was quietly cut back to 1M. Llama-4 Scout advertises 10M tokens but Meta's own API only serves 128k and third parties cap it at 1M. Claude Sonnet 4's 1M window isn't yet in general availability. The headline numbers are real, but availability lags the announcement.
 
 The Lord of the Rings trilogy? That fits too. But as we'll see, fitting in the context window and actually *understanding* all of it are very different things.
 
@@ -54,13 +58,25 @@ The common assumption is that attention scales quadratically with context length
 
 ![Log-log and linear plots comparing actual provider latency scaling against theoretical quadratic references, showing real-world scaling is much better than quadratic.](/posts/long-context-vs-rag/companies_vs_example_scaling.png)
 
+> **Speed benchmark setup.** Six models tested via the [orq.ai](https://orq.ai) proxy: `gpt-5-mini`, `gpt-4.1-nano`, `gemini-2.5-flash`, `gemini-2.0-flash-lite-001`, `claude-sonnet-4-20250514`, `claude-3-haiku-20240307`. Context sizes: exact powers of 10 (10, 100, 1k, 10k, 100k, 1M tokens), 3 iterations per point (108 API calls total). Prompts asked for a 1-2 sentence summary with `max_tokens=50, temperature=0`. Haystacks were built from Paul Graham essays + ArXiv papers, shuffled at the sentence level, and trimmed character-by-character against the `gpt-4o` tokenizer to hit the target length exactly. Caveat: the short output means these numbers are dominated by prefill, not generation — streaming UX will look different.
+
 ### Latency starts climbing after 10k tokens
 
-Across providers, there's a clear inflection point around 10k tokens where latency starts increasing meaningfully. This is the *speed* threshold -- distinct from the *quality* cliff at 100k tokens we'll see later.
+Across providers, there's a clear inflection point around 10k tokens where latency starts increasing meaningfully. This is the *speed* threshold, distinct from the *quality* cliff at 100k tokens we'll see later.
 
 ![Line chart showing response duration increasing across OpenAI, Google, and Anthropic APIs as context size grows from 1k to 1M tokens, with a clear inflection after 10k tokens.](/posts/long-context-vs-rag/duration_per_provider.png)
 
 From 100k to 1M tokens, latency increases between **4x and 10x**. At 100k tokens you're looking at roughly 5 seconds; at 1M, that's 20+ seconds.
+
+### Time-to-first-token tells a similar story
+
+If you're streaming responses, TTFT is what your user actually feels. It tracks total duration closely — prefill dominates.
+
+![Time-to-first-token per provider across context sizes, showing prefill-dominated latency that grows smoothly with context length.](/posts/long-context-vs-rag/ttft_per_provider.png)
+
+Fitting exponential curves to the per-provider data makes the scaling behavior easier to compare directly:
+
+![Exponential fits per provider showing scaling coefficients; Gemini scales more gracefully than GPT and Claude at large context sizes.](/posts/long-context-vs-rag/providers_exp_scaling_fit.png)
 
 ### Token throughput flattens out
 
@@ -70,15 +86,15 @@ While latency increases, token throughput (tokens per second) holds relatively s
 
 ### Google's three-tier speed system
 
-Google deserves special mention here. Their model lineup -- Gemini Flash Lite, Flash, and Pro -- creates a well-differentiated tiered system where lighter models are genuinely faster and all reliably scale to 1M tokens.
+Google deserves special mention here. Their model lineup (Gemini Flash Lite, Flash, and Pro) creates a well-differentiated tiered system where lighter models are genuinely faster and all reliably scale to 1M tokens.
 
 ![Gemini Flash Lite, Flash, and Pro throughput across context sizes, showing a clean three-tier speed differentiation.](/posts/long-context-vs-rag/gemini_throughput_vs_context_size.png)
 
-GPT and Claude don't show this same clean tiering -- their models cluster closer together in speed, with less predictable differentiation across context sizes.
+GPT and Claude don't show this same clean tiering; their models cluster closer together in speed, with less predictable differentiation across context sizes.
 
 ### Speed takeaways
 
-- **Scaling beyond 100k tokens is costly** -- expect 4-10x latency increase
+- **Scaling beyond 100k tokens is costly.** Expect 4-10x latency increase
 - **Gemini is often the fastest** for large context workloads
 - **It's better than quadratic**, but still significant
 
@@ -105,7 +121,13 @@ The Chroma team split needles into two groups based on embedding similarity:
 
 In real documents, there's rarely just one relevant-looking passage. Consider a coding agent with 10 different versions of your updated function in the context window. Or an annual report where multiple sections discuss similar metrics in different contexts.
 
-The Chroma team tested this with explicit distractors -- passages similar to the answer but containing different (wrong) information:
+#### Context rot in the wild
+
+If you've used Claude Code, Cursor, or any agentic coding tool on a long session, you've already seen this failure mode. The agent creates a `v2` of a function, then a `v3`, then patches the original, then forgets which version is canonical. It writes a checkpoint file, then starts over from scratch the next turn. It does an incomplete grep, decides nothing exists, and reimplements what it missed. These aren't bugs in the tool — they're what happens when eight competing versions of "the right answer" sit in the same context window and the model picks whichever one is most salient right now. Which is exactly the distractor problem, just at production scale.
+
+The Chroma team tested this with explicit distractors: passages similar to the answer but containing different (wrong) information.
+
+![Diagram explaining the distractor setup: one correct needle plus semantically similar but factually wrong distractor passages inserted into a long haystack.](/posts/long-context-vs-rag/distractor_visualization.png)
 
 > **Question**: What colour was the duck I had as a child?
 >
@@ -123,17 +145,23 @@ The results are unambiguous: more distractors mean worse performance across all 
 
 #### Failure modes differ by model family
 
-Interestingly, model families fail in different ways. Claude hallucinates the least -- but this comes with a trade-off.
+Model families fail in different ways. Claude hallucinates the least, but this comes with a trade-off.
 
 ![Stacked bar chart comparing failure modes (hallucination, refusal, wrong answer) across Claude, GPT, and Gemini model families. Source: Chroma Context Rot.](/posts/long-context-vs-rag/niah_failure_modes_chroma.png)
 
 ### Experiment 3: Long conversational QA
 
-For a more realistic test, the Chroma team used the LongMemEval dataset -- 306 chat-based questions averaging ~113k tokens of context, compared against focused prompts with only ~300 tokens of relevant context.
+For a more realistic test, the Chroma team used the LongMemEval dataset: 306 chat-based questions averaging ~113k tokens of context, compared against focused prompts with only ~300 tokens of relevant context. Questions span several types — single-session preference, temporal reasoning, knowledge update, multi-session, and more — which matters because full-context performance isn't uniform across them.
+
+![Breakdown of LongMemEval question types and counts, showing the mix of single-hop factual, temporal, multi-session, and knowledge-update questions. Source: Chroma Context Rot.](/posts/long-context-vs-rag/longmemeval_question_types_chroma.png)
 
 **Claude** refuses to answer when in doubt. Is this good or bad? It reduces hallucination but also reduces recall.
 
 ![Claude LongMemEval results showing high refusal rate with full context, trading recall for reduced hallucination. Source: Chroma Context Rot.](/posts/long-context-vs-rag/chroma_claude_results_longmemeval.png)
+
+**GPT** sits in the middle — less cautious than Claude, less capable than Gemini with reasoning.
+
+![GPT LongMemEval results across question types, showing middle-of-the-pack behavior between Claude's refusal-heavy style and Gemini's reasoning-boosted performance. Source: Chroma Context Rot.](/posts/long-context-vs-rag/chroma_gpt_results_longmemeval.png)
 
 **Gemini** performed the best overall, especially when using reasoning capabilities.
 
@@ -141,26 +169,41 @@ For a more realistic test, the Chroma team used the LongMemEval dataset -- 306 c
 
 ### Quality takeaways
 
-- Long context Q&A is **very much unsolved** -- even at "only" 113k tokens
+- Long context Q&A is **very much unsolved**, even at "only" 113k tokens
 - **Reasoning helps a lot** (models with chain-of-thought do better)
 - **Hallucination prevention can backfire** (Claude's caution hurts recall)
 - The **100k token threshold** is where things start going wrong
 
 ## Reranking: does it still matter?
 
-Reranking has been a staple of RAG pipelines -- retrieve broadly, then rerank to put the most relevant chunks first. But with modern LLMs handling noisy context better than ever, is it still necessary?
+Reranking has been a staple of RAG pipelines: retrieve broadly, then rerank to put the most relevant chunks first. But with modern LLMs handling noisy context better than ever, is it still necessary?
 
 ### Experiment setup
 
-We ran a comprehensive experiment:
+We ran a full experiment:
 
-- **RAG types**: Basic RAG and Enhanced RAG (query rewriting + expansion)
-- **Reranking**: With and without
+- **RAG types**: Basic RAG and Enhanced RAG (LLM query rewriting + dual retrieval + Reciprocal Rank Fusion)
+- **Reranking**: With and without, using `cross-encoder/ms-marco-MiniLM-L-6-v2`
 - **Baseline**: Full context window (no retrieval)
-- **200 questions** from grouped document chunks
+- **Answer model**: GPT-4.1-mini (temp=0, `max_tokens=500`), prompt: *"Answer the question based on the retrieved context."*
+- **Embeddings**: `text-embedding-3-small`
+- **Chunking**: 500 tokens with 50-token overlap
+- **200 questions** grouped into context-size bins: 0–25k, 25–75k, 75–150k tokens
 - **1 to 50 chunks** retrieved per query
-- **3 runs each** with GPT-4.1-mini and text-embedding-3-small
-- **~35,000 total datapoints**
+- **3 runs each**, `~35,000 total datapoints`
+
+Ground truth came from the LongMemEval "focused" gold spans: for each question, we scored every chunk in ChromaDB (~50k chunks) against the gold span using **Jaccard similarity (≥0.65 threshold), ROUGE-L, and token containment**. Triangulating across three metrics is stronger than cosine-only and removes the "how did you label ground truth?" objection.
+
+![Flow diagram of the RAG evaluation pipeline: document chunking, dual retrieval, optional RRF fusion and reranking, GPT-4.1-mini answer, LLM-as-judge scoring.](/posts/long-context-vs-rag/rag_evaluation_flow.svg)
+
+#### How we scored correctness
+
+Every answer went through an LLM-as-judge (GPT-4.1, temp=0, structured Pydantic output) that produced **two independent scores**:
+
+- `is_correct` — is the answer right *compared to the ground truth*?
+- `is_correct_given_context` — is the answer reasonable *given what was retrieved*?
+
+The gap between the two is diagnostic. If `is_correct_given_context` stays high but `is_correct` drops, retrieval missed the relevant chunk. If both drop together, the model couldn't use the context it had. This is how we know reranking isn't helping generation — we can measure retrieval-quality and generation-quality separately.
 
 ### You need more chunks than you think
 
@@ -168,21 +211,31 @@ The first surprise: hit rate (was the correct chunk even retrieved?) keeps climb
 
 ![Hit rate (percentage of queries where the correct chunk was retrieved) climbing steadily from k=1 to k=50 for both basic and enhanced RAG.](/posts/long-context-vs-rag/reranking_experiment_retrieval_performance_grid_hit_rate.svg)
 
-Performance saturates around **50 chunks** -- which is about 27% of the total chunks per document. For reference, these documents averaged ~27k tokens split into ~181 chunks of ~150 tokens each. That's a lot more retrieval than the k=5 or k=10 that many tutorials suggest.
+Performance saturates around **50 chunks**, which is about 27% of the total chunks per document, and answer correctness plateaus near **92%**. For reference, these documents averaged ~27k tokens split into ~181 chunks of ~150 tokens each; k=50 corresponds to roughly 20k retrieved tokens, or about 40–50 pages of text. That's a lot more retrieval than the k=5 or k=10 that many tutorials suggest.
 
 ### Reranking improves retrieval metrics but not answers
 
-Here's the provocative finding. Reranking clearly improves information retrieval metrics like MRR and Recall:
+Here's the surprising finding. Reranking clearly improves information retrieval metrics like MRR and Recall:
 
 ![Mean Reciprocal Rank (MRR) with and without reranking across chunk counts, showing clear improvement from reranking.](/posts/long-context-vs-rag/effect_of_reranking_mrr.svg)
 
 ![Recall@10 with and without reranking, showing reranking improves retrieval recall.](/posts/long-context-vs-rag/effect_of_reranking_retrieval_benchmarks_recall@10.svg)
 
-But when we look at what actually matters -- **did the model get the right answer?** -- reranking makes essentially no difference:
+But when we look at what actually matters (**did the model get the right answer?**), reranking makes essentially no difference:
 
 ![Answer correctness with and without reranking across chunk counts, showing virtually no difference despite improved retrieval metrics.](/posts/long-context-vs-rag/effect_of_reranking_is_correct.svg)
 
-At least in our experiments, modern LLMs proved robust enough to find the relevant information in noisy retrieved context without needing it neatly sorted for them.
+The same null result shows up if you slice correctness across RAG type × reranker × chunk count as a heatmap:
+
+![Heatmap of answer correctness across RAG type, reranker on/off, and chunk count. Reranking rows and no-reranking rows are virtually indistinguishable at every column.](/posts/long-context-vs-rag/heatmap_is_correct.svg)
+
+At least in our experiments, modern LLMs proved good enough at finding the relevant information in noisy retrieved context without needing it neatly sorted for them.
+
+#### An adjacent surprise: shuffling sometimes *helps*
+
+Since ordering doesn't seem to matter the way the reranking story assumed, we also looked at what happens when you actively shuffle retrieved chunks. In several conditions it slightly improves correctness — consistent with Chroma's observation that attention patterns vary by position and that "put the best chunk first" isn't always the right prior.
+
+![Effect of shuffling retrieved context order on answer correctness, showing small but positive improvements in several configurations.](/posts/long-context-vs-rag/shuffle_retrieval_improvements.png)
 
 ### Speed comparison
 
@@ -190,12 +243,12 @@ For documents in this size range (~27k tokens per document), the speed between R
 
 ![Bar chart comparing query latency between RAG with different chunk counts and full context window, showing comparable speed for documents under 30k tokens.](/posts/long-context-vs-rag/retrieval_speed_vs_RAG.png)
 
-That said, this comparison is for single documents. RAG's core advantage is scaling to large corpora -- and that advantage grows with corpus size. More complex RAG pipelines will also be slower (query rewriting, reranking steps add latency), but their cost scales linearly rather than with the full corpus size.
+That said, this comparison is for single documents. RAG's core advantage is scaling to large corpora, and that advantage grows with corpus size. More complex RAG pipelines will also be slower (query rewriting, reranking steps add latency), but their cost scales linearly rather than with the full corpus size.
 
 ### RAG takeaways
 
-- **You need much higher K than you think** -- 50 chunks saturated performance in our tests
-- **In our experiments, reranking did not improve answer quality** -- even though retrieval metrics improved
+- **You need much higher K than you think.** 50 chunks saturated performance in our tests
+- **In our experiments, reranking did not improve answer quality**, even though retrieval metrics improved
 - **Speed is comparable** between RAG and full context for small-to-medium documents
 
 ## Limitations
@@ -212,9 +265,11 @@ Before you go ripping out your RAG pipeline, some caveats:
 
 Based on these findings, here's when to use what:
 
+The 100k cutoff isn't arbitrary. The Natural Questions dataset — a common realistic-QA benchmark — has documents averaging ~77k tokens with a stdev of ~55k. Most real QA documents land below 100k; the cliff is where they start to hurt.
+
 ### Skip RAG when:
 - Your domain fits in **<100k tokens**
-- You have **complex, multi-hop queries** that need cross-referencing -- chunking destroys these relationships even more than long context degrades them
+- You have **complex, multi-hop queries** that need cross-referencing; chunking destroys these relationships even more than long context degrades them
 - The **simplicity gain** of removing retrieval infrastructure matters to your team
 
 ### Use RAG when:
@@ -225,14 +280,14 @@ Based on these findings, here's when to use what:
 ### And in both cases:
 - If it fits in the context window, speed is likely comparable
 - Use **more chunks than you think** (k=20-50, not k=5)
-- **Question your reranking step** -- it might not be helping
+- **Question your reranking step.** It might not be helping
 
 ## What to do Monday morning
 
-1. **Audit your RAG pipeline** -- is your domain under 100k tokens? You might not need RAG at all.
-2. **Try context-only for small domains** -- the simplicity gain is massive.
-3. **Crank up K** -- run your existing eval set with k=50 and compare against your current k. The improvement may surprise you.
-4. **A/B test removing reranking** -- measure answer quality, not just retrieval metrics. If correctness doesn't change, you can drop the complexity.
+1. **Audit your RAG pipeline.** Is your domain under 100k tokens? You might not need RAG at all.
+2. **Try context-only for small domains.** The simplicity gain is massive.
+3. **Crank up K.** Run your existing eval set with k=50 and compare against your current k. The improvement may surprise you.
+4. **A/B test removing reranking.** Measure answer quality, not just retrieval metrics. If correctness doesn't change, you can drop the complexity.
 
 ## Acknowledgments
 
