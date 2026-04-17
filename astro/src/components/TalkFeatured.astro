@@ -29,15 +29,24 @@ const { title, date, venue, description, links = [] } = Astro.props;
   <p class="text-sm text-muted-dark light:text-muted-light mt-3 leading-relaxed">{description}</p>
 
   {links.length > 0 && (
-    <div class="flex flex-wrap gap-3 mt-4">
-      {links.map((link) => (
+    <div class="flex flex-wrap gap-2 mt-5">
+      {links.map((link, i) => (
         <a
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-xs underline text-text-dark light:text-text-light hover:text-muted-dark light:hover:text-muted-light transition-colors"
+          class={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md transition-colors ${
+            i === 0
+              ? 'bg-text-dark text-bg-dark light:bg-text-light light:text-bg-light hover:opacity-85'
+              : 'border border-[#2a2a2a] light:border-[#d0d0d0] bg-[#141414] light:bg-[#f2f2f2] text-[#c0c0c0] light:text-[#333] hover:text-white light:hover:text-black hover:border-[#444] light:hover:border-[#b0b0b0] hover:bg-[#1c1c1c] light:hover:bg-[#ebebeb]'
+          }`}
         >
           {link.label}
+          {i !== 0 && (
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-70">
+              <path d="M7 17L17 7M17 7H8M17 7V16" />
+            </svg>
+          )}
         </a>
       ))}
     </div>

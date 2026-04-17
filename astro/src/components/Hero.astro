@@ -103,52 +103,42 @@ const topics = [
   <div class="reveal mt-24 border-t border-[#2a2a2a] light:border-border-light pt-10">
     <h2 class="text-2xl font-bold text-text-dark light:text-text-light mb-6">Technical Arsenal</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <div>
-        <h3 class="flex items-center gap-2 text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">
-          <span class="w-1.5 h-1.5 rounded-full bg-text-dark light:bg-text-light inline-block"></span>
+      <div class="arsenal-col" style="--accent: 167 139 250;">
+        <h3 class="arsenal-title">
+          <span class="arsenal-dot"></span>
           AI & LLMs
         </h3>
         <div class="flex flex-wrap gap-2">
-          {['LLM Evaluation', 'Agent Orchestration', 'RAG', 'Fine-tuning', 'Prompt Engineering', 'vLLM', 'LangChain'].map(s => (
-            <span class="text-[13px] border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light hover:text-text-dark hover:border-[#333] light:hover:text-text-light light:hover:border-[#bbb] transition-colors cursor-default">{s}</span>
+          {['LLM Evaluation', 'LLM-as-Judge', 'RAG', 'Prompt Engineering', 'Prompt Optimization', 'Model Training & Fine-tuning', 'Failure Taxonomies', 'Observability & Tracing'].map(s => (
+            <span class="arsenal-pill">{s}</span>
           ))}
         </div>
       </div>
-      <div>
-        <h3 class="flex items-center gap-2 text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">
-          <span class="w-1.5 h-1.5 rounded-full bg-text-dark light:bg-text-light inline-block"></span>
-          Data & ML
+      <div class="arsenal-col" style="--accent: 52 211 153;">
+        <h3 class="arsenal-title">
+          <span class="arsenal-dot"></span>
+          Agents
         </h3>
         <div class="flex flex-wrap gap-2">
-          {['Python', 'PyTorch', 'Polars', 'Spark', 'Pandas', 'scikit-learn', 'GANs', 'Synthetic Data'].map(s => (
-            <span class="text-[13px] border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light hover:text-text-dark hover:border-[#333] light:hover:text-text-light light:hover:border-[#bbb] transition-colors cursor-default">{s}</span>
+          {['AI Agents', 'Agent Development Lifecycle', 'Agent Evaluation', 'Multi-agent Orchestration', 'Context Engineering', 'Tool Use', 'MCP', 'Agent Memory'].map(s => (
+            <span class="arsenal-pill">{s}</span>
           ))}
         </div>
       </div>
-      <div>
-        <h3 class="flex items-center gap-2 text-sm font-semibold text-text-dark light:text-text-light mb-3 pb-2 border-b border-border-dark light:border-border-light">
-          <span class="w-1.5 h-1.5 rounded-full bg-text-dark light:bg-text-light inline-block"></span>
-          Infrastructure
+      <div class="arsenal-col" style="--accent: 251 191 36;">
+        <h3 class="arsenal-title">
+          <span class="arsenal-dot"></span>
+          Libraries & Tooling
         </h3>
         <div class="flex flex-wrap gap-2">
-          {['Azure', 'Databricks', 'Docker', 'MLflow', 'CI/CD', 'Kubernetes'].map(s => (
-            <span class="text-[13px] border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light hover:text-text-dark hover:border-[#333] light:hover:text-text-light light:hover:border-[#bbb] transition-colors cursor-default">{s}</span>
+          {['Python', 'PyTorch', 'Claude Agent SDK', 'OpenAI SDK', 'Polars', 'Pandas', 'scikit-learn', 'Synthetic Data'].map(s => (
+            <span class="arsenal-pill">{s}</span>
           ))}
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 5. Featured / upcoming -->
-  <a
-    href={`${base}/talks`}
-    class="reveal flex items-center gap-3 border border-border-dark light:border-border-light rounded-lg px-5 py-3 mt-16 hover:border-[#333] light:hover:border-[#bbb] transition-colors group"
-  >
-    <span class="text-[10px] uppercase tracking-widest text-muted-dark light:text-muted-light bg-[#1a1a1a] light:bg-[#eee] px-2 py-0.5 rounded font-medium shrink-0">Upcoming</span>
-    <span class="text-sm text-muted-dark light:text-muted-light group-hover:text-text-dark light:group-hover:text-text-light transition-colors">
-      Speaking at iO Engineering Manager Meetup — April 15, 2026
-    </span>
-  </a>
 
 </section>
 
@@ -181,6 +171,53 @@ const topics = [
   .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .arsenal-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgb(var(--accent) / 0.35);
+    color: #fafafa;
+  }
+  :root.light .arsenal-title {
+    color: #0a0a0a;
+  }
+  .arsenal-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: rgb(var(--accent));
+    box-shadow: 0 0 10px rgb(var(--accent) / 0.6);
+  }
+  .arsenal-pill {
+    font-size: 13px;
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgb(var(--accent) / 0.35);
+    background: rgb(var(--accent) / 0.1);
+    color: rgb(var(--accent));
+    cursor: default;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .arsenal-pill:hover {
+    background: rgb(var(--accent) / 0.22);
+    border-color: rgb(var(--accent) / 0.7);
+    transform: translateY(-1px);
+  }
+  :root.light .arsenal-pill {
+    background: rgb(var(--accent) / 0.14);
+    border-color: rgb(var(--accent) / 0.5);
+    color: rgb(var(--accent) / 0.95);
+    filter: brightness(0.72) saturate(1.15);
+  }
+  :root.light .arsenal-pill:hover {
+    background: rgb(var(--accent) / 0.24);
+    border-color: rgb(var(--accent) / 0.75);
   }
 </style>
 
