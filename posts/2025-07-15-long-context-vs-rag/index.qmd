@@ -6,10 +6,10 @@ author: "Bauke Brenninkmeijer"
 lang: en
 categories: [Machine Learning, NLP, LLM, RAG]
 image: "img/duration_per_provider.png"
-description: "With context windows growing past 1M tokens, do we still need RAG? I ran the experiments so you don't have to. Here's when to skip RAG, where the performance cliff is, and why reranking might be dead."
+description: "With context windows growing past 1M tokens, do we still need RAG? I ran the experiments so you don't have to. Here's when to skip RAG, where the performance cliff is, and why position-based reranking may no longer earn its keep."
 open-graph:
   title: "Your RAG Pipeline is Probably Overkill — Long Context vs RAG Experiments"
-  description: "Experiments comparing long context windows vs RAG across GPT, Claude, and Gemini. When to skip RAG, the 100k token performance cliff, and why reranking may not matter anymore."
+  description: "Experiments comparing long context windows vs RAG across GPT, Claude, and Gemini. When to skip RAG, the 100k token performance cliff, and why position-based reranking may no longer earn its keep."
   image: "img/duration_per_provider.png"
 twitter-card:
   title: "Your RAG Pipeline is Probably Overkill"
@@ -34,10 +34,10 @@ That question kicked off a research project that became a [PyData 2025 talk](htt
 
 :::{.callout-tip}
 ## TL;DR
-- **Under 100k tokens?** Skip RAG -- context-only is simpler and performs as well or better.
+- **Single document under ~30k tokens?** Skip RAG in our tests -- context-only matched tuned RAG and was simpler.
 - **The 100k token quality cliff is real** -- performance degrades sharply with distractors and dissimilar phrasing (per [Chroma's research](https://www.trychroma.com/research/context-rot)).
-- **Reranking doesn't improve answer quality** in our experiments, even though retrieval metrics improve.
-- **Use way more chunks than you think** -- k=50 outperformed k=5 or k=10 significantly.
+- **Position-based reranking didn't improve correctness at k=50** -- modern LLMs look more position-robust than [lost-in-the-middle](https://arxiv.org/abs/2307.03172) research implied. Rerankers still have a job at low k and as filters; the historical "reorder the top-k to dodge lost-in-the-middle" job looks weaker.
+- **Use way more chunks than you think** -- within a single document, k=50 outperformed k=5 or k=10 significantly. At corpus scale this almost certainly inverts.
 :::
 
 ## The problem that started it all
@@ -62,15 +62,12 @@ So the natural question became: **can we skip RAG entirely and just put the whol
 
 ## The research questions
 
-This research, building on Chroma's [Context Rot](https://www.trychroma.com/research/context-rot) study, set out to answer five questions:
+This research, building on Chroma's [Context Rot](https://www.trychroma.com/research/context-rot) study, set out to answer four questions:
 
 1. **How fast are LLMs** at processing large context windows?
 2. **When can we skip RAG entirely?**
 3. **Where's the performance cliff** as context grows?
-4. **Does reranking still matter** for modern LLMs?
-5. **Is long context worth the cost?**
-
-Let's go through each one.
+4. **Does position-based reranking** still earn its complexity for modern LLMs?
 
 ## Speed: how fast are LLMs with large context?
 
@@ -123,7 +120,10 @@ GPT and Claude don't show this same clean tiering -- their models cluster closer
 
 ## Quality: how well do context windows actually work?
 
-The findings in this section come from Chroma's [Context Rot](https://www.trychroma.com/research/context-rot) research, which goes well beyond standard benchmarks. I'll summarize the key experiments here, but the [full report](https://www.trychroma.com/research/context-rot) is well worth reading.
+:::{.callout-note}
+## This section summarizes Chroma's work
+The quality findings below come from Chroma's excellent [Context Rot](https://www.trychroma.com/research/context-rot) study, not my own experiments. I include them because they're the foundation the rest of the post builds on. If you already know this work, [skip ahead to the reranking experiments](#reranking-does-it-still-fight-lost-in-the-middle).
+:::
 
 Needle-in-a-Haystack (NIAH) benchmarks look great on paper. You insert a fact into a long document, ask about it, and models nail it. But how well do they work for *non-trivial* tasks?
 
@@ -197,9 +197,19 @@ For a more realistic test, the Chroma team used the LongMemEval dataset: 306 cha
 - **Hallucination prevention can backfire** (Claude's caution hurts recall)
 - The **100k token threshold** is where things start going wrong
 
-## Reranking: does it still matter?
+## Reranking: does it still fight lost-in-the-middle?
 
-Reranking has been a staple of RAG pipelines -- retrieve broadly, then rerank to put the most relevant chunks first. But with modern LLMs handling noisy context better than ever, is it still necessary?
+Reranking has had two historical jobs in RAG pipelines. One is improving retrieval recall at low k -- pulling the right chunk into a short window. The other is *positional*: given you're stuffing k=50 chunks into the context, put the best ones first (or last) so attention doesn't strand them in the middle. This second job was the main motivation in the influential [Lost in the Middle](https://arxiv.org/abs/2307.03172) paper (Liu et al. 2023), which showed U-shaped attention on mid-2023 models.
+
+We tested the *positional* job: does ordering the retrieved chunks still matter once they're in context? The answer seems to be "much less than it used to." Before the experimental details, here's what's actually in scope:
+
+| Reranker's job | What it does | Tested here? | Current verdict |
+|---|---|---|---|
+| **Positional ordering** | Put best chunks first/last so attention doesn't strand them (lost-in-the-middle) | Yes -- k=1 to 50 in a ~20k-token window | No measurable lift on correctness; shuffling sometimes helps |
+| **Recall at low k** | Pull the gold chunk into a short window when base retrieval misses it | Partially -- tested with a legacy `ms-marco-MiniLM-L-6-v2` cross-encoder only | Open -- modern rerankers (Cohere, Voyage, `bge-reranker-v2`) not evaluated |
+| **Confidence-based filtering** | Drop low-score chunks to trim context | No | Not evaluated |
+
+The claim this post makes is narrow: **positional reranking in a mid-sized context window doesn't move correctness**. "Reranking is useless everywhere" is a stronger claim the data doesn't support.
 
 ### Experiment setup
 
@@ -215,7 +225,7 @@ We ran a full experiment:
 - **1 to 50 chunks** retrieved per query
 - **3 runs each**, `~35,000 total datapoints`
 
-Ground truth came from the LongMemEval "focused" gold spans: for each question, we scored every chunk in ChromaDB (~50k chunks) against the gold span using **Jaccard similarity (≥0.65 threshold), ROUGE-L, and token containment**. Triangulating across three metrics is stronger than cosine-only and removes the "how did you label ground truth?" objection.
+Ground truth came from the LongMemEval "focused" gold spans: for each question, we scored every chunk in ChromaDB (~50k chunks) against the gold span using **Jaccard similarity (≥0.65 threshold), ROUGE-L, and token containment**. Three correlated surface-overlap metrics is more defensible than cosine-only, but it's still lexical -- paraphrased gold chunks can slip through. Noted in the limitations.
 
 ![Flow diagram of the RAG evaluation pipeline: document chunking, dual retrieval, optional RRF fusion and reranking, GPT-4.1-mini answer, LLM-as-judge scoring.](img/rag_evaluation_flow.svg){#fig-eval-flow}
 
@@ -254,13 +264,15 @@ The same null result shows up if you slice correctness across RAG type × rerank
 
 ![Heatmap of answer correctness across RAG type, reranker on/off, and chunk count. Reranking rows and no-reranking rows are virtually indistinguishable at every column.](img/heatmap_is_correct.svg){#fig-heatmap-correct}
 
-At least in our experiments, modern LLMs proved good enough at finding the relevant information in noisy retrieved context without needing it neatly sorted for them.
+The cleaner way to say this: at k=50 with a ~20k-token window, the gold chunk is almost always *in* the context (hit rate saturates near 95%), so reordering the 50 chunks inside the window can't move correctness -- there's nothing for positional reranking to fix.
 
-#### An adjacent surprise: shuffling sometimes *helps*
+#### Shuffling sometimes *helps*
 
-Since ordering doesn't seem to matter the way the reranking story assumed, we also looked at what happens when you actively shuffle retrieved chunks. In several conditions it slightly improves correctness -- consistent with Chroma's observation that attention patterns vary by position and that "put the best chunk first" isn't always the right prior.
+The stronger piece of evidence against positional reranking is what happens when you actively shuffle retrieved chunks. If lost-in-the-middle were still a dominant effect, shuffling should hurt. It doesn't -- in several conditions it slightly *improves* correctness, consistent with Chroma's observation that attention patterns vary by position and that "put the best chunk first" isn't always the right prior.
 
 ![Effect of shuffling retrieved context order on answer correctness, showing small but positive improvements in several configurations.](img/shuffle_retrieval_improvements.png){#fig-shuffle}
+
+Taken together, these two results are a narrow but real finding: **the positional justification for reranking has weakened.** Modern LLMs look more position-robust in a 20k-token window than Liu et al.'s 2023 models were. Rerankers still earn their place at low k (where recall, not ordering, is the bottleneck) and as confidence-based filters. The "reorder the top-k to beat lost-in-the-middle" job is the one that's aged.
 
 ### Speed comparison
 
@@ -272,47 +284,45 @@ That said, this comparison is for single documents. RAG's core advantage is scal
 
 ### RAG takeaways
 
-- **You need much higher K than you think** -- 50 chunks saturated performance in our tests
-- **In our experiments, reranking did not improve answer quality** -- even though retrieval metrics improved
+- **Within a single document, you need much higher K than you think** -- 50 chunks saturated performance in our tests. At corpus scale this likely inverts.
+- **Positional reranking didn't improve answers at k=50** -- retrieval metrics improved, correctness didn't. Consistent with shuffling-helps: modern LLMs look position-robust in a 20k window.
 - **Speed is comparable** between RAG and full context for small-to-medium documents
 
 ## Limitations
 
-Before you go ripping out your RAG pipeline, some caveats:
+Before you go ripping out your RAG pipeline, a long list of caveats -- the RAG experiment specifically is narrower than the plots make it look:
 
-- **Limited query complexity**: mostly single-hop questions in our RAG experiments
-- **No reranking-as-filtering**: we didn't test using reranker confidence scores to filter chunks
-- **Limited scale**: max 339 chunks per document
-- **Limited model diversity**: a small set of models tested
-- **Single embedding model**: only text-embedding-3-small
+- **Single answer model in the RAG experiment**: everything downstream of retrieval runs on `gpt-4.1-mini`. Stronger or weaker models could shift the null result.
+- **Single legacy reranker**: `cross-encoder/ms-marco-MiniLM-L-6-v2` is a 2019-era, 22M-parameter generic reranker. Modern options (Cohere Rerank, Voyage, `bge-reranker-v2-m3`) are untested here.
+- **Document-scale, not corpus-scale**: each query retrieves from one ~27k-token document's chunks (~181 chunks). k=50 is 27% of the document; on a 10k-chunk corpus, k=50 is 0.5% and the "use more chunks" finding likely inverts.
+- **Lexical ground truth**: we scored chunks with Jaccard + ROUGE-L + token containment. These are three correlated surface-overlap metrics and don't catch paraphrase; dense retrievers are already optimized for this signal, which biases *against* seeing reranker gains.
+- **LLM-as-judge in-family bias**: GPT-4.1 judging GPT-4.1-mini's answers has known self-preference and verbosity bias. A cross-family judge (Claude, Gemini) was not run.
+- **Ceiling effect at high k**: hit rate saturates near 95% at k=50, so reranking can't demonstrate a gain on correctness even if it were helping retrieval in principle.
+- **Query complexity**: mostly single-hop questions; no adversarial or paraphrase-heavy queries.
+- **Single embedding model**: only `text-embedding-3-small`.
+- **No cost axis**: we did not measure $/query. Long context at 1M tokens is materially more expensive than RAG at k=50; any "should I switch" decision needs to factor that in.
+- **Reranker-as-filter untested**: using reranker confidence scores to *drop* chunks (as opposed to reorder them) is a different use case we didn't evaluate.
 
 ## A practical decision framework
 
-Based on these findings, here's when to use what:
+Based on these findings, here's how to think about the trade-off. The first distinction to draw is between **document size** and **corpus size** -- they pull in different directions and the post's experiments only speak to the first.
 
-The 100k cutoff isn't arbitrary. The Natural Questions dataset -- a common realistic-QA benchmark -- has documents averaging ~77k tokens with a stdev of ~55k. Most real QA documents land below 100k; the cliff is where they start to hurt.
+The 100k figure isn't arbitrary as a document-size cutoff. The Natural Questions dataset -- a common realistic-QA benchmark -- has documents averaging ~77k tokens with a stdev of ~55k. Most real QA documents land below 100k; Chroma's work shows this is also where long-context quality starts to hurt.
 
-### Skip RAG when:
-- Your domain fits in **<100k tokens**
+### Consider skipping RAG when:
+- Your **per-query document fits in <100k tokens**
 - You have **complex, multi-hop queries** that need cross-referencing -- chunking destroys these relationships even more than long context degrades them
 - The **simplicity gain** of removing retrieval infrastructure matters to your team
 
-### Use RAG when:
-- Your domain exceeds **100k tokens**
+### Keep RAG when:
+- Your **per-query document exceeds 100k tokens**
 - You're dealing with **simple, factual queries**
-- You need to search across a **large corpus** (RAG scales, context windows don't)
+- You need to search across a **large corpus** -- this is RAG's core value and nothing in this post argues against it
 
 ### And in both cases:
 - If it fits in the context window, speed is likely comparable
-- Use **more chunks than you think** (k=20-50, not k=5)
-- **Question your reranking step** -- it might not be helping
-
-## What to do Monday morning
-
-1. **Audit your RAG pipeline** -- is your domain under 100k tokens? You might not need RAG at all.
-2. **Try context-only for small domains** -- the simplicity gain is massive.
-3. **Crank up K** -- run your existing eval set with k=50 and compare against your current k. The improvement may surprise you.
-4. **A/B test removing reranking** -- measure answer quality, not just retrieval metrics. If correctness doesn't change, you can drop the complexity.
+- Within a single document, **more chunks than you think** (k=20-50, not k=5). This does *not* transfer to corpus-scale retrieval.
+- **Question the positional justification for reranking** -- if you're reranking to dodge lost-in-the-middle at high k, that effect has weakened. Reranking for low-k recall or as a filter is a different story.
 
 ## Acknowledgments
 
@@ -322,4 +332,7 @@ The full code and experiment data are available on [GitHub](https://github.com/B
 
 ---
 
-*This post is based on my PyData Amsterdam 2025 talk "Context is King: Your RAG Pipeline is Probably Overkill." If you have questions or want to discuss your own RAG challenges, feel free to [reach out on LinkedIn](https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/).*
+:::{.callout-tip}
+## Running into this in your own stack?
+This post is based on my PyData Amsterdam 2025 talk *"Context is King: Your RAG Pipeline is Probably Overkill."* If you're weighing long context vs RAG for your own system, or want to share findings that contradict mine, I'd genuinely like to hear from you -- [find me on LinkedIn](https://www.linkedin.com/in/bauke-brenninkmeijer-40143310b/).
+:::
