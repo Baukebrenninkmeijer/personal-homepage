@@ -15,19 +15,22 @@ const experience = [
   },
   {
     company: 'MLOps Community Amsterdam',
-    role: 'Organiser',
+    role: 'Chapter Lead / Organiser',
     period: 'Sep 2024–present',
-    bullets: [],
+    bullets: [
+      'Run the Amsterdam chapter: speaker curation, sponsor partnerships, quarterly meetups',
+    ],
   },
   {
     company: 'Sytac → ING',
     role: 'Senior Consultant / Senior AI Engineer',
     period: 'May 2024–Jul 2025',
     bullets: [
-      'Detection and forecasting system for reliability events (1TB data, Polars)',
-      'RAG-based sustainability peer review application',
-      'Fraud detection MLOps pipeline',
-      'LLM-based info extraction for internal resume app (Sytac)',
+      'Tech lead on MLOps in Global Financial Crime & Fraud Prevention — V2 release, Airflow DAG parameterization across countries',
+      'Detection & forecasting system for reliability events from Track-and-Trace logs (1TB out-of-memory processing with Polars)',
+      'Rewrote RAG ingestion pipeline for sustainability peer-review app — 5× faster, better extraction quality',
+      'Sytac internal: LLM-based extraction for the resume app; simplified Slackbot by querying Notion search directly, dropping the vector DB',
+      'Ran day-long hackathons and education sessions on testing, pre-commit, and merging strategy; mentored junior Python engineers',
     ],
   },
   {
@@ -35,9 +38,9 @@ const experience = [
     role: 'Full Stack Data Scientist — Global Markets',
     period: 'Jul 2021–May 2024',
     bullets: [
-      'Data platform migration from IaaS to PaaS',
-      'Real-time data streaming framework with Spark',
-      'Bond origination interest prediction',
+      'Designed and led platform migration from IaaS VMs to PaaS (Azure Data Factory, Databricks, Data Lake)',
+      'Built real-time streaming framework on Spark Structured Streaming with Medallion architecture',
+      'Bond origination interest prediction — matched investor parties to new issuances',
     ],
   },
   {
@@ -45,43 +48,73 @@ const experience = [
     role: 'Data Scientist — Chief Architecture & Data Management',
     period: 'Oct 2019–Jun 2021',
     bullets: [
-      'Mortgage assessments using photos',
-      'Data management and metadata generation',
-      'Synthetic data for privacy-preserving analytics',
+      'Mortgage condition assessment from 5 photos — multi-ResNet feeding into BERT',
+      'Co-authored data lake metadata-generation framework',
+      'Piloted GAN-based synthetic data for privacy-preserving analytics; managed two collaborators',
+      'Drove data-science process improvements (versioning, peer review) across internal ML platform',
     ],
   },
   {
     company: 'ABN AMRO',
-    role: 'Thesis Intern',
+    role: 'Thesis Intern — Data Science',
     period: 'Mar 2019–Oct 2019',
-    bullets: ['GANs for synthetic tabular data'],
+    bullets: [
+      "Master's thesis research on GANs for synthetic tabular data — evaluating whether generated data preserves distributions well enough to sidestep GDPR",
+    ],
   },
   {
     company: 'OneTwoModel',
     role: 'CTO & Co-founder',
     period: 'Sep 2019–Nov 2021',
-    bullets: ['Startup building products for the modelling industry'],
+    bullets: [
+      'Co-founded startup building products for the modelling industry; split value-prop / product-dev responsibility',
+      'Stack: AWS (ECS, EC2), Airflow, Docker, Keras/TensorFlow, NLP tokenization & word embeddings',
+    ],
   },
   {
     company: 'TAPP',
     role: 'Data Scientist',
     period: 'Sep 2018–Mar 2019',
-    bullets: ['NLP-based product classification from receipt descriptions'],
+    bullets: [
+      'Hierarchical product classification from receipt descriptions (Keras + NLP) — replaced manual labelling',
+      'Time-series anomaly detection on live data streams; full pipeline from ingestion to analytics',
+    ],
   },
 ];
 
 const education = [
   {
     company: 'Radboud University',
-    role: 'MSc Data Science',
+    role: 'MSc Data Science — ML in Practice, Medical Imaging, Natural Computing, Computational Cognitive Neuroscience',
     period: '2017–2019',
     bullets: [],
   },
   {
-    company: 'Radboud Universiteit Nijmegen',
-    role: 'BSc Computing Science',
+    company: 'Radboud University',
+    role: 'BSc Computing Science — modeling, databases, calculus, linear algebra, algorithms',
     period: '2013–2017',
     bullets: [],
+  },
+];
+
+const certifications = [
+  { name: 'Microsoft Certified: Power BI Data Analyst Associate', year: '2022' },
+  { name: 'Microsoft Certified: Azure AI Fundamentals', year: '2022' },
+  { name: 'Microsoft Certified: Azure Fundamentals', year: '2021' },
+];
+
+const publications = [
+  {
+    title: 'On the Generation and Evaluation of Tabular Data using GANs',
+    venue: "Master's thesis, Radboud University",
+    year: '2019',
+    href: 'https://www.cs.ru.nl/masters-theses/2019/B_Brenninkmeijer___On_the_generation_and_evaluation_of_tabular_data_using_GANs.pdf',
+  },
+  {
+    title: 'Automated Product Recognition for Hospitality Industry Insights',
+    venue: 'Blog / write-up',
+    year: '2020',
+    href: 'https://github.com/Baukebrenninkmeijer/Automated-Product-Classification',
   },
 ];
 ---
@@ -119,7 +152,7 @@ const education = [
       </div>
     </section>
 
-    <section>
+    <section class="mb-12">
       <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
         Education
       </h2>
@@ -133,6 +166,44 @@ const education = [
           />
         ))}
       </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+        Certifications
+      </h2>
+      <ul class="flex flex-col gap-2">
+        {certifications.map((cert) => (
+          <li class="flex items-baseline gap-4 text-sm">
+            <span class="text-xs text-muted-dark light:text-muted-light w-36 md:w-36 shrink-0">{cert.year}</span>
+            <span class="text-text-dark light:text-text-light">{cert.name}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+        Publications
+      </h2>
+      <ul class="flex flex-col gap-3">
+        {publications.map((pub) => (
+          <li class="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-4">
+            <span class="text-xs text-muted-dark light:text-muted-light md:w-36 shrink-0">{pub.year}</span>
+            <div class="flex flex-col gap-0.5">
+              <a
+                href={pub.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-text-dark light:text-text-light hover:underline"
+              >
+                {pub.title}
+              </a>
+              <span class="text-xs text-muted-dark light:text-muted-light">{pub.venue}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   </div>
 </Layout>

@@ -54,13 +54,29 @@ const siteTitle = title === 'Home' ? 'Bauke Brenninkmeijer' : `${title} | Bauke 
     <!-- Generator -->
     <meta name="generator" content={Astro.generator} />
 
-    <!-- FOUC prevention: apply theme before first paint -->
+    <!-- FOUC prevention: resolve theme before first paint, carry across view transitions, follow system in auto mode -->
     <script is:inline>
       (function () {
-        var stored = localStorage.getItem('theme');
-        if (stored === 'light') {
-          document.documentElement.classList.add('light');
+        function resolve() {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'light') return 'light';
+          if (stored === 'dark') return 'dark';
+          if (stored === 'auto') {
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          }
+          return 'dark';
         }
+        function apply(doc) {
+          if (resolve() === 'light') doc.documentElement.classList.add('light');
+          else doc.documentElement.classList.remove('light');
+        }
+        apply(document);
+        document.addEventListener('astro:before-swap', function (ev) {
+          apply(ev.newDocument);
+        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function () {
+          if (localStorage.getItem('theme') === 'auto') apply(document);
+        });
       })();
     </script>
 
