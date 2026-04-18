@@ -30,7 +30,7 @@ Six months of RAG optimization. Query rewriting got us from 60% to 65%, rerankin
 
 We got 85%.
 
-That question kicked off a research project that became a [PyData 2025 talk](https://pydata.org/amsterdam2025/). This post covers the key findings: when long context windows beat RAG, where they fall apart, and what you should actually do about it.
+That question kicked off a research project that became a [PyData 2025 talk](https://pydata.org/amsterdam2025/) in September. Writing it up took a while -- after a talk you sometimes just want to move on from the topic for a bit. But the results keep coming up in conversations, so here's the write-up: when long context windows beat RAG, where they fall apart, and what you should actually do about it.
 
 :::{.callout-tip}
 ## TL;DR
@@ -206,7 +206,7 @@ We tested the *positional* job: does ordering the retrieved chunks still matter 
 | Reranker's job | What it does | Tested here? | Current verdict |
 |---|---|---|---|
 | **Positional ordering** | Put best chunks first/last so attention doesn't strand them (lost-in-the-middle) | Yes -- k=1 to 50 in a ~20k-token window | No measurable lift on correctness; shuffling sometimes helps |
-| **Recall at low k** | Pull the gold chunk into a short window when base retrieval misses it | Partially -- tested with a legacy `ms-marco-MiniLM-L-6-v2` cross-encoder only | Open -- modern rerankers (Cohere, Voyage, `bge-reranker-v2`) not evaluated |
+| **Recall at low k** | Pull the gold chunk into a short window when base retrieval misses it | Partially -- tested with a legacy `ms-marco-MiniLM-L-6-v2` cross-encoder only | Open -- modern commercial and open-source rerankers not evaluated |
 | **Confidence-based filtering** | Drop low-score chunks to trim context | No | Not evaluated |
 
 The claim this post makes is narrow: **positional reranking in a mid-sized context window doesn't move correctness**. "Reranking is useless everywhere" is a stronger claim the data doesn't support.
@@ -293,7 +293,7 @@ That said, this comparison is for single documents. RAG's core advantage is scal
 Before you go ripping out your RAG pipeline, a long list of caveats -- the RAG experiment specifically is narrower than the plots make it look:
 
 - **Single answer model in the RAG experiment**: everything downstream of retrieval runs on `gpt-4.1-mini`. Stronger or weaker models could shift the null result.
-- **Single legacy reranker**: `cross-encoder/ms-marco-MiniLM-L-6-v2` is a 2019-era, 22M-parameter generic reranker. Modern options (Cohere Rerank, Voyage, `bge-reranker-v2-m3`) are untested here.
+- **Single legacy reranker**: `cross-encoder/ms-marco-MiniLM-L-6-v2` is a 2019-era, 22M-parameter generic reranker. Modern commercial and open-source alternatives are untested here.
 - **Document-scale, not corpus-scale**: each query retrieves from one ~27k-token document's chunks (~181 chunks). k=50 is 27% of the document; on a 10k-chunk corpus, k=50 is 0.5% and the "use more chunks" finding likely inverts.
 - **Lexical ground truth**: we scored chunks with Jaccard + ROUGE-L + token containment. These are three correlated surface-overlap metrics and don't catch paraphrase; dense retrievers are already optimized for this signal, which biases *against* seeing reranker gains.
 - **LLM-as-judge in-family bias**: GPT-4.1 judging GPT-4.1-mini's answers has known self-preference and verbosity bias. A cross-family judge (Claude, Gemini) was not run.

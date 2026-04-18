@@ -10,7 +10,7 @@ That question turned into a research project, a PyData Amsterdam 2025 talk, and 
 
 ▶ The 100k token quality cliff is real. Past it, performance degrades sharply with distractors and dissimilar phrasing (per @Chroma's excellent Context Rot research, which this post builds on).
 
-▶ Positional reranking — the "reorder the top-k to dodge lost-in-the-middle" job — didn't improve correctness at k=50 in our setup. Shuffling chunks sometimes even helped. Modern LLMs look more position-robust than Liu et al.'s 2023 work implied. (Caveat: we tested a legacy ms-marco cross-encoder; modern rerankers like Cohere or Voyage at low k are a different question we didn't touch.)
+▶ Positional reranking — the "reorder the top-k to dodge lost-in-the-middle" job — didn't improve correctness at k=50 in our setup. Shuffling chunks sometimes even helped. Modern LLMs look more position-robust than Liu et al.'s 2023 work implied.
 
 ▶ You probably need more chunks than you think. k=50 beat k=5 and k=10 within a single document — retrieving ~27% of it. At corpus scale this almost certainly inverts.
 
