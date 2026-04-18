@@ -6,7 +6,7 @@ Then someone asked: what if we just put the whole document in the context window
 
 That question turned into a research project, a PyData Amsterdam 2025 talk, and now a write-up. A few things I didn't expect going in:
 
-▶ For single documents in our tests, context-only matched tuned RAG. Simpler pipeline, same answers. Below ~30k tokens in our runs, retrieval infrastructure wasn't earning its keep.
+▶ For single documents in our tests, context-only matched tuned RAG. Simpler pipeline, same answers. If your domain fits in <100k tokens, retrieval infrastructure often isn't earning its keep.
 
 ▶ The 100k token quality cliff is real. Past it, performance degrades sharply with distractors and dissimilar phrasing (per @Chroma's excellent Context Rot research, which this post builds on).
 
@@ -35,6 +35,32 @@ Code + experiment data: https://github.com/Baukebrenninkmeijer/pydata-2025-conte
 ---
 
 **Posting checklist:**
-- [ ] Attach one chart as image (recommended: hit-rate-vs-k or correctness-with-vs-without-reranking)
+- [ ] Attach one chart as image (see options below — PNGs already in `astro/public/posts/long-context-vs-rag/`)
 - [ ] Verify @Chroma tag resolves to their company page before posting
 - [ ] Paste first comment within ~30 seconds of publishing (LinkedIn weights early-comment engagement)
+
+---
+
+**Image options (ranked, pick one):**
+
+1. *Strongest match for the post's most contrarian claim.* Shows answer correctness is flat with vs. without reranking despite retrieval metrics improving. Pairs directly with the reranker question in the hook.
+
+   ![Answer correctness with and without reranking — virtually no difference.](../../../public/posts/long-context-vs-rag/effect_of_reranking_is_correct.png)
+
+2. Same message as #1, higher information density. Reranking and no-reranking rows are visually indistinguishable across every k. Better for a reader who'll zoom in; worse for a thumbnail-glance scroller.
+
+   ![Heatmap of correctness across RAG type, reranker on/off, k.](../../../public/posts/long-context-vs-rag/heatmap_is_correct.png)
+
+3. Supports the "you need more chunks than you think" bullet. Monotonic climb from k=1 to k=50 is easy to read in 2 seconds.
+
+   ![Hit rate climbing from k=1 to k=50.](../../../public/posts/long-context-vs-rag/reranking_experiment_retrieval_performance_grid_hit_rate.png)
+
+4. Supports "simpler pipeline, same answers" — shows full-context latency is comparable to RAG under ~30k tokens. Already PNG, no conversion needed.
+
+   ![Query latency: RAG vs full context window.](../../../public/posts/long-context-vs-rag/retrieval_speed_vs_RAG.png)
+
+5. Supports the 4–10x latency bullet. Good if you want to lean into the "latency still hurts" caveat rather than the RAG-vs-context headline.
+
+   ![Response duration per provider across context sizes.](../../../public/posts/long-context-vs-rag/duration_per_provider.png)
+
+**My pick:** #1 if you want engagement bait (contradicts conventional wisdom, invites disagreement). #4 if you want broader reach (speed is a universally legible axis).
