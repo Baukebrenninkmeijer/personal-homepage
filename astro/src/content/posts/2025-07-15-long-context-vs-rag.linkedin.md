@@ -28,7 +28,7 @@ If you run a reranker in production — is it actually moving your answer qualit
 
 **First comment (paste separately after posting):**
 
-Full write-up: https://blog.baukebrenninkmeijer.nl/posts/2025-07-15-long-context-vs-rag/
+Full write-up: https://blog.baukebrenninkmeijer.nl/blog/2025-07-15-long-context-vs-rag/
 
 Code + experiment data: https://github.com/Baukebrenninkmeijer/pydata-2025-context-is-king
 
