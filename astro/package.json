@@ -17,7 +17,7 @@
     "@astrojs/tailwind": "^6.0.2",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
-    "astro": "^6.1.7",
+    "astro": "^6.1.10",
     "tailwindcss": "^3.4.19"
   }
 }
