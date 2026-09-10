@@ -5,25 +5,6 @@ import TalkEntry from '../components/TalkEntry.astro';
 
 const timelineEntries = [
   {
-    title: 'Security of AI Agents: Break yours before others do',
-    date: 'Jun 2026',
-    venue: 'ADC',
-    links: [
-      {
-        label: 'Slides',
-        href: 'https://baukebrenninkmeijer.github.io/ADC-red-teaming-demo/deck/security-of-ai-agents.html',
-      },
-      {
-        label: 'GitHub',
-        href: 'https://github.com/Baukebrenninkmeijer/ADC-red-teaming-demo',
-      },
-      {
-        label: 'Live demo',
-        href: 'https://huggingface.co/spaces/orq/clarabelle-redteam',
-      },
-    ],
-  },
-  {
     title: 'Red Teaming AI Agents: Break yours before others do',
     date: 'Apr 2026',
     venue: 'AI Builders Amsterdam',
@@ -69,6 +50,21 @@ const timelineEntries = [
     date: 'Aug 22, 2025',
     venue: 'Turner Thinking Thursday',
     links: [],
+  },
+  {
+    title: 'Context is King',
+    date: 'Jul 2025',
+    venue: 'PyData Amsterdam',
+    links: [
+      {
+        label: 'Slides',
+        href: 'https://raw.githack.com/Baukebrenninkmeijer/pydata-2025-context-is-king/main/docs/context-is-king-pydata-2025.html',
+      },
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/pydata-2025-context-is-king',
+      },
+    ],
   },
   {
     title: "A Developer's Guide to GenAI",
@@ -201,18 +197,22 @@ const timelineEntries = [
     <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Talks</h1>
 
     <TalkFeatured
-      title="Context is King — PyData Amsterdam 2025"
-      date="Jul 2025"
-      venue="PyData Amsterdam"
-      description="Exploring whether long context windows can replace RAG for document understanding. Benchmarking retrieval quality, latency, and cost across providers."
+      title="Security of AI Agents — ADC"
+      date="Jun 2026"
+      venue="ADC"
+      description="Red-teaming AI agents: break yours before others do. A live goal-hijacking campaign against Clarabelle, an agent whose only job is to stay a cow. 100 attacks, an LLM judge, 89% resistance, and what the same approach finds in real agents."
       links={[
         {
           label: 'Slides',
-          href: 'https://raw.githack.com/Baukebrenninkmeijer/pydata-2025-context-is-king/main/docs/context-is-king-pydata-2025.html',
+          href: 'https://baukebrenninkmeijer.github.io/ADC-red-teaming-demo/deck/security-of-ai-agents.html',
         },
         {
           label: 'GitHub',
-          href: 'https://github.com/Baukebrenninkmeijer/pydata-2025-context-is-king',
+          href: 'https://github.com/Baukebrenninkmeijer/ADC-red-teaming-demo',
+        },
+        {
+          label: 'Live demo',
+          href: 'https://huggingface.co/spaces/orq/clarabelle-redteam',
         },
       ]}
     />
