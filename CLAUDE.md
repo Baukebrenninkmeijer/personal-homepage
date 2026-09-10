@@ -4,21 +4,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal website/blog for Bauke Brenninkmeijer, built with [Quarto](https://quarto.org/). Deployed to GitHub Pages via the `gh-pages` branch.
+Personal website/blog for Bauke Brenninkmeijer, live at https://blog.baukebrenninkmeijer.nl.
+
+**The live site is the Astro project in `astro/`.** The Quarto files at the repo root (`_quarto.yml`, `talks.qmd`, `about.qmd`, `resume.qmd`, `posts/`, `styles/`, `_brand.yml`) are the old site. They are not built or deployed, and editing them changes nothing on the live site.
 
 ## Commands
 
+Run from `astro/` (Node >= 22.12):
+
 ```bash
-quarto preview          # Local dev server with hot reload
-quarto render           # Full site build (output to _site/)
-quarto render <file>    # Render a single page (e.g. quarto render posts/my-post.qmd)
+npm install
+npm run dev       # local dev server at http://localhost:4321
+npm run build     # production build to astro/dist/
+npm run preview   # serve the built dist/
 ```
 
 ## Architecture
 
-- **Quarto website project** configured in `_quarto.yml` — defines navbar, theme, analytics, and freeze settings.
-- **Posts** live in `posts/` as `.qmd`, `.md`, or `.ipynb` files. Each post uses YAML frontmatter for metadata. Post-level defaults are in `posts/_metadata.yml`.
-- **Freeze**: Computational output is frozen (`execute: freeze: auto` globally, `freeze: true` for posts). Frozen results are stored in `_freeze/`. This means notebooks don't re-execute on render unless their source changes.
-- **Theming**: Light/dark themes based on the `lux` Bootswatch theme, customized via `styles/theme-light.scss`, `styles/theme-dark.scss`, and `styles/styles.scss`.
-- **Deployment**: Push to `master` triggers `.github/workflows/publish.yml`, which renders and publishes to `gh-pages`.
-- **`archive/`**: Old Jekyll-based site (superseded by Quarto). Not part of the current build.
+- **Pages** live in `astro/src/pages/` (`index`, `blog`, `projects`, `talks`, `resume`, `404`, `rss.xml.ts`). Blog post routes come from `blog/[...slug].astro`.
+- **Talks** are hardcoded in `astro/src/pages/talks.astro`: one `TalkFeatured` block at the top, then a `timelineEntries` array rendered with `TalkEntry`. Add new talks to the top of `timelineEntries` (newest first) as `{ title, date, venue, links: [{ label, href }] }`. Link labels in use: `Slides`, `GitHub`, `Event`, `Live demo`.
+- **Projects** are hardcoded in `astro/src/pages/projects.astro`.
+- **Blog posts** are Markdown in `astro/src/content/posts/`, schema in `astro/src/content.config.ts` (`title`, `date`, `description`, optional `image`, `categories`, `draft`). Files ending in `.linkedin.md` are LinkedIn drafts and are excluded from the collection.
+- **Static assets** go in `astro/public/` (self-hosted slide PDFs in `astro/public/slides/`, CV PDF, avatars, `CNAME`).
+- **Styling**: Tailwind (`astro/tailwind.config.mjs`) plus `astro/src/styles/global.css`. Base classes are the dark styles; light-mode overrides use the custom `light:` variant (matches `:root.light`), toggled by `ThemeToggle.astro`.
+- **Deployment**: push to `master` triggers `.github/workflows/deploy.yml`, which runs `astro build` in `astro/` and deploys `astro/dist` to GitHub Pages.
