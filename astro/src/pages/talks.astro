@@ -5,6 +5,25 @@ import TalkEntry from '../components/TalkEntry.astro';
 
 const timelineEntries = [
   {
+    title: 'Security of AI Agents',
+    date: 'Jun 2026',
+    venue: 'ADC',
+    links: [
+      {
+        label: 'Slides',
+        href: 'https://baukebrenninkmeijer.github.io/ADC-red-teaming-demo/deck/security-of-ai-agents.html',
+      },
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/ADC-red-teaming-demo',
+      },
+      {
+        label: 'Live demo',
+        href: 'https://huggingface.co/spaces/orq/clarabelle-redteam',
+      },
+    ],
+  },
+  {
     title: 'Red Teaming AI Agents: Break yours before others do',
     date: 'Apr 2026',
     venue: 'AI Builders Amsterdam',
@@ -197,22 +216,22 @@ const timelineEntries = [
     <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Talks</h1>
 
     <TalkFeatured
-      title="Security of AI Agents — ADC"
-      date="Jun 2026"
-      venue="ADC"
-      description="Red-teaming AI agents: break yours before others do. A live goal-hijacking campaign against Clarabelle, an agent whose only job is to stay a cow. 100 attacks, an LLM judge, 89% resistance, and what the same approach finds in real agents."
+      title="Building the Evaluation Flywheel — PyData Amsterdam 2026"
+      date="Sep 11, 2026"
+      venue="PyData Amsterdam"
+      description="Evaluating agents at scale, from 50 examples to a production flywheel. A data-analysis agent answers 50 business cases, a jury of LLM judges flags where it disagrees, and a human's written answers to those boundary questions become a pass/fail evaluator you can run on every change."
       links={[
         {
           label: 'Slides',
-          href: 'https://baukebrenninkmeijer.github.io/ADC-red-teaming-demo/deck/security-of-ai-agents.html',
+          href: 'https://baukebrenninkmeijer.github.io/building-the-evaluation-flywheel-pydata-2026/slides/pydata-2026.html',
         },
         {
           label: 'GitHub',
-          href: 'https://github.com/Baukebrenninkmeijer/ADC-red-teaming-demo',
+          href: 'https://github.com/Baukebrenninkmeijer/building-the-evaluation-flywheel-pydata-2026',
         },
         {
-          label: 'Live demo',
-          href: 'https://huggingface.co/spaces/orq/clarabelle-redteam',
+          label: 'Event',
+          href: 'https://pretalx.com/pydata-amsterdam2026/talk/XUC7LQ/',
         },
       ]}
     />
