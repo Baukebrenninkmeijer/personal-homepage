@@ -35,7 +35,15 @@ jobs:
         run: npx astro build
         working-directory: astro
 
-      # A missing Chrome or an over-long CV must not take the whole site down.
+      - name: Setup Typst
+        run: |
+          curl -fsSL https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz \
+            | tar -xJ --strip-components=1 -C /usr/local/bin typst-x86_64-unknown-linux-musl/typst
+          typst --version
+        env:
+          TYPST_VERSION: 0.15.1
+
+      # An over-long CV fails the compile; that must not take the whole site down.
       - name: Generate CV PDF
         run: npm run build:pdf
         working-directory: astro

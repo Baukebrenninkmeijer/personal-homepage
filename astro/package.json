@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "build:pdf": "node scripts/build-pdf.mjs"
+    "build:pdf": "typst compile --root . --font-path cv/fonts cv/cv.typ dist/CV_Bauke_Brenninkmeijer.pdf"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
