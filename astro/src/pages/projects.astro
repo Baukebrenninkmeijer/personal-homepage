@@ -4,11 +4,14 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 const otherProjects = [
   {
-    title: 'pigeonhole',
+    title: 'table-evaluator',
     description:
-      'A wall of mail slots for coding agents running in parallel. Each git worktree gets a pigeonhole; agents post what they are working on and leave each other notes. No server, no daemon, no MCP \u2014 one POSIX shell script and the filesystem.',
-    tags: ['Shell', 'AI Agents', 'Open Source'],
-    links: [{ label: 'GitHub', href: 'https://github.com/Baukebrenninkmeijer/pigeonhole' }],
+      'Open-source Python library for evaluating how well synthetic datasets match real data. Measures statistical similarity, distributions, and correlations between real and generated tabular datasets.',
+    tags: ['Python', 'PyPI', 'Open Source'],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/baukebrenninkmeijer/table-evaluator' },
+      { label: 'PyPI', href: 'https://pypi.org/project/table-evaluator/' },
+    ],
   },
   {
     title: 'Building the Evaluation Flywheel',
@@ -79,38 +82,40 @@ const otherProjects = [
   <div class="max-w-5xl mx-auto px-6 py-16">
     <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Projects</h1>
 
-    <!-- Featured project: table-evaluator -->
-    <div class="mb-10 border border-border-dark light:border-border-light rounded-xl p-8 hover:-translate-y-0.5 hover:border-muted-dark light:hover:border-muted-light transition-all">
-      <div class="flex flex-wrap items-center gap-3 mb-3">
-        <p class="text-xs uppercase tracking-widest text-muted-dark light:text-muted-light">Featured Project</p>
-        <span class="text-xs border border-border-dark light:border-border-light rounded-full px-2 py-0.5 text-muted-dark light:text-muted-light">92+ stars</span>
+    <!-- Featured project: pigeonhole -->
+    <div class="mb-10 border border-border-dark light:border-border-light rounded-xl overflow-hidden flex flex-col sm:flex-row hover:-translate-y-0.5 hover:border-muted-dark light:hover:border-muted-light transition-all">
+      <div class="p-8 flex-1">
+        <div class="flex flex-wrap items-center gap-3 mb-3">
+          <p class="text-xs uppercase tracking-widest text-muted-dark light:text-muted-light">Featured Project</p>
+        </div>
+        <h2 class="text-2xl font-bold text-text-dark light:text-text-light mb-3">pigeonhole</h2>
+        <p class="text-base text-muted-dark light:text-muted-light leading-relaxed max-w-2xl mb-5">
+          A wall of mail slots for coding agents running in parallel. Each git worktree gets a pigeonhole; agents post what they are working on and leave each other notes, and read the board at session start. No server, no daemon, no MCP &mdash; one POSIX shell script and the filesystem.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-5">
+          {['Shell', 'AI Agents', 'Open Source'].map((tag) => (
+            <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">{tag}</span>
+          ))}
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="https://github.com/Baukebrenninkmeijer/pigeonhole"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 rounded-lg text-sm font-semibold bg-text-dark text-bg-dark light:bg-text-light light:text-bg-light hover:opacity-80 transition-opacity"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
-      <h2 class="text-2xl font-bold text-text-dark light:text-text-light mb-3">table-evaluator</h2>
-      <p class="text-base text-muted-dark light:text-muted-light leading-relaxed max-w-2xl mb-5">
-        Open-source Python library for evaluating how well synthetic datasets match real data. Used by researchers and practitioners to measure statistical similarity, distributions, and correlations between real and generated tabular datasets.
-      </p>
-      <div class="flex flex-wrap gap-2 mb-5">
-        {['Python', 'PyPI', 'Open Source'].map((tag) => (
-          <span class="text-xs border border-border-dark light:border-border-light rounded-full px-3 py-1 text-muted-dark light:text-muted-light">{tag}</span>
-        ))}
-      </div>
-      <div class="flex flex-wrap gap-4">
-        <a
-          href="https://github.com/baukebrenninkmeijer/table-evaluator"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-4 py-2 rounded-lg text-sm font-semibold bg-text-dark text-bg-dark light:bg-text-light light:text-bg-light hover:opacity-80 transition-opacity"
-        >
-          GitHub
-        </a>
-        <a
-          href="https://pypi.org/project/table-evaluator/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-4 py-2 border border-border-dark light:border-border-light rounded-lg text-sm font-medium text-muted-dark light:text-muted-light hover:text-text-dark hover:border-text-dark light:hover:text-text-light light:hover:border-text-light transition-colors"
-        >
-          PyPI
-        </a>
+      <div class="sm:w-2/5 sm:shrink-0 bg-[#1f1b16] flex items-center border-t sm:border-t-0 sm:border-l border-border-dark light:border-border-light">
+        <img
+          src="/projects/pigeonhole.svg"
+          alt="A 3x3 wall of mail slots, one holding a note, above a terminal showing the pigeonhole session-start message"
+          width="640"
+          height="640"
+          class="w-full h-auto"
+        />
       </div>
     </div>
 

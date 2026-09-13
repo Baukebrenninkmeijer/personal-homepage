@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-label="pigeonhole: a 3x3 wall of mail slots, one holding a note, above a terminal showing the session-start message">
+  <rect width="640" height="640" fill="#1f1b16"/>
+
+  <!-- Mark: 3x3 grid of open cubbies. One note in the centre slot. -->
+  <g stroke="#f2e9d8" stroke-width="8" fill="none">
+    <rect x="196" y="96"  width="76" height="76" rx="6"/>
+    <rect x="282" y="96"  width="76" height="76" rx="6"/>
+    <rect x="368" y="96"  width="76" height="76" rx="6"/>
+    <rect x="196" y="182" width="76" height="76" rx="6"/>
+    <rect x="282" y="182" width="76" height="76" rx="6"/>
+    <rect x="368" y="182" width="76" height="76" rx="6"/>
+    <rect x="196" y="268" width="76" height="76" rx="6"/>
+    <rect x="282" y="268" width="76" height="76" rx="6"/>
+    <rect x="368" y="268" width="76" height="76" rx="6"/>
+  </g>
+  <rect x="298" y="167" width="44" height="20" rx="3" fill="#d9642c"/>
+
+  <!-- Session-start output, the one moment the tool is visible. -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="21">
+    <rect x="56" y="416" width="528" height="150" rx="8" fill="none" stroke="#f2e9d8" stroke-opacity="0.22"/>
+    <text x="84" y="456" fill="#f2e9d8" fill-opacity="0.5">$ claude</text>
+    <text x="84" y="494" fill="#f2e9d8">you are 'api-dubai'.</text>
+    <text x="84" y="532" fill="#d9642c">1 unread message(s).</text>
+  </g>
+
+  <text x="320" y="612" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" fill="#f2e9d8" fill-opacity="0.55">no server &#183; no daemon &#183; no MCP</text>
+</svg>
