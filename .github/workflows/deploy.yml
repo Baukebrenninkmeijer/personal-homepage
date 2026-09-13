@@ -35,6 +35,10 @@ jobs:
         run: npx astro build
         working-directory: astro
 
+      - name: Generate CV PDF
+        run: npm run build:pdf
+        working-directory: astro
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

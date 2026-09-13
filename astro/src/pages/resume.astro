@@ -97,6 +97,28 @@ const education = [
   },
 ];
 
+// Shown on the printed CV only (see the @media print block in global.css).
+const summary =
+  'AI Research Engineer working on LLM agents in production: evaluation, agent infrastructure, prompt optimization and observability. Seven years shipping ML and data systems in banking and startups, most of it close to production rather than to research. I care about knowing whether a system works, not just that it runs.';
+
+const skills = [
+  { label: 'Languages', value: 'Python (expert), SQL, TypeScript/JavaScript, Bash' },
+  {
+    label: 'LLM & agents',
+    value: 'LLM evaluation & LLM-as-a-judge, agent frameworks & tool use, RAG, prompt optimization, red teaming, OpenTelemetry tracing',
+  },
+  {
+    label: 'ML & data',
+    value: 'PyTorch, scikit-learn, pandas/Polars, Spark (incl. Structured Streaming), Airflow, MLflow',
+  },
+  {
+    label: 'Platform',
+    value: 'Azure (Data Factory, Databricks, Storage, DevOps), AWS (ECS, EC2, S3), Docker, GitHub Actions, CI/CD',
+  },
+];
+
+const languages = 'Dutch (native), English (fluent), French & German (intermediate)';
+
 const certifications = [
   { name: 'Microsoft Certified: Power BI Data Analyst Associate', year: '2022' },
   { name: 'Microsoft Certified: Azure AI Fundamentals', year: '2022' },
@@ -123,10 +145,11 @@ const publications = [
   title="Resume"
   description="Work experience, education, and background of Bauke Brenninkmeijer — AI Research Engineer and Data Scientist."
 >
-  <div class="max-w-5xl mx-auto px-6 py-16">
-    <div class="flex items-center justify-between mb-10">
+  <div class="max-w-5xl mx-auto px-6 py-16 print:py-0">
+    <div class="flex items-center justify-between mb-10 print:hidden">
       <h1 class="text-3xl font-bold text-text-dark light:text-text-light">Resume</h1>
       <a
+        class="print:hidden"
         href={`${base}/CV_Bauke_Brenninkmeijer.pdf`}
         target="_blank"
         rel="noopener noreferrer"
@@ -136,8 +159,19 @@ const publications = [
       </a>
     </div>
 
-    <section class="mb-12">
-      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+    <!-- Print-only: the site header carries this on screen. -->
+    <div class="hidden print:block mb-8">
+      <h2 class="text-2xl font-bold">Bauke Brenninkmeijer</h2>
+      <p class="text-sm text-muted-dark mt-1">AI Research Engineer &mdash; Amsterdam, Netherlands</p>
+      <p class="text-xs text-muted-dark mt-1">
+        bauke.brenninkmeijer@gmail.com &middot; linkedin.com/in/baukebrenninkmeijer &middot;
+        github.com/Baukebrenninkmeijer &middot; blog.baukebrenninkmeijer.nl
+      </p>
+      <p class="text-sm mt-4 leading-relaxed">{summary}</p>
+    </div>
+
+    <section class="mb-12 print:mb-4">
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 print:mb-2 pb-2 border-b border-border-dark light:border-border-light">
         Experience
       </h2>
       <div>
@@ -152,8 +186,8 @@ const publications = [
       </div>
     </section>
 
-    <section class="mb-12">
-      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+    <section class="mb-12 print:mb-4">
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 print:mb-2 pb-2 border-b border-border-dark light:border-border-light">
         Education
       </h2>
       <div>
@@ -168,8 +202,25 @@ const publications = [
       </div>
     </section>
 
-    <section class="mb-12">
-      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+    <!-- Print-only. -->
+    <section class="hidden print:block mb-12 print:mb-4">
+      <h2 class="text-lg font-bold mb-4 pb-2 border-b border-border-dark">Skills</h2>
+      <ul class="flex flex-col gap-2">
+        {skills.map((group) => (
+          <li class="flex items-baseline gap-4 text-sm">
+            <span class="text-xs text-muted-dark w-36 shrink-0">{group.label}</span>
+            <span>{group.value}</span>
+          </li>
+        ))}
+        <li class="flex items-baseline gap-4 text-sm">
+          <span class="text-xs text-muted-dark w-36 shrink-0">Languages</span>
+          <span>{languages}</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="mb-12 print:mb-4">
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 print:mb-2 pb-2 border-b border-border-dark light:border-border-light">
         Certifications
       </h2>
       <ul class="flex flex-col gap-2">
@@ -183,7 +234,7 @@ const publications = [
     </section>
 
     <section>
-      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 pb-2 border-b border-border-dark light:border-border-light">
+      <h2 class="text-lg font-bold text-text-dark light:text-text-light mb-4 print:mb-2 pb-2 border-b border-border-dark light:border-border-light">
         Publications
       </h2>
       <ul class="flex flex-col gap-3">

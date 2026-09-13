@@ -67,3 +67,44 @@
     @apply border-border-light text-muted-light;
   }
 }
+
+/* Print: the resume page is printed to PDF in CI (scripts/build-pdf.mjs).
+   Force the light palette regardless of the stored theme, since the utility
+   classes on the page resolve to near-white text by default. */
+@media print {
+  @page {
+    size: A4;
+    margin: 11mm 12mm;
+  }
+
+  /* Tailwind sizes are rem-based, so this scales the whole sheet down a notch
+     and is the knob to turn if the CV spills onto an extra page. */
+  html {
+    font-size: 14px;
+  }
+
+  body,
+  body * {
+    background: transparent !important;
+    color: #111 !important;
+    border-color: #d4d4d4 !important;
+  }
+
+  .text-muted-dark,
+  .text-muted-light {
+    color: #555 !important;
+  }
+
+  nav,
+  footer {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+
+  main {
+    animation: none !important;
+  }
+}
