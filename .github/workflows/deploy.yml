@@ -35,9 +35,12 @@ jobs:
         run: npx astro build
         working-directory: astro
 
+      # A missing Chrome or an over-long CV must not take the whole site down.
       - name: Generate CV PDF
         run: npm run build:pdf
         working-directory: astro
+        continue-on-error: true
+        timeout-minutes: 5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

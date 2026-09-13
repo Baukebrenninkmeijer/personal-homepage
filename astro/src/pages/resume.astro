@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TimelineEntry from '../components/TimelineEntry.astro';
+import Icon from '../components/Icon.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -10,7 +11,10 @@ const experience = [
     role: 'AI Research Engineer',
     period: 'Aug 2025–present',
     bullets: [
-      'AI agent infrastructure, LLM evaluation, prompt optimization, observability tooling',
+      'Built out the red-teaming module in evaluatorq (LangGraph target, agent simulation, simplified API) — a customer used it to find and patch vulnerabilities in their own agent',
+      'Redesigned the PII detection service to key recognizers on jurisdiction rather than text language, and unified six disagreeing keyword-boundary scanners onto one predicate',
+      'Maintain the orq CLI stack — auth profiles, active-project workflow, a self-updating terminal assistant, and normalized trace rendering',
+      'Agent evaluation: jury-of-judges alignment against human labels, multi-turn agent simulation, OpenTelemetry capture for coding-agent traces',
     ],
   },
   {
@@ -99,7 +103,7 @@ const education = [
 
 // Shown on the printed CV only (see the @media print block in global.css).
 const summary =
-  'AI Research Engineer working on LLM agents in production: evaluation, agent infrastructure, prompt optimization and observability. Seven years shipping ML and data systems in banking and startups, most of it close to production rather than to research. I care about knowing whether a system works, not just that it runs.';
+  'AI Research Engineer working on LLM agents in production: evaluation, agent infrastructure, prompt optimization and observability. Seven years shipping ML and data systems in banking and startups, most of it close to production rather than to research.';
 
 const skills = [
   { label: 'Languages', value: 'Python (expert), SQL, TypeScript/JavaScript, Bash' },
@@ -109,13 +113,21 @@ const skills = [
   },
   {
     label: 'ML & data',
-    value: 'PyTorch, scikit-learn, pandas/Polars, Spark (incl. Structured Streaming), Airflow, MLflow',
+    value: 'PyTorch, scikit-learn, pandas/Polars, Spark (incl. Structured Streaming), Airflow',
   },
   {
     label: 'Platform',
     value: 'Azure (Data Factory, Databricks, Storage, DevOps), AWS (ECS, EC2, S3), Docker, GitHub Actions, CI/CD',
   },
 ];
+
+// Icon-only in the printed CV; the href is what carries the address, so these
+// stay clickable in the PDF.
+const contactLinks = [
+  { icon: 'linkedin', label: 'linkedin.com/in/baukebrenninkmeijer', href: 'https://linkedin.com/in/baukebrenninkmeijer' },
+  { icon: 'github', label: 'github.com/Baukebrenninkmeijer', href: 'https://github.com/Baukebrenninkmeijer' },
+  { icon: 'globe', label: 'blog.baukebrenninkmeijer.nl', href: 'https://blog.baukebrenninkmeijer.nl' },
+] as const;
 
 const languages = 'Dutch (native), English (fluent), French & German (intermediate)';
 
@@ -163,9 +175,15 @@ const publications = [
     <div class="hidden print:block mb-8">
       <h2 class="text-2xl font-bold">Bauke Brenninkmeijer</h2>
       <p class="text-sm text-muted-dark mt-1">AI Research Engineer &mdash; Amsterdam, Netherlands</p>
-      <p class="text-xs text-muted-dark mt-1">
-        bauke.brenninkmeijer@gmail.com &middot; linkedin.com/in/baukebrenninkmeijer &middot;
-        github.com/Baukebrenninkmeijer &middot; blog.baukebrenninkmeijer.nl
+      <p class="text-xs text-muted-dark mt-1 flex items-center gap-3">
+        <a href="mailto:bauke.brenninkmeijer@gmail.com" class="inline-flex items-center gap-1.5">
+          <Icon name="mail" size={12} />bauke.brenninkmeijer@gmail.com
+        </a>
+        {contactLinks.map((link) => (
+          <a href={link.href} aria-label={link.label} class="inline-flex items-center">
+            <Icon name={link.icon} size={12} />
+          </a>
+        ))}
       </p>
       <p class="text-sm mt-4 leading-relaxed">{summary}</p>
     </div>
