@@ -4,6 +4,37 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 const otherProjects = [
   {
+    title: 'pigeonhole',
+    description:
+      'A wall of mail slots for coding agents running in parallel. Each git worktree gets a pigeonhole; agents post what they are working on and leave each other notes. No server, no daemon, no MCP \u2014 one POSIX shell script and the filesystem.',
+    tags: ['Shell', 'AI Agents', 'Open Source'],
+    links: [{ label: 'GitHub', href: 'https://github.com/Baukebrenninkmeijer/pigeonhole' }],
+  },
+  {
+    title: 'Building the Evaluation Flywheel',
+    description:
+      'Companion repo for the PyData Amsterdam 2026 talk. A data-analysis agent answers 50 business cases, a jury of LLM judges flags where it disagrees, and a human\u2019s answers to those boundary questions become a pass/fail evaluator.',
+    tags: ['Python', 'LLMs', 'Evaluation'],
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/building-the-evaluation-flywheel-pydata-2026',
+      },
+    ],
+  },
+  {
+    title: 'FakeFynder',
+    description:
+      'Website that checks videos for manipulated areas, built as a proof of concept at the Hackathon for Good in The Hague, 2019.',
+    tags: ['Python', 'Deepfakes', 'Computer Vision'],
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/FakeFynder-Hackathon-for-Good-2019',
+      },
+    ],
+  },
+  {
     title: 'Master Thesis — Synthetic Tabular Data with GANs',
     description:
       'Research on improving Generative Adversarial Networks for tabular data generation and evaluation.',
