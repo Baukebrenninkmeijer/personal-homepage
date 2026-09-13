@@ -9,13 +9,16 @@ interface Props {
   date: string;
   venue: string;
   description: string;
+  image?: string;
+  imageAlt?: string;
   links?: Link[];
 }
 
-const { title, date, venue, description, links = [] } = Astro.props;
+const { title, date, venue, description, image, imageAlt, links = [] } = Astro.props;
 ---
 
-<div class="border border-border-dark light:border-border-light rounded-lg p-6 mb-8">
+<div class="border border-border-dark light:border-border-light rounded-lg overflow-hidden mb-8 flex flex-col sm:flex-row">
+  <div class="p-6 flex-1">
   <span class="text-[10px] uppercase tracking-wider text-muted-dark light:text-muted-light font-medium">
     Featured
   </span>
@@ -49,6 +52,19 @@ const { title, date, venue, description, links = [] } = Astro.props;
           )}
         </a>
       ))}
+    </div>
+  )}
+  </div>
+
+  {image && (
+    <div class="sm:w-2/5 sm:shrink-0 bg-[#f9f8f6] flex items-center border-t sm:border-t-0 sm:border-l border-border-dark light:border-border-light">
+      <img
+        src={image}
+        alt={imageAlt ?? title}
+        width="1600"
+        height="900"
+        class="w-full h-auto"
+      />
     </div>
   )}
 </div>
