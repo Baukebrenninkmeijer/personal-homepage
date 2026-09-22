@@ -72,6 +72,11 @@
       entry(job.period, job.company, job.role, job.bullets)
     }
 
+    #section("Volunteering")
+    #for org in data.volunteering {
+      entry(org.period, org.company, org.role, org.bullets)
+    }
+
     #section("Education")
     #for school in data.education {
       entry(school.period, school.company, school.role, school.bullets)
@@ -106,24 +111,27 @@
     ]
 
     #sidebar-section("Skills")
+    // Pills, matching how the skills read on the website.
+    #let pill(label) = box(
+      fill: rgb("#f1f1f0"),
+      stroke: 0.4pt + rgb("#e0e0de"),
+      radius: 2.5pt,
+      inset: (x: 3.5pt, y: 2.5pt),
+      outset: (y: 1.5pt),
+      text(size: 8pt, label),
+    )
     #for group in data.skills {
-      block(below: 7pt, breakable: false)[
+      block(below: 8pt, breakable: false)[
         #text(size: 8.5pt, weight: 600, fill: muted, group.label)
-        #v(-4.5pt)
-        #text(size: 9pt, group.value)
+        #v(-3pt)
+        #par(leading: 1.05em, justify: false)[
+          #for s in group.items [#pill(s)#h(3pt)]
+        ]
       ]
     }
 
     #sidebar-section("Languages")
     #text(size: 9pt, data.languages)
-
-    #sidebar-section("Certifications")
-    #for cert in data.certifications {
-      block(below: 6pt, breakable: false)[
-        #text(size: 8pt, fill: muted, cert.year + "  ")
-        #text(size: 9pt, cert.name)
-      ]
-    }
 
     #sidebar-section("Publications")
     #for pub in data.publications {

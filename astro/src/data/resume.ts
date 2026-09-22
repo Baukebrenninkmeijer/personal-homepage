@@ -12,59 +12,31 @@ export const experience = [
     role: 'AI Research Engineer',
     period: 'Aug 2025–present',
     bullets: [
-      'Built out the red-teaming module in evaluatorq (LangGraph target, agent simulation, simplified API) — a customer used it to find and patch vulnerabilities in their own agent',
-      'Redesigned the PII detection service to key recognizers on jurisdiction rather than text language, and unified six disagreeing keyword-boundary scanners onto one predicate',
-      'Maintain the orq CLI stack — auth profiles, active-project workflow, a self-updating terminal assistant, and normalized trace rendering',
-      'Agent evaluation: jury-of-judges alignment against human labels, multi-turn agent simulation, OpenTelemetry capture for coding-agent traces',
+      'Built the red-teaming module of the evaluation library: framework-agnostic targets, agent simulation and a simplified API, now used to surface vulnerabilities in customer agents',
+      'Redesigned the PII detection service around jurisdiction-based recognizers, and consolidated its keyword-matching logic onto one shared implementation',
+      'Maintain the CLI toolchain: auth profiles, project workflows, a self-updating terminal assistant, and normalized trace rendering',
+      'Agent evaluation: aligning LLM judges against human labels, multi-turn agent simulation, and OpenTelemetry capture of coding-agent traces',
     ],
   },
   {
-    company: 'Agentic AI Foundation Amsterdam',
-    role: 'Chapter Lead / Organiser',
-    period: 'Sep 2024–present',
-    bullets: [
-      'Run the Amsterdam chapter: speaker curation, sponsor partnerships, ~10 events per year',
-    ],
-  },
-  {
-    company: 'Sytac → ING',
+    company: 'ING (through Sytac)',
     role: 'Senior Consultant / Senior AI Engineer',
     period: 'May 2024–Jul 2025',
     bullets: [
-      'Tech lead on MLOps in Global Financial Crime & Fraud Prevention — V2 release, Airflow DAG parameterization across countries',
-      'Detection & forecasting system for reliability events from Track-and-Trace logs (1TB out-of-memory processing with Polars)',
-      'Rewrote RAG ingestion pipeline for sustainability peer-review app — 5× faster, better extraction quality',
-      'Sytac internal: LLM-based extraction for the resume app; simplified Slackbot by querying Notion search directly, dropping the vector DB',
-      'Ran day-long hackathons and education sessions on testing, pre-commit, and merging strategy; mentored junior Python engineers',
+      'Tech lead for MLOps in Global Financial Crime & Fraud Prevention, including Airflow DAG parameterization across countries',
+      'Built detection and forecasting for reliability events from Track-and-Trace logs, processing 1TB out of memory with Polars',
+      'Rewrote the RAG ingestion pipeline for a sustainability peer-review app: 5× faster, with better extraction quality',
+      'Ran day-long hackathons and teaching sessions on testing, pre-commit and merging strategy, and mentored junior Python engineers',
     ],
   },
   {
     company: 'ABN AMRO',
-    role: 'Full Stack Data Scientist — Global Markets',
+    role: 'Full Stack Data Scientist, Global Markets',
     period: 'Jul 2021–May 2024',
     bullets: [
       'Designed and led platform migration from IaaS VMs to PaaS (Azure Data Factory, Databricks, Data Lake)',
       'Built real-time streaming framework on Spark Structured Streaming with Medallion architecture',
-      'Bond origination interest prediction — matched investor parties to new issuances',
-    ],
-  },
-  {
-    company: 'ABN AMRO',
-    role: 'Data Scientist — Chief Architecture & Data Management',
-    period: 'Oct 2019–Jun 2021',
-    bullets: [
-      'Mortgage condition assessment from 5 photos — multi-ResNet feeding into BERT',
-      'Co-authored data lake metadata-generation framework',
-      'Piloted GAN-based synthetic data for privacy-preserving analytics; managed two collaborators',
-      'Drove data-science process improvements (versioning, peer review) across internal ML platform',
-    ],
-  },
-  {
-    company: 'ABN AMRO',
-    role: 'Thesis Intern — Data Science',
-    period: 'Mar 2019–Oct 2019',
-    bullets: [
-      "Master's thesis research on GANs for synthetic tabular data — evaluating whether generated data preserves distributions well enough to sidestep GDPR",
+      'Bond origination interest prediction, matching investor parties to new issuances',
     ],
   },
   {
@@ -72,17 +44,20 @@ export const experience = [
     role: 'CTO & Co-founder',
     period: 'Sep 2019–Nov 2021',
     bullets: [
-      'Co-founded startup building products for the modelling industry; split value-prop / product-dev responsibility',
+      'Co-founded a startup building products for the modelling industry, splitting responsibility for the value proposition and product development',
       'Stack: AWS (ECS, EC2), Airflow, Docker, Keras/TensorFlow, NLP tokenization & word embeddings',
     ],
   },
+];
+
+export const volunteering = [
   {
-    company: 'TAPP',
-    role: 'Data Scientist',
-    period: 'Sep 2018–Mar 2019',
+    company: 'Agentic AI Foundation (Linux Foundation)',
+    role: 'Amsterdam Chapter Lead / Organiser',
+    period: 'Sep 2024–present',
     bullets: [
-      'Hierarchical product classification from receipt descriptions (Keras + NLP) — replaced manual labelling',
-      'Time-series anomaly detection on live data streams; full pipeline from ingestion to analytics',
+      'Run the Amsterdam chapter: speaker curation, sponsor partnerships, venue hosting, roughly 10 events a year',
+      'Hosted at ABN AMRO, ING, Adyen, Xomnia, JetBrains and AI House Amsterdam. The Y Combinator special drew 328 attendees, and recent editions fill to a waitlist',
     ],
   },
 ];
@@ -90,13 +65,13 @@ export const experience = [
 export const education = [
   {
     company: 'Radboud University',
-    role: 'MSc Data Science — ML in Practice, Medical Imaging, Natural Computing, Computational Cognitive Neuroscience',
+    role: 'MSc Data Science (ML in Practice, Medical Imaging, Natural Computing, Computational Cognitive Neuroscience)',
     period: '2017–2019',
     bullets: [],
   },
   {
     company: 'Radboud University',
-    role: 'BSc Computing Science — modeling, databases, calculus, linear algebra, algorithms',
+    role: 'BSc Computing Science (modeling, databases, calculus, linear algebra, algorithms)',
     period: '2013–2017',
     bullets: [],
   },
@@ -104,21 +79,24 @@ export const education = [
 
 // Shown on the printed CV only (see the @media print block in global.css).
 export const summary =
-  'AI Research Engineer working on LLM agents in production: evaluation, agent infrastructure, prompt optimization and observability. Seven years shipping ML and data systems in banking and startups, most of it close to production rather than to research.';
+  'AI Research Engineer working on LLM agents in production: evaluation, agent infrastructure, prompt optimization and observability. Seven years building ML and data systems in banking and startups, at home in both research and production.';
 
 export const skills = [
-  { label: 'Languages', value: 'Python (expert), SQL, TypeScript/JavaScript, Bash' },
   {
-    label: 'LLM & agents',
-    value: 'LLM evaluation & LLM-as-a-judge, agent frameworks & tool use, RAG, prompt optimization, red teaming, OpenTelemetry tracing',
+    label: 'Agents',
+    items: ['Agent development lifecycle', 'Multi-agent orchestration', 'Tool use', 'MCP', 'Context engineering', 'Agent memory', 'Agent simulation', 'Red teaming'],
   },
   {
-    label: 'ML & data',
-    value: 'PyTorch, scikit-learn, pandas/Polars, Spark (incl. Structured Streaming), Airflow',
+    label: 'Evaluation & LLMs',
+    items: ['LLM-as-a-judge', 'Jury alignment', 'Failure taxonomies', 'RAG', 'Prompt engineering', 'Prompt optimization', 'Fine-tuning', 'OpenTelemetry tracing'],
   },
   {
-    label: 'Platform',
-    value: 'Azure (Data Factory, Databricks, Storage, DevOps), AWS (ECS, EC2, S3), Docker, GitHub Actions, CI/CD',
+    label: 'Languages & libraries',
+    items: ['Python', 'SQL', 'TypeScript', 'Bash', 'Claude Agent SDK', 'OpenAI SDK', 'LangGraph', 'PyTorch', 'pandas/Polars', 'scikit-learn'],
+  },
+  {
+    label: 'Data & platform',
+    items: ['Spark', 'Airflow', 'Azure', 'Databricks', 'AWS', 'Docker', 'GitHub Actions', 'CI/CD'],
   },
 ];
 
@@ -130,13 +108,8 @@ export const contactLinks = [
   { icon: 'globe', label: 'blog.baukebrenninkmeijer.nl', href: 'https://blog.baukebrenninkmeijer.nl' },
 ] as const;
 
-export const languages = 'Dutch (native), English (fluent), French & German (intermediate)';
+export const languages = 'Dutch (native), English (fluent), French & German (beginner)';
 
-export const certifications = [
-  { name: 'Microsoft Certified: Power BI Data Analyst Associate', year: '2022' },
-  { name: 'Microsoft Certified: Azure AI Fundamentals', year: '2022' },
-  { name: 'Microsoft Certified: Azure Fundamentals', year: '2021' },
-];
 
 export const publications = [
   {
