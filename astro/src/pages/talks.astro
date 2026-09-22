@@ -5,6 +5,25 @@ import TalkEntry from '../components/TalkEntry.astro';
 
 const timelineEntries = [
   {
+    title: 'Building the Evaluation Flywheel',
+    date: 'Sep 11, 2026',
+    venue: 'PyData Amsterdam',
+    links: [
+      {
+        label: 'Slides',
+        href: 'https://baukebrenninkmeijer.github.io/building-the-evaluation-flywheel-pydata-2026/slides/pydata-2026.html',
+      },
+      {
+        label: 'GitHub',
+        href: 'https://github.com/Baukebrenninkmeijer/building-the-evaluation-flywheel-pydata-2026',
+      },
+      {
+        label: 'Event',
+        href: 'https://pretalx.com/pydata-amsterdam2026/talk/XUC7LQ/',
+      },
+    ],
+  },
+  {
     title: 'Security of AI Agents',
     date: 'Jun 2026',
     venue: 'ADC',
@@ -220,24 +239,24 @@ const timelineEntries = [
     <h1 class="text-3xl font-bold mb-10 text-text-dark light:text-text-light">Talks</h1>
 
     <TalkFeatured
-      title="Building the Evaluation Flywheel — PyData Amsterdam 2026"
-      date="Sep 11, 2026"
-      venue="PyData Amsterdam"
+      title="Evaluating Agents at Scale: From 50 Examples to a Production Flywheel"
+      date="Sep 18, 2026"
+      venue="AGNTCon + MCPCon Europe, Amsterdam"
       image="/talks/grey-zone.webp"
       imageAlt="Slide 'The grey zone': two classes of cases with a curved boundary running through the band where they overlap."
       description="Evaluating agents at scale, from 50 examples to a production flywheel. A data-analysis agent answers 50 business cases, a jury of LLM judges flags where it disagrees, and a human's written answers to those boundary questions become a pass/fail evaluator you can run on every change."
       links={[
         {
           label: 'Slides',
-          href: 'https://baukebrenninkmeijer.github.io/building-the-evaluation-flywheel-pydata-2026/slides/pydata-2026.html',
+          href: 'https://baukebrenninkmeijer.github.io/agntcon-2026/slides/pydata-2026.html',
         },
         {
           label: 'GitHub',
-          href: 'https://github.com/Baukebrenninkmeijer/building-the-evaluation-flywheel-pydata-2026',
+          href: 'https://github.com/Baukebrenninkmeijer/agntcon-2026',
         },
         {
           label: 'Event',
-          href: 'https://pretalx.com/pydata-amsterdam2026/talk/XUC7LQ/',
+          href: 'https://agntconmcpconeu26.sched.com/event/2WNoA/',
         },
       ]}
     />
